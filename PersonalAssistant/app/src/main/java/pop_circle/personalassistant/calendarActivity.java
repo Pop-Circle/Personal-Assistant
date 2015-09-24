@@ -1,6 +1,7 @@
 package pop_circle.personalassistant;
 
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -81,6 +82,18 @@ public class calendarActivity extends AppCompatActivity {
 
                 /*Toast.makeText(getApplicationContext(), formatter.format(date),
                         Toast.LENGTH_SHORT).show();*/
+                Intent intent = new Intent(getApplicationContext(), add_events_activity.class);
+                Bundle b = new Bundle();
+                b.putInt("date", date.getDate());
+                b.putInt("month", date.getMonth()+1);
+                intent.putExtra("dateSelected",b);
+
+                startActivity(intent);
+
+
+                //startActivity(new Intent(getApplicationContext(), add_events_activity.class));
+
+
             }
 
             @Override

@@ -1,16 +1,37 @@
 package pop_circle.personalassistant;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class add_events_activity extends AppCompatActivity {
+
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdaptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_events);
+        setContentView(R.layout.activity_add_events_activity);
+
+        //This gets the date and month that the user clicked on, passed from CalenderActivity.java
+        Intent iDate = getIntent();
+        Bundle bDate = new Bundle();
+        int date = bDate.getInt("date");
+        int month = bDate.getInt("month");
+
+        mDrawerList = (ListView)findViewById(R.id.navList);
+        addDrawerItems();
+    }
+
+    private void addDrawerItems() {
+        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
+        mAdaptor = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdaptor);
     }
 
 
