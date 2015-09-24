@@ -4,8 +4,11 @@ package pop_circle.personalassistant;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -23,7 +26,6 @@ public class calendarActivity extends AppCompatActivity {
     private CaldroidFragment dialogCaldroidFragment;
 
 
-
     private void setCustomResourceForDates() {
         Calendar cal = Calendar.getInstance();
 
@@ -36,7 +38,7 @@ public class calendarActivity extends AppCompatActivity {
         cal.add(Calendar.DATE, 7);
         Date greenDate = cal.getTime();
 
-        /*
+
         if (caldroidFragment != null) {
             caldroidFragment.setBackgroundResourceForDate(R.color.caldroid_sky_blue,
                     blueDate);
@@ -44,7 +46,7 @@ public class calendarActivity extends AppCompatActivity {
                     greenDate);
             caldroidFragment.setTextColorForDate(R.color.caldroid_holo_blue_dark, blueDate);
             caldroidFragment.setTextColorForDate(R.color.caldroid_lighter_gray, greenDate);
-        }*/
+        }
     }
 
     @Override
@@ -52,16 +54,62 @@ public class calendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar); //Change this to the activity of the home page launcher
 
-        CaldroidFragment caldroidFragment = new CaldroidFragment();
+        final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+
+        //Creates the calendar
+        final CaldroidFragment caldroidFragment = new CaldroidFragment();
         Bundle args = new Bundle();
         Calendar cal = Calendar.getInstance();
         args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
         args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
         caldroidFragment.setArguments(args);
 
+        //dunno what this does
+        //setCustomResourceForDates();
+
+        //Attach to the activity
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
+
+        Log.wtf("calendarActivity", "STARTED");
+        // Setup listener
+        final CaldroidListener listener = new CaldroidListener() {
+
+            @Override
+            public void onSelectDate(Date date, View view) {
+                Toast.makeText(getApplicationContext(), formatter.format(date),
+                        Toast.LENGTH_SHORT).show();
+                Log.wtf("calendarActivity", "onSelectDate");
+            }
+
+            @Override
+            public void onChangeMonth(int month, int year) {
+                String text = "month: " + month + " year: " + year;
+                Toast.makeText(getApplicationContext(), text,
+                        Toast.LENGTH_SHORT).show();
+                Log.wtf("calendarActivity", "onChangeMonth");
+            }
+
+            @Override
+            public void onLongClickDate(Date date, View view) {
+                Toast.makeText(getApplicationContext(),
+                        "Long click " + formatter.format(date),
+                        Toast.LENGTH_SHORT).show();
+                Log.d("calendarActivity", "onLongClickDate");
+            }
+
+            @Override
+            public void onCaldroidViewCreated() {
+                if (caldroidFragment.getLeftArrowButton() != null) {
+                    Toast.makeText(getApplicationContext(),
+                            "Caldroid view is created", Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+        };
+        // Setup Caldroid
+        caldroidFragment.setCaldroidListener(listener);
 
     }
 
