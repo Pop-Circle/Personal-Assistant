@@ -10,6 +10,5 @@
 
 	Using Caldroid for calendar 	
 	Intergrated Caldroid into the app	
-	Can change month	
-	No functionality on Caldroid yet	
+	Added add_event activity
 	
