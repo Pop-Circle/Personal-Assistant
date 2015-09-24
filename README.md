@@ -12,4 +12,4 @@
 	Intergrated Caldroid into the app	
 	Can change month	
 	No functionality on Caldroid yet	
-	Note : CalendarActivity.Java is the current default app, to change it go to AndroidManifest.XML and change the app name to the app you want to be the default app
+	

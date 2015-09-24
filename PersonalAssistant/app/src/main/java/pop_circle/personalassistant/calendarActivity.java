@@ -78,25 +78,24 @@ public class calendarActivity extends AppCompatActivity {
 
             @Override
             public void onSelectDate(Date date, View view) {
-                Toast.makeText(getApplicationContext(), formatter.format(date),
-                        Toast.LENGTH_SHORT).show();
-                Log.wtf("calendarActivity", "onSelectDate");
+
+                /*Toast.makeText(getApplicationContext(), formatter.format(date),
+                        Toast.LENGTH_SHORT).show();*/
             }
 
             @Override
             public void onChangeMonth(int month, int year) {
-                String text = "month: " + month + " year: " + year;
+                /*String text = "month: " + month + " year: " + year;
                 Toast.makeText(getApplicationContext(), text,
-                        Toast.LENGTH_SHORT).show();
-                Log.wtf("calendarActivity", "onChangeMonth");
+                        Toast.LENGTH_SHORT).show();*/
             }
 
+            /*
             @Override
             public void onLongClickDate(Date date, View view) {
                 Toast.makeText(getApplicationContext(),
                         "Long click " + formatter.format(date),
                         Toast.LENGTH_SHORT).show();
-                Log.d("calendarActivity", "onLongClickDate");
             }
 
             @Override
@@ -106,7 +105,7 @@ public class calendarActivity extends AppCompatActivity {
                             "Caldroid view is created", Toast.LENGTH_SHORT)
                             .show();
                 }
-            }
+            }*/
         };
         // Setup Caldroid
         caldroidFragment.setCaldroidListener(listener);
