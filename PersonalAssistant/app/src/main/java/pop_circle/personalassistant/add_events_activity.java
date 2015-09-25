@@ -37,6 +37,8 @@ public class add_events_activity extends AppCompatActivity {
     String eventName;
     String desc;
     boolean checked = false;
+    int dateSelected;
+    String monthSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,8 @@ public class add_events_activity extends AppCompatActivity {
                 break;
         }
 
+        dateSelected = datePassed;
+        monthSelected= monthLine;
         //Show the month and date on the event page
         TextView dateMonthLabel = (TextView) findViewById(R.id.monthYear);
         dateMonthLabel.setText(datePassed + " " + monthLine);
