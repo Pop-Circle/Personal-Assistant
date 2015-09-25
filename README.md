@@ -35,3 +35,6 @@
 	Added Desktop folder
 	created generic php code
 	Colour scheme also in Desktop
+	Took some of brian's JS and put it in php
+	working on fully incorporating HTML structure to php.
+	Using Xampp as sandbox
