@@ -15,6 +15,12 @@
 -2015-09-25 : Jackie
 
 	Added add event form
+	Can get data from the event form 
+		(Scroll down to see the Save event button)
+		Variables for the add event form data
+		<div>
+			<i>hour_rem</i> : 
+		</div>
 	
 -2015-09-25 : Dave
 	

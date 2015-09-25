@@ -30,10 +30,10 @@ public class add_events_activity extends AppCompatActivity {
     private ListView mDrawerList;
 
     static final int DIALOGUE_ID = 0;
-    int hour_rem;
-    int minute_rem;
-    int hour_time;
-    int minute_time;
+    int hour_rem; //for reminder
+    int minute_rem; //for reminder
+    int hour_time; //Event time
+    int minute_time; //Event time
 
 
     @Override
@@ -89,18 +89,15 @@ public class add_events_activity extends AppCompatActivity {
                 break;
         }
 
+        //Show the month and date on the event page
         TextView dateMonthLabel = (TextView) findViewById(R.id.monthYear);
         dateMonthLabel.setText(datePassed + " " + monthLine);
 
         saveEvent();
         timePickerDialogue();
-
-
-
-
     }
 
-
+    /* Time picker pop up for reminder. Only shows when you check reminder */
     private void timePickerDialogue()
     {
         final CheckBox reminderCB = (CheckBox)findViewById(R.id.reminderCheckBox);
@@ -113,7 +110,6 @@ public class add_events_activity extends AppCompatActivity {
                 if(checked) {
                     //Pop up
                     Log.wtf("test","Show Dialogue");
-
                     showDialog(DIALOGUE_ID);
                 }
             }
@@ -122,6 +118,7 @@ public class add_events_activity extends AppCompatActivity {
 
     }
 
+    /* For time picker dialog */
     @Override
     protected Dialog onCreateDialog(int id){
         if(id == DIALOGUE_ID)
@@ -130,6 +127,7 @@ public class add_events_activity extends AppCompatActivity {
             return null;
     }
 
+    /* Gets the time from the reminder  */
     protected TimePickerDialog.OnTimeSetListener kTimePickerListener = new TimePickerDialog.OnTimeSetListener() {
                 @Override
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -156,10 +154,14 @@ public class add_events_activity extends AppCompatActivity {
                 String desc = descText.getText().toString();
 
 
+                TimePicker eventTimeP = (TimePicker)findViewById(R.id.eventTime);
+                hour_time = eventTimeP.getHour();
+                minute_time = eventTimeP.getMinute();
+
                 Toast.makeText(add_events_activity.this, "Event saved",
                         Toast.LENGTH_SHORT).show();
 
-                Log.wtf("test", "Event name: " + eventName + " description: " + desc + " reminder: " + hour_rem + ":" + minute_rem);
+                Log.wtf("test", "Event name: " + eventName + " description: " + desc + " reminder: " + hour_rem + ":" + minute_rem + " Event Time: " + hour_time+":"+minute_time);
             }
         });
     }
