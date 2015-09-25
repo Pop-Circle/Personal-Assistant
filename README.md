@@ -28,6 +28,11 @@
 		checked 		If reminder is set
 		dateSelected 	Date selected
 		monthSelected	Month selected (Month name)
+	
+	Agenda Page : used to view, delete and edit entries
+		Editing an entry will take you to creating an entry to edit it
+		Short press to edit
+		Long press to delete (Not yet implemented yet)
 		
 	
 -2015-09-25 : Dave

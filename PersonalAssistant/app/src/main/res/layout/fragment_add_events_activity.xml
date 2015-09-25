@@ -16,14 +16,15 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:gravity="center_vertical"
-        android:id="@+id/drawerLayout"
-        android:elevation="5dp">
+        android:id="@+id/topBarLayout"
+        android:elevation="5dp"
+        android:padding="3dp">
 
         <ImageButton
-            android:id="@+id/drawer_button"
-            android:layout_width="55dp"
-            android:layout_height="63dp"
-            android:background="@drawable/menu" />
+            android:id="@+id/agendaButton"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="@android:dimen/app_icon_size"
+            android:background="@android:drawable/ic_menu_agenda" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,7 +33,17 @@
             android:text="Month Year"
             android:id="@+id/monthYear"
             android:textColor="#ffffff"
-            android:paddingLeft="20dp" />
+            android:paddingLeft="20dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Events: 0"
+            android:id="@+id/eventAmount"
+            android:paddingRight="5dp"
+            android:textColor="#2b2b2b" />
 
     </LinearLayout>
 
@@ -40,14 +51,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
-        android:layout_below="@+id/drawerLayout">
+        android:layout_below="@+id/topBarLayout">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp"
-        android:layout_below="@+id/drawerLayout"
+        android:layout_below="@+id/topBarLayout"
         android:weightSum="1"
         android:scrollIndicators="right">
 
@@ -144,7 +155,8 @@
             <TimePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/eventTime" />
+                android:id="@+id/eventTime"
+                android:elevation="5dp" />
         </LinearLayout>
 
         <Button

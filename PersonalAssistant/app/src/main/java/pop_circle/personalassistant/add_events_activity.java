@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -99,8 +101,27 @@ public class add_events_activity extends AppCompatActivity {
         TextView dateMonthLabel = (TextView) findViewById(R.id.monthYear);
         dateMonthLabel.setText(datePassed + " " + monthLine);
 
+        openAgenda();
         saveEvent();
         timePickerDialogue();
+    }
+
+    private void openAgenda(){
+        ImageButton agendaBtn = (ImageButton)findViewById(R.id.agendaButton);
+        agendaBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), agenda.class);
+                Bundle b = new Bundle();
+
+                //Pass the date and the month selected to the add event activity
+                b.putInt("date", dateSelected);
+                b.putString("month", monthSelected);
+                intent.putExtra("CurrentDayAgenda", b);
+
+                startActivity(intent);
+            }
+        });
     }
 
     /* Time picker pop up for reminder. Only shows when you check reminder */
@@ -161,8 +182,8 @@ public class add_events_activity extends AppCompatActivity {
 
 
                 TimePicker eventTimeP = (TimePicker)findViewById(R.id.eventTime);
-                hour_time = eventTimeP.getHour();
-                minute_time = eventTimeP.getMinute();
+                hour_time = eventTimeP.getCurrentHour();
+                minute_time = eventTimeP.getCurrentMinute();
 
                 Toast.makeText(add_events_activity.this, "Event saved",
                         Toast.LENGTH_SHORT).show();

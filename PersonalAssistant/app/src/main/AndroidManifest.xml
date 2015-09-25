@@ -45,6 +45,10 @@
                 </action>
             </intent-filter>
         </receiver>
+        <activity
+            android:name=".agenda"
+            android:label="@string/title_activity_agenda" >
+        </activity>
     </application>
 
 </manifest>
