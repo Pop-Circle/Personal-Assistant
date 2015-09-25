@@ -73,7 +73,8 @@ public class calendarActivity extends AppCompatActivity {
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
 
-        Log.wtf("calendarActivity", "STARTED");
+
+        Log.wtf("test", "STARTED");
         // Setup listener
         final CaldroidListener listener = new CaldroidListener() {
 
@@ -85,8 +86,9 @@ public class calendarActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), add_events_activity.class);
                 Bundle b = new Bundle();
                 b.putInt("date", date.getDate());
-                b.putInt("month", date.getMonth()+1);
-                intent.putExtra("dateSelected",b);
+                b.putInt("month", (date.getMonth()+1));
+                intent.putExtra("dateSelected", b);
+
 
                 startActivity(intent);
 
