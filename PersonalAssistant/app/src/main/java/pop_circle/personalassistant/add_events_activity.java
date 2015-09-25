@@ -34,7 +34,9 @@ public class add_events_activity extends AppCompatActivity {
     int minute_rem; //for reminder
     int hour_time; //Event time
     int minute_time; //Event time
-
+    String eventName;
+    String desc;
+    boolean checked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +107,7 @@ public class add_events_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                boolean checked = ((CheckBox) v).isChecked();
+                checked = ((CheckBox) v).isChecked();
 
                 if(checked) {
                     //Pop up
@@ -150,8 +152,8 @@ public class add_events_activity extends AppCompatActivity {
                 EditText eventNameText = (EditText)findViewById(R.id.eventNameText);
                 EditText descText = (EditText)findViewById(R.id.descriptionText);
 
-                String eventName = eventNameText.getText().toString();
-                String desc = descText.getText().toString();
+                eventName = eventNameText.getText().toString();
+                desc = descText.getText().toString();
 
 
                 TimePicker eventTimeP = (TimePicker)findViewById(R.id.eventTime);

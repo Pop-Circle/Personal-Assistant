@@ -17,9 +17,15 @@
 	Added add event form
 	Can get data from the event form 
 		(Scroll down to see the Save event button)
-		Variables for the add event form data
 		
-			*hour_rem : 
+		Variables for the add event form data
+			hour_rem : reminder hour
+			minute_rem : reminder minute
+			hour_time : Event time
+			minute_time : Event Minute
+			eventName : Name of the Event
+			desc : Description if any
+			checked : If reminder is set
 		
 	
 -2015-09-25 : Dave
