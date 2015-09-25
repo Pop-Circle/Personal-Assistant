@@ -182,8 +182,8 @@ public class add_events_activity extends AppCompatActivity {
 
 
                 TimePicker eventTimeP = (TimePicker)findViewById(R.id.eventTime);
-                hour_time = eventTimeP.getHour();
-                minute_time = eventTimeP.getMinute();
+                hour_time = eventTimeP.getCurrentHour();
+                minute_time = eventTimeP.getCurrentMinute();
 
                 Toast.makeText(add_events_activity.this, "Event saved",
                         Toast.LENGTH_SHORT).show();
