@@ -16,4 +16,8 @@
 
 	Added add event form
 	
+-2015-09-25 : Dave
 	
+	Added Desktop folder
+	created generic php code
+	Colour scheme also in Desktop
