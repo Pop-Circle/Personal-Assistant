@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,6 +26,15 @@ public class agenda extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //This gets the date and month that the user clicked on, passed from CalenderActivity.java
+        Intent iD = getIntent();
+        Bundle bD = iD.getBundleExtra("CurrentDayAgenda");
+        int datePassed = bD.getInt("date");
+        String monthPassed = bD.getString("month");
+        Log.wtf("test", "agenda : " + datePassed + monthPassed);
+
+
 
 
         // setup the data source
@@ -42,11 +52,12 @@ public class agenda extends ListActivity {
             item = new ListItem("Event " +String.valueOf(i),"12:00" , String.valueOf(i));
             this.data.add(item);
         }
-
-
-
-
         setContentView(R.layout.activity_agenda);
+
+
+        //Show the month and date on the event page
+        TextView a_dateMonthLabel = (TextView) findViewById(R.id.agendaMonthYear);
+        a_dateMonthLabel.setText(datePassed + " " + monthPassed);
 
         // setup the data adaptor
         CustomAdapter adapter = new CustomAdapter(this, R.layout.agenda_list_item, this.data);
