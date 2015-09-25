@@ -20,6 +20,10 @@
             android:name=".add_events_activity"
             android:label="@string/title_activity_add_events_activity" >
         </activity>
+        <activity
+            android:name=".agenda"
+            android:label="@string/title_activity_agenda" >
+        </activity>
     </application>
 
 </manifest>

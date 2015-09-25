@@ -85,101 +85,20 @@ public class calendarActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();*/
                 Intent intent = new Intent(getApplicationContext(), add_events_activity.class);
                 Bundle b = new Bundle();
+
+                //Pass the date and the month selected to the add event activity
                 b.putInt("date", date.getDate());
                 b.putInt("month", (date.getMonth()+1));
                 intent.putExtra("dateSelected", b);
 
-
                 startActivity(intent);
-
-
-                //startActivity(new Intent(getApplicationContext(), add_events_activity.class));
-
-
             }
-
-            @Override
-            public void onChangeMonth(int month, int year) {
-                /*String text = "month: " + month + " year: " + year;
-                Toast.makeText(getApplicationContext(), text,
-                        Toast.LENGTH_SHORT).show();*/
-            }
-
-            /*
-            @Override
-            public void onLongClickDate(Date date, View view) {
-                Toast.makeText(getApplicationContext(),
-                        "Long click " + formatter.format(date),
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCaldroidViewCreated() {
-                if (caldroidFragment.getLeftArrowButton() != null) {
-                    Toast.makeText(getApplicationContext(),
-                            "Caldroid view is created", Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }*/
         };
+
         // Setup Caldroid
         caldroidFragment.setCaldroidListener(listener);
 
     }
-
-
-/*
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar); //Change this to the activity of the home page launcher
-
-
-
-        //final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");///////////////
-
-        // Setup caldroid fragment
-        // **** If you want normal CaldroidFragment, use below line ****
-        caldroidFragment = new CaldroidFragment(); //#
-
-        // If Activity is created after rotation
-        if (savedInstanceState != null) {
-            caldroidFragment.restoreStatesFromKey(savedInstanceState,
-                    "CALDROID_SAVED_STATE");
-        }
-        // If activity is created from fresh
-        else {
-            Bundle args = new Bundle();
-            Calendar cal = Calendar.getInstance();
-            args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-            args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-            args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
-
-            // Uncomment this to customize startDayOfWeek
-            // args.putInt(CaldroidFragment.START_DAY_OF_WEEK,
-            // CaldroidFragment.TUESDAY); // Tuesday
-
-            // Uncomment this line to use Caldroid in compact mode
-            // args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, false);
-
-            // Uncomment this line to use dark theme
-            args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
-
-            caldroidFragment.setArguments(args);
-        }
-        setCustomResourceForDates();
-
-        // Attach to the activity
-        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.calendar1, caldroidFragment);
-        t.commit();
-    }
-*/
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
