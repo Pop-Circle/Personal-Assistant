@@ -50,7 +50,7 @@ public class add_events_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.wtf("test","Entered add event screen ");
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_events_activity);
 

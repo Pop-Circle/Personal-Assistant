@@ -16,8 +16,12 @@ public class PaDbHelper extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "personalAssistant";
     private static final String TABLE_TASKS = "tasks";
+    private static final String TABLE_USERS= "users";
     private static final String KEY_ID ="id";
     private static final String KEY_TASKNAME = "taskName";
+    private static final String KEY_USERNAME = "username";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_EMAIL = "email";
     private static final String KEY_CHECKED = "checked";
 
     //Jackie : for the event
@@ -53,6 +57,12 @@ public class PaDbHelper extends SQLiteOpenHelper{
         + EVENT_REM + " TEXT )";
         db.execSQL(eventSQL);
 
+        String sql2 = "CREATE TABLE IF NOT EXISTS " + TABLE_USERS + " ( "
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KEY_USERNAME+ " TEXT, "
+                + KEY_PASSWORD+ " TEXT, "
+                + KEY_EMAIL+ " TEXT)";
+        db.execSQL(sql2);
     }
 
     @Override
@@ -73,6 +83,17 @@ public class PaDbHelper extends SQLiteOpenHelper{
         values.put(KEY_CHECKED, task.getChecked());
 // Inserting Row
         db.insert(TABLE_TASKS, null, values);
+        db.close(); // Closing database connection
+    }
+
+    public void addUser(String _name, String _pass, String em) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_USERNAME, _name); // username
+        values.put(KEY_PASSWORD, _pass);
+        values.put(KEY_EMAIL, em);
+// Inserting Row
+        db.insert(TABLE_USERS, null, values);
         db.close(); // Closing database connection
     }
 

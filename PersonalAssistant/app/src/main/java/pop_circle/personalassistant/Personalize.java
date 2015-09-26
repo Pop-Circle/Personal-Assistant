@@ -113,7 +113,7 @@ public class Personalize extends AppCompatActivity {
                     //get Alarm manager instance
                     String alarm = Context.ALARM_SERVICE;
                     AlarmManager am = (AlarmManager) Personalize.this.getSystemService(alarm);
-                    PendingIntent sleepPI = PendingIntent.getBroadcast(context, 123456789, receiverSilentIntent, 0);
+                    PendingIntent sleepPI = PendingIntent.getBroadcast(context, 12345678, receiverSilentIntent, 0);
 //cancel it
                     am.cancel(sleepPI);
 //build intent for wake up
