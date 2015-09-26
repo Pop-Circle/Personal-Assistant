@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Sleep Time"
+        android:id="@+id/sleepToggle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="26dp"
+        android:height="50dp"
+        android:textSize="20sp"
+        android:switchMinWidth="50sp"
+        android:switchPadding="50sp" />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="93dp"
+        android:id="@+id/sleepTime"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Wake Time"
+        android:id="@+id/wakeText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="26dp"
+        android:height="50dp"
+        android:textSize="20sp"
+        android:switchMinWidth="50sp"
+        android:switchPadding="50sp"
+        android:visibility="invisible" />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="96dp"
+        android:id="@+id/wakeTime"
+        android:visibility="invisible" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Settings"
+        android:id="@+id/saveBut"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible" />
+
+</LinearLayout>

@@ -21,6 +21,31 @@
             android:label="@string/title_activity_add_events_activity" >
         </activity>
         <activity
+            android:name=".TaskManager"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".Personalize">
+
+        </activity>
+        <receiver android:name=".silent" >
+            <intent-filter>
+                <action android:name=".silent">
+                </action>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".unSilence" >
+            <intent-filter>
+                <action android:name=".unSilence" >
+                </action>
+            </intent-filter>
+        </receiver>
+        <activity
             android:name=".agenda"
             android:label="@string/title_activity_agenda" >
         </activity>
