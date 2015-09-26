@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,17 +206,17 @@ public class PaDbHelper extends SQLiteOpenHelper{
     }
 
     /* Number of events on a specific day */
-    public int getEventCount(String selectedDate, String ownerID)
+    public int getEventCount(String dateSelected, String ownerID)
     {
-        String countQuery = "SELECT  * FROM " + EVENT_TABLE + " WHERE eventDate= "+ selectedDate
-                + " AND eventOwnerID= " + ownerID;
-
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
+        String selection = "eventDate = ? AND eventOwnerID = ?";
+        String[] selectionArgs = {dateSelected, ownerID};
 
-        // return count
-        return cursor.getCount();
+        Cursor c = db.query(EVENT_TABLE, null, selection, selectionArgs, null, null, null);
+        int result = c.getCount();
+        c.close();
+        Log.wtf("test", "count " + result);
+        return result;
     }
 
     /* Update an event*/

@@ -3,7 +3,7 @@ package pop_circle.personalassistant;
 /**
  * Created by Jackie on 2015-09-26.
  */
-
+//http://www.androidhive.info/2011/11/android-sqlite-database-tutorial/
 /* Stores the information for the event to go into the database.... I think? */
 public class Event {
     private int id;

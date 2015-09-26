@@ -71,7 +71,13 @@
 -2015-19-26 : Jackie
 	
 	Added database functionality for events in PaDbHelper.java
-		All events functions are at the bottom of PaDbHelper
+		DB Functions implemented (not tested yet)
+			Add event
+			Get specifc event info
+			Delete specific event
+			Get total number of events for a specific date
+	Can now add events to the db
+	Able to get the amount of events on the date clicked for the specified user
 	
 -2015-09-26 : Tilesh
 

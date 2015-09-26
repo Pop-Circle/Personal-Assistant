@@ -111,11 +111,19 @@ public class add_events_activity extends AppCompatActivity {
         TextView dateMonthLabel = (TextView) findViewById(R.id.monthYear);
         dateMonthLabel.setText(datePassed + " " + monthLine);
 
-        ownerID = String.valueOf(2);
+        ownerID = String.valueOf(2); //============================================================change later
 
         openAgenda();
         saveEvent();
         timePickerDialogue();
+        eventAmount();
+    }
+
+    /* Show the amount of events on this day */
+    private void eventAmount(){
+        int countEvent = db.getEventCount(dateLine,ownerID);
+        TextView eventCountLabel = (TextView)findViewById(R.id.eventAmount);
+        eventCountLabel.setText("Total: " + countEvent);
     }
 
     private void openAgenda(){
