@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.sql.DatabaseMetaData;
 import java.util.Calendar;
 
 public class add_events_activity extends AppCompatActivity {
@@ -40,12 +41,20 @@ public class add_events_activity extends AppCompatActivity {
     String desc;
     boolean checked = false;
     int dateSelected;
+    String dateLine;
     String monthSelected;
+    PaDbHelper db;
+
+    String ownerID; // Need to recieve the owner ID to know who youre editing
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.wtf("test","Entered add event screen ");
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_events_activity);
+
+        db = new PaDbHelper(this);
 
         //This gets the date and month that the user clicked on, passed from CalenderActivity.java
         Intent iDate = getIntent();
@@ -97,9 +106,12 @@ public class add_events_activity extends AppCompatActivity {
 
         dateSelected = datePassed;
         monthSelected= monthLine;
+        dateLine = String.valueOf(dateSelected) + "-" +  monthSelected;
         //Show the month and date on the event page
         TextView dateMonthLabel = (TextView) findViewById(R.id.monthYear);
         dateMonthLabel.setText(datePassed + " " + monthLine);
+
+        ownerID = String.valueOf(2);
 
         openAgenda();
         saveEvent();
@@ -180,15 +192,22 @@ public class add_events_activity extends AppCompatActivity {
                 eventName = eventNameText.getText().toString();
                 desc = descText.getText().toString();
 
-
                 TimePicker eventTimeP = (TimePicker)findViewById(R.id.eventTime);
                 hour_time = eventTimeP.getCurrentHour();
                 minute_time = eventTimeP.getCurrentMinute();
 
+                String eventTime = String.valueOf(hour_time) +":" + String.valueOf(minute_time);
+                String eventRem = String.valueOf(hour_rem)+":"+String.valueOf(minute_rem);
+
+                Log.wtf("test", "input read : Event name: " + eventName + " description: " + desc + " reminder: " + hour_rem + ":" + minute_rem + " Event Time: " + hour_time+":"+minute_time);
+
+                db.addEvent(new Event(eventName, eventTime, desc, dateLine, ownerID, eventRem));
+
                 Toast.makeText(add_events_activity.this, "Event saved",
                         Toast.LENGTH_SHORT).show();
 
-                Log.wtf("test", "Event name: " + eventName + " description: " + desc + " reminder: " + hour_rem + ":" + minute_rem + " Event Time: " + hour_time+":"+minute_time);
+                Log.wtf("test", "Event saved: Event name: " + eventName + " description: " + desc + " reminder: " + eventRem + " Event Time: " + eventTime);
+
             }
         });
     }

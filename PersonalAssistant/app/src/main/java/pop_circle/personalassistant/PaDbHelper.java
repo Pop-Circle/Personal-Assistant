@@ -20,6 +20,16 @@ public class PaDbHelper extends SQLiteOpenHelper{
     private static final String KEY_TASKNAME = "taskName";
     private static final String KEY_CHECKED = "checked";
 
+    //Jackie : for the event
+    private static final String EVENT_TABLE = "eventTable";
+    private static final String EVENT_ID ="eventID";
+    private static final String EVENT_OWNERID ="eventOwnerID";
+    private static final String EVENT_NAME = "eventName";
+    private static final String EVENT_DATE = "eventDate";
+    private static final String EVENT_TIME = "eventTime";
+    private static final String EVENT_DESC = "eventDesc";
+    private static final String EVENT_REM = "eventRem"; //If there is a reminder the text will be the time, else it will be "none" in the text
+
     public PaDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -31,12 +41,26 @@ public class PaDbHelper extends SQLiteOpenHelper{
         + KEY_TASKNAME+ " TEXT, "
         + KEY_CHECKED + " INTEGER)";
         db.execSQL(sql);
+
+        String eventSQL = "CREATE TABLE IF NOT EXISTS " + EVENT_TABLE + " ( "
+        + EVENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+        + EVENT_NAME+ " TEXT, "
+        + KEY_TASKNAME+ " TEXT, "
+        + EVENT_OWNERID+ " TEXT, "
+        + EVENT_TIME+ " TEXT, "
+        + EVENT_DATE+ " TEXT, "
+        + EVENT_DESC+ " TEXT, "
+        + EVENT_REM + " TEXT )";
+        db.execSQL(eventSQL);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS);
+
+        db.execSQL("DROP TABLE IF EXISTS " + EVENT_TABLE);
         // Create tables again
         onCreate(db);
     }
@@ -82,4 +106,121 @@ public class PaDbHelper extends SQLiteOpenHelper{
         db.update(TABLE_TASKS, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(task.getId())});
     }
+
+
+
+/* -----------------------Event db--------------------------------------- */
+
+
+    /* Adding events details */
+    public void addEvent(Event event)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(EVENT_NAME, event.getEventName());
+        values.put(EVENT_DESC, event.getEventDesc());
+        values.put(EVENT_DATE, event.getEventDate());
+        values.put(EVENT_OWNERID, event.getEventOwnerID());
+        values.put(EVENT_TIME, event.getEventTime());
+        values.put(EVENT_REM, event.getEventRem());
+
+        db.insert(EVENT_TABLE, null, values);
+        db.close(); // Closing database connection
+
+    }
+
+    /* Reading event details */
+    //Return everything on one row
+    public Event getEvent(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(EVENT_TABLE, new String[] { EVENT_ID,
+                        EVENT_NAME, EVENT_TIME, EVENT_DESC, EVENT_DATE ,EVENT_OWNERID,  EVENT_REM  }
+                        , EVENT_ID + "=?",
+                new String[] { String.valueOf(id) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Event event = new Event(Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1), cursor.getString(2),cursor.getString(3) ,cursor.getString(4) ,
+                cursor.getString(5),cursor.getString(6));
+        // return event
+        return event;
+    }
+
+    //return all the event info on a SPECIFIC day for a SPECIFIC user
+    public List<Event> getAllEvents(String selectedDate, String ownerID)
+    {
+        List<Event> eventList = new ArrayList<Event>();
+
+
+        String selectQuery = "SELECT  * FROM " + EVENT_TABLE + " WHERE eventDate= "+ selectedDate
+                + " AND eventOwnerID= " + ownerID;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Event event = new Event();
+                event.setID(Integer.parseInt(cursor.getString(0)));
+                event.setEventName(cursor.getString(1));
+                event.setEventTime(cursor.getString(2));
+                event.setEventDesc(cursor.getString(3));
+                event.setEventDate(cursor.getString(4));
+                event.setEventOwnerID(cursor.getString(5));
+                event.setEventRem(cursor.getString(6));
+
+                // Adding event to list
+                eventList.add(event);
+            } while (cursor.moveToNext());
+        }
+
+        // return event list, list consists of event objects
+        return eventList;
+    }
+
+    /* Number of events on a specific day */
+    public int getEventCount(String selectedDate, String ownerID)
+    {
+        String countQuery = "SELECT  * FROM " + EVENT_TABLE + " WHERE eventDate= "+ selectedDate
+                + " AND eventOwnerID= " + ownerID;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+
+        // return count
+        return cursor.getCount();
+    }
+
+    /* Update an event*/
+    public int updateEvent(Event event)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(EVENT_NAME, event.getEventName());
+        values.put(EVENT_DATE, event.getEventDate());
+        values.put(EVENT_TIME, event.getEventTime());
+        values.put(EVENT_DESC, event.getEventDesc());
+        values.put(EVENT_REM, event.getEventRem());
+
+        // updating row
+        return db.update(EVENT_TABLE, values, EVENT_ID + " = ?",
+                new String[]{String.valueOf(event.getID())});
+    }
+
+    /* Deleting an event */
+    public void deleteContact(Event event) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(EVENT_TABLE, EVENT_ID + " = ?",
+                new String[]{String.valueOf(event.getID())});
+        db.close();
+    }
+
+
 }

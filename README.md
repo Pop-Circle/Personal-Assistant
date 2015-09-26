@@ -66,3 +66,10 @@
 	to choose sleep and wake up times for the device. And i got Github
 	working :D.
 	P.S if doesnt run, remove proxy details from gradle.properties but gitignore should ignore this anyway
+	
+-2015-19-26 : Jackie
+	
+	Added database functionality for events in PaDbHelper.java
+		All events functions are at the bottom of PaDbHelper
+	
+	
