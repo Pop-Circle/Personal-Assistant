@@ -66,3 +66,8 @@
 	to choose sleep and wake up times for the device. And i got Github
 	working :D.
 	P.S if doesnt run, remove proxy details from gradle.properties but gitignore should ignore this anyway
+	
+-2015-09-26 : Tilesh
+	Added Register Activity with very basic register functionality
+	Updated PaDBHelper to work with user db
+	Created layouts for login and register
