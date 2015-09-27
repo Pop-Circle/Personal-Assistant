@@ -21,12 +21,14 @@ public class PaDbHelper extends SQLiteOpenHelper{
     private static final String TABLE_BUDGET= "budget";
     private static final String KEY_USERIDTASK ="TaskUserId";
     private static final String KEY_TASKNAME = "taskName";
-    //FOR USERS SQL
+    private static final String KEY_CHECKED = "checked";
     private static final String KEY_ID ="id";
+    //FOR USERS SQL
+
+    private static final String KEY_USERID ="userId";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_EMAIL = "email";
-    private static final String KEY_CHECKED = "checked";
     //FOR BUDGET SQL
     private static final String KEY_BUDGETIDTASK ="TaskUserId";
     private static final String KEY_INCOME= "incom";
@@ -74,7 +76,7 @@ public class PaDbHelper extends SQLiteOpenHelper{
         db.execSQL(eventSQL);
 
         String userSQL = "CREATE TABLE IF NOT EXISTS " + TABLE_USERS + " ( "
-                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KEY_USERID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + KEY_USERNAME+ " TEXT, "
                 + KEY_PASSWORD+ " TEXT, "
                 + KEY_EMAIL+ " TEXT)";
@@ -141,7 +143,7 @@ public class PaDbHelper extends SQLiteOpenHelper{
         db.close(); // Closing database connection
     }
 
-    public List<Task> getAllTasks(String _user) {
+    public List<Task> getAllTasks(String _user) { // need to change so just get current users info
         List<Task> taskList = new ArrayList<Task>();
 // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_TASKS;
@@ -263,6 +265,31 @@ public class PaDbHelper extends SQLiteOpenHelper{
         c.close();
         Log.wtf("test", "count " + result);
         return result;
+    }
+
+    /* Test Login */
+    public int login(String _name, String _pass)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = "username = ? AND password = ?";
+        String[] selectionArgs = {_name, _pass};
+
+        Cursor c = db.query(TABLE_USERS, null, selection, selectionArgs, null, null, null);
+        int result = c.getCount();
+        c.close();
+        Log.wtf("test", "count " + result);
+        return result;
+    }
+
+    public int getUserId(String userName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT userId FROM users WHERE userName = ?";
+        String[] parameters = new String[] { userName };
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("userId"));
+        else
+            return -1; // not found
     }
 
     /* Update an event*/

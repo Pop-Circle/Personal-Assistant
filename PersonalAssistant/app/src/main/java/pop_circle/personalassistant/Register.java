@@ -49,5 +49,6 @@ public class Register extends AppCompatActivity{
         String password = pass.getText().toString().trim().toLowerCase();
         String em = email.getText().toString().trim().toLowerCase();
         db.addUser(_name, password, em);
+        finish();
     }
 }
