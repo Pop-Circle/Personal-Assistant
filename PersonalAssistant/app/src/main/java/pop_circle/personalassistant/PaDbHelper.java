@@ -18,12 +18,25 @@ public class PaDbHelper extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "personalAssistant";
     private static final String TABLE_TASKS = "tasks";
     private static final String TABLE_USERS= "users";
-    private static final String KEY_ID ="id";
+    private static final String TABLE_BUDGET= "budget";
+    private static final String KEY_USERIDTASK ="TaskUserId";
     private static final String KEY_TASKNAME = "taskName";
+    //FOR USERS SQL
+    private static final String KEY_ID ="id";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_CHECKED = "checked";
+    //FOR BUDGET SQL
+    private static final String KEY_BUDGETIDTASK ="TaskUserId";
+    private static final String KEY_INCOME= "incom";
+    private static final String KEY_HOUSEHOLD= "household";
+    private static final String KEY_FOOD= "food";
+    private static final String KEY_CREDIT= "credit";
+    private static final String KEY_CLOTHES= "clothes";
+    private static final String KEY_LUXURY= "luxury";
+    private static final String KEY_CONTRACTS= "contracts";
+    private static final String KEY_LOANS= "loans";
 
     //Jackie : for the event
     private static final String EVENT_TABLE = "eventTable";
@@ -41,11 +54,13 @@ public class PaDbHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " ( "
+
+        String taskSQL = "CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " ( "
         + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+        + KEY_USERIDTASK + " TEXT, "
         + KEY_TASKNAME+ " TEXT, "
         + KEY_CHECKED + " INTEGER)";
-        db.execSQL(sql);
+        db.execSQL(taskSQL);
 
         String eventSQL = "CREATE TABLE IF NOT EXISTS " + EVENT_TABLE + " ( "
         + EVENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -58,12 +73,27 @@ public class PaDbHelper extends SQLiteOpenHelper{
         + EVENT_REM + " TEXT )";
         db.execSQL(eventSQL);
 
-        String sql2 = "CREATE TABLE IF NOT EXISTS " + TABLE_USERS + " ( "
+        String userSQL = "CREATE TABLE IF NOT EXISTS " + TABLE_USERS + " ( "
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + KEY_USERNAME+ " TEXT, "
                 + KEY_PASSWORD+ " TEXT, "
                 + KEY_EMAIL+ " TEXT)";
-        db.execSQL(sql2);
+        db.execSQL(userSQL);
+
+        String budgetSQL = "CREATE TABLE IF NOT EXISTS " + TABLE_BUDGET + " ( "
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KEY_BUDGETIDTASK + " TEXT, "
+                + KEY_EMAIL+ " TEXT, "
+                + KEY_INCOME+ " DECIMAL(13, 2), "
+                + KEY_HOUSEHOLD+ " DECIMAL(13, 2), "
+                + KEY_FOOD+ " DECIMAL(13, 2), "
+                + KEY_CREDIT+ " DECIMAL(13, 2), "
+                + KEY_CLOTHES+ " DECIMAL(13, 2), "
+                + KEY_LUXURY+ " DECIMAL(13, 2), "
+                + KEY_CONTRACTS+ " DECIMAL(13, 2), "
+                + KEY_LOANS+ " DECIMAL(13, 2)"
+               + ")";
+        db.execSQL(budgetSQL);
     }
 
     @Override
@@ -76,9 +106,10 @@ public class PaDbHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task, String _user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(KEY_USERIDTASK, _user);
         values.put(KEY_TASKNAME, task.getName()); // task name
 // status of task- can be 0 for not done and 1 for done
         values.put(KEY_CHECKED, task.getChecked());
@@ -94,11 +125,23 @@ public class PaDbHelper extends SQLiteOpenHelper{
         values.put(KEY_PASSWORD, _pass);
         values.put(KEY_EMAIL, em);
 // Inserting Row
+        //To set up budget table
+        ContentValues valuesBudget = new ContentValues();
+        valuesBudget.put(KEY_EMAIL, em);
+        valuesBudget.put(KEY_INCOME, 0);
+        valuesBudget.put(KEY_HOUSEHOLD, 0);
+        valuesBudget.put(KEY_FOOD, 0);
+        valuesBudget.put(KEY_CREDIT, 0);
+        valuesBudget.put(KEY_CLOTHES, 0);
+        valuesBudget.put(KEY_LUXURY, 0);
+        valuesBudget.put(KEY_CONTRACTS, 0);
+        valuesBudget.put(KEY_LOANS, 0);
+        db.insert(TABLE_BUDGET, null, valuesBudget);
         db.insert(TABLE_USERS, null, values);
         db.close(); // Closing database connection
     }
 
-    public List<Task> getAllTasks() {
+    public List<Task> getAllTasks(String _user) {
         List<Task> taskList = new ArrayList<Task>();
 // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_TASKS;
@@ -160,10 +203,10 @@ public class PaDbHelper extends SQLiteOpenHelper{
     {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(EVENT_TABLE, new String[] { EVENT_ID,
-                        EVENT_NAME, EVENT_TIME, EVENT_DESC, EVENT_DATE ,EVENT_OWNERID,  EVENT_REM  }
-                        , EVENT_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+        Cursor cursor = db.query(EVENT_TABLE, new String[]{EVENT_ID,
+                        EVENT_NAME, EVENT_TIME, EVENT_DESC, EVENT_DATE, EVENT_OWNERID, EVENT_REM}
+                , EVENT_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
@@ -246,6 +289,7 @@ public class PaDbHelper extends SQLiteOpenHelper{
                 new String[]{String.valueOf(event.getID())});
         db.close();
     }
+
 
 
 }
