@@ -23,13 +23,15 @@ public class TaskManager extends AppCompatActivity {
     List<Task> list;
     MyAdapter adapt;
     PaDbHelper db;
+    String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        user= ((MyApplication) this.getApplication()).getLoggedUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_manager);
        // db is a variable of type PaDbHelper
         db=new PaDbHelper(this);
-        list=db.getAllTasks();
+        list=db.getAllTasks(user);
         adapt=new MyAdapter(this,R.layout.listitems , list);
         ListView listTask=(ListView)findViewById(R.id.listView1);
         listTask.setAdapter((ListAdapter) adapt);
@@ -43,7 +45,7 @@ public class TaskManager extends AppCompatActivity {
             Toast.LENGTH_LONG);
         } else {
             Task task = new Task(s, 0);
-            db.addTask(task);
+            db.addTask(task, user);
             Log.d("task", "data added");
             t.setText("");
             adapt.add(task);
