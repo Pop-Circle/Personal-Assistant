@@ -92,6 +92,7 @@
 	Pressing on an activity will now take you to the edit page
 	
 -2015-09-27 : Tilesh
+
 	Completed styling for all my pages.
 	Completed the login.java and completed functionality with login and register including with the DB.
 	Started the budget aspect of the app.
