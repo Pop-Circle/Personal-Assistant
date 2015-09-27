@@ -84,3 +84,17 @@
 	Added Register Activity with very basic register functionality
 	Updated PaDBHelper to work with user db
 	Created layouts for login and register
+	
+-2015-09-27 : Jackie
+	
+	Able to display all events and retrieve its information on the selected date
+	Note : For retrieving data from the dB
+		Change code that are like this:
+		task.setName(cursor.getString(1));
+		to:
+		task.setName(cursor.getString(cursor.getColumnIndex("taskName")));
+		
+		"taskName" is the name of the column you want to get from
+		 Not sure if it works with getInt, havent tried it yet
+	
+	

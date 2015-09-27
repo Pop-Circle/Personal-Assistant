@@ -109,8 +109,10 @@ public class PaDbHelper extends SQLiteOpenHelper{
             do {
                 Task task = new Task();
                 task.setId(cursor.getInt(0));
-                task.setName(cursor.getString(1));
+                //task.setName(cursor.getString(1));
+                task.setName(cursor.getString(cursor.getColumnIndex("taskName")));
                 task.setChecked(cursor.getInt(2));
+
 // Adding contact to list
                 taskList.add(task);
             } while (cursor.moveToNext());
@@ -173,28 +175,38 @@ public class PaDbHelper extends SQLiteOpenHelper{
     }
 
     //return all the event info on a SPECIFIC day for a SPECIFIC user
+    //return all the event info on a SPECIFIC day for a SPECIFIC user
     public List<Event> getAllEvents(String selectedDate, String ownerID)
     {
         List<Event> eventList = new ArrayList<Event>();
-
-
-        String selectQuery = "SELECT  * FROM " + EVENT_TABLE + " WHERE eventDate= "+ selectedDate
-                + " AND eventOwnerID= " + ownerID;
-
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        String selectQuery = "eventDate= ? AND eventOwnerID = ?";
+        String[] selectionArgs = {selectedDate, ownerID};
+
+        Cursor cursor = db.query(EVENT_TABLE, null, selectQuery, selectionArgs, null, null, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 Event event = new Event();
-                event.setID(Integer.parseInt(cursor.getString(0)));
-                event.setEventName(cursor.getString(1));
-                event.setEventTime(cursor.getString(2));
-                event.setEventDesc(cursor.getString(3));
-                event.setEventDate(cursor.getString(4));
-                event.setEventOwnerID(cursor.getString(5));
-                event.setEventRem(cursor.getString(6));
+                event.setID(Integer.parseInt(cursor.getString(cursor.getColumnIndex("eventID"))));
+                event.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
+                event.setEventRem(cursor.getString(cursor.getColumnIndex("eventRem")));
+                event.setEventOwnerID(cursor.getString(cursor.getColumnIndex("eventOwnerID")));
+                event.setEventTime(cursor.getString(cursor.getColumnIndex("eventTime")));
+                event.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
+                event.setEventDesc(cursor.getString(cursor.getColumnIndex("eventDesc")));
+
+                /*
+                Log.wtf("test", "ID: " + cursor.getString(cursor.getColumnIndex("eventID")));
+                Log.wtf("test", "Name: " + cursor.getString(cursor.getColumnIndex("eventName")));
+                Log.wtf("test", "Rem: " + cursor.getString(cursor.getColumnIndex("eventRem")));
+                Log.wtf("test", "OwnerID: " + cursor.getString(cursor.getColumnIndex("eventOwnerID")));
+                Log.wtf("test", "Time: " + cursor.getString(cursor.getColumnIndex("eventTime")));
+                Log.wtf("test", "Date: " + cursor.getString(cursor.getColumnIndex("eventDate")));
+                Log.wtf("test", "Desc: " + cursor.getString(cursor.getColumnIndex("eventDesc")));
+                Log.wtf("test", "-------------------------------------------");
+*/
 
                 // Adding event to list
                 eventList.add(event);
@@ -204,6 +216,8 @@ public class PaDbHelper extends SQLiteOpenHelper{
         // return event list, list consists of event objects
         return eventList;
     }
+
+
 
     /* Number of events on a specific day */
     public int getEventCount(String dateSelected, String ownerID)

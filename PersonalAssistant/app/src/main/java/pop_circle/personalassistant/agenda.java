@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class agenda extends ListActivity {
 
@@ -25,6 +26,7 @@ public class agenda extends ListActivity {
     PaDbHelper db;
     String ownerID; // Need to recieve the owner ID to know who youre editing
     String dateLine;
+    int amountofEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,27 +41,38 @@ public class agenda extends ListActivity {
 
         db = new PaDbHelper(this);
 
+        amountofEvent = eventAmount();
 
-        // setup the data source
+        // Get all the event info for the particular day to display it in the agenda
         this.data = new ArrayList<ListItem>();
-
-
         ListItem item;
-        for(int i = 0 ; i < 5; i++)
+        List<Event> listEvent = db.getAllEvents(dateLine, ownerID);
+
+        if(amountofEvent > 0) {
+            for (int i = 0; i < amountofEvent; i++) {
+                item = new ListItem(listEvent.get(i).getEventName(),listEvent.get(i).getEventTime()
+                        , String.valueOf(listEvent.get(i).getID()));
+                Log.wtf("test", " Event list: "+ listEvent.get(i).getEventName() +" - "+listEvent.get(i).getEventTime()
+                        + " id:"+String.valueOf(listEvent.get(i).getID()));
+                this.data.add(item);
+            }
+        }
+        else
         {
-            item = new ListItem("Event " +String.valueOf(i),"12:00" , String.valueOf(i));
-            this.data.add(item);
+            Toast.makeText(getApplicationContext(), "Agenda empty", Toast.LENGTH_SHORT).show();
         }
 
 
+
+        /*  -----------ACTIVITY LOADED--------------   */
         setContentView(R.layout.activity_agenda);
 
 
         //Show the month and date on the event page
         TextView a_dateMonthLabel = (TextView) findViewById(R.id.agendaMonthYear);
         a_dateMonthLabel.setText(dateLine);
-        eventAmount();
-
+        TextView eventCountLabel = (TextView)findViewById(R.id.agendaEventsAmount);
+        eventCountLabel.setText("Total: " + amountofEvent);
 
         // setup the data adaptor
         CustomAdapter adapter = new CustomAdapter(this, R.layout.agenda_list_item, this.data);
@@ -120,12 +133,12 @@ public class agenda extends ListActivity {
 
 
     /* Show the amount of events on this day */
-    private void eventAmount(){
+    private int eventAmount(){
         int countEvent = db.getEventCount(dateLine,ownerID);
-        TextView eventCountLabel = (TextView)findViewById(R.id.agendaEventsAmount);
-        eventCountLabel.setText("Total: " + countEvent);
+        //TextView eventCountLabel = (TextView)findViewById(R.id.agendaEventsAmount);
+        //eventCountLabel.setText("Total: " + countEvent);
+        return countEvent;
     }
-
 
 
     public void showDeleteAgendaDialog(String agendaID){
