@@ -90,4 +90,11 @@
 	Able to display all events and retrieve its information on the selected date
 	Can now delete an entry by long tap and selecting delete
 	
+-2015-09-27 : Tilesh
+	Completed styling for all my pages.
+	Completed the login.java and completed functionality with login and register including with the DB.
+	Started the budget aspect of the app.
+	Styled budget aspect of the app.
+	added some db functionality, not yet working.
+	Created class for housing users ID once logged in and making it global.
 	
