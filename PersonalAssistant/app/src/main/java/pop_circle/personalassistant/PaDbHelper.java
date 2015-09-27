@@ -108,7 +108,7 @@ public class PaDbHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public void addTask(Task task, String _user) {
+    public void addTask(Task task, int _user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_USERIDTASK, _user);
@@ -128,7 +128,7 @@ public class PaDbHelper extends SQLiteOpenHelper{
         values.put(KEY_EMAIL, em);
 // Inserting Row
         //To set up budget table
-        ContentValues valuesBudget = new ContentValues();
+       /* ContentValues valuesBudget = new ContentValues();
         valuesBudget.put(KEY_EMAIL, em);
         valuesBudget.put(KEY_INCOME, 0);
         valuesBudget.put(KEY_HOUSEHOLD, 0);
@@ -138,12 +138,12 @@ public class PaDbHelper extends SQLiteOpenHelper{
         valuesBudget.put(KEY_LUXURY, 0);
         valuesBudget.put(KEY_CONTRACTS, 0);
         valuesBudget.put(KEY_LOANS, 0);
-        db.insert(TABLE_BUDGET, null, valuesBudget);
+        db.insert(TABLE_BUDGET, null, valuesBudget);*/
         db.insert(TABLE_USERS, null, values);
         db.close(); // Closing database connection
     }
 
-    public List<Task> getAllTasks(String _user) { // need to change so just get current users info
+    public List<Task> getAllTasks(int _user) { // need to change so just get current users info
         List<Task> taskList = new ArrayList<Task>();
 // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_TASKS;
