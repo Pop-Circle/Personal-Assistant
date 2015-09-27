@@ -25,7 +25,7 @@ public class Register extends AppCompatActivity{
         setContentView(R.layout.activity_register);
         name = (EditText) findViewById(R.id.editName);
         pass = (EditText) findViewById(R.id.editPass);
-        pass = (EditText) findViewById(R.id.editEmail);
+        email = (EditText) findViewById(R.id.editEmail);
         regButt = (Button) findViewById(R.id.buttReg);
         log = (TextView) findViewById(R.id.txtLoginClick);
         log.setOnClickListener(new View.OnClickListener() {

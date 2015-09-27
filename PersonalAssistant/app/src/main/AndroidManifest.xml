@@ -34,13 +34,14 @@
 
         </activity>
         <activity android:name=".Login">
+
+        </activity>
+        <activity android:name=".Budget">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".Budget">
         </activity>
         <receiver android:name=".silent" >
             <intent-filter>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,11 +52,8 @@ public class Login extends AppCompatActivity{
         {
 
             ((MyApplication) this.getApplication()).setUserId(db.getUserId(name.getText().toString()));
-            CharSequence text = "Login Succesful" ;
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            Log.wtf("THE USER WHOM HAS LOGGETH IN", "details " + ((MyApplication) this.getApplication()).getLoggedUser());
+            finish();
         }
         else
         {

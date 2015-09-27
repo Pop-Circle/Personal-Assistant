@@ -31,7 +31,8 @@ public class PaDbHelper extends SQLiteOpenHelper{
     private static final String KEY_EMAIL = "email";
     //FOR BUDGET SQL
     private static final String KEY_BUDGETIDTASK ="TaskUserId";
-    private static final String KEY_INCOME= "incom";
+    private static final String KEY_INCOME= "income";
+    private static final String KEY_TOTEX= "totalExpenses";
     private static final String KEY_HOUSEHOLD= "household";
     private static final String KEY_FOOD= "food";
     private static final String KEY_CREDIT= "credit";
@@ -85,8 +86,8 @@ public class PaDbHelper extends SQLiteOpenHelper{
         String budgetSQL = "CREATE TABLE IF NOT EXISTS " + TABLE_BUDGET + " ( "
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + KEY_BUDGETIDTASK + " TEXT, "
-                + KEY_EMAIL+ " TEXT, "
                 + KEY_INCOME+ " DECIMAL(13, 2), "
+                + KEY_TOTEX+ " DECIMAL(13, 2), "
                 + KEY_HOUSEHOLD+ " DECIMAL(13, 2), "
                 + KEY_FOOD+ " DECIMAL(13, 2), "
                 + KEY_CREDIT+ " DECIMAL(13, 2), "
@@ -128,9 +129,10 @@ public class PaDbHelper extends SQLiteOpenHelper{
         values.put(KEY_EMAIL, em);
 // Inserting Row
         //To set up budget table
-       /* ContentValues valuesBudget = new ContentValues();
-        valuesBudget.put(KEY_EMAIL, em);
+        ContentValues valuesBudget = new ContentValues();
+        valuesBudget.put(KEY_BUDGETIDTASK, getUserId(_name));
         valuesBudget.put(KEY_INCOME, 0);
+        valuesBudget.put(KEY_TOTEX, 0);
         valuesBudget.put(KEY_HOUSEHOLD, 0);
         valuesBudget.put(KEY_FOOD, 0);
         valuesBudget.put(KEY_CREDIT, 0);
@@ -138,7 +140,7 @@ public class PaDbHelper extends SQLiteOpenHelper{
         valuesBudget.put(KEY_LUXURY, 0);
         valuesBudget.put(KEY_CONTRACTS, 0);
         valuesBudget.put(KEY_LOANS, 0);
-        db.insert(TABLE_BUDGET, null, valuesBudget);*/
+        db.insert(TABLE_BUDGET, null, valuesBudget);
         db.insert(TABLE_USERS, null, values);
         db.close(); // Closing database connection
     }
@@ -267,30 +269,7 @@ public class PaDbHelper extends SQLiteOpenHelper{
         return result;
     }
 
-    /* Test Login */
-    public int login(String _name, String _pass)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String selection = "username = ? AND password = ?";
-        String[] selectionArgs = {_name, _pass};
 
-        Cursor c = db.query(TABLE_USERS, null, selection, selectionArgs, null, null, null);
-        int result = c.getCount();
-        c.close();
-        Log.wtf("test", "count " + result);
-        return result;
-    }
-
-    public int getUserId(String userName) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT userId FROM users WHERE userName = ?";
-        String[] parameters = new String[] { userName };
-        Cursor cursor = db.rawQuery(query, parameters);
-        if (cursor.moveToFirst())
-            return cursor.getInt(cursor.getColumnIndex("userId"));
-        else
-            return -1; // not found
-    }
 
     /* Update an event*/
     public int updateEvent(Event event)
@@ -317,6 +296,66 @@ public class PaDbHelper extends SQLiteOpenHelper{
         db.close();
     }
 
+    /************************************** login stuffs*****************/
+     /* Test Login */
+    public int login(String _name, String _pass)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = "username = ? AND password = ?";
+        String[] selectionArgs = {_name, _pass};
 
+        Cursor c = db.query(TABLE_USERS, null, selection, selectionArgs, null, null, null);
+        int result = c.getCount();
+        c.close();
+        Log.wtf("test", "count " + result);
+        return result;
+    }
+
+    public int getUserId(String userName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT userId FROM users WHERE userName = ?";
+        String[] parameters = new String[] { userName };
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getInt(cursor.getColumnIndex("userId"));
+        else
+            return -1; // not found
+    }
+
+    /*********************************** Budget Stuff************************************/
+
+    public double getIncome(int userid)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT income FROM budget WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(userid)};
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getDouble(cursor.getColumnIndex("income"));
+        else
+            return -1; // not found
+    }
+
+    public void updateIncome(double _val, int user)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_INCOME, _val);
+        db.update(TABLE_BUDGET, values, KEY_BUDGETIDTASK + " = ?",
+                new String[]{String.valueOf(user)});
+    }
+
+
+    public double getExpense(int userid)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT income FROM budget WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(userid)};
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getDouble(cursor.getColumnIndex("totalExpenses"));
+        else
+            return -1; // not found
+    }
 
 }
