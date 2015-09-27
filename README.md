@@ -89,6 +89,7 @@
 	
 	Able to display all events and retrieve its information on the selected date
 	Can now delete an entry by long tap and selecting delete
+	Pressing on an activity will now take you to the edit page
 	
 -2015-09-27 : Tilesh
 	Completed styling for all my pages.

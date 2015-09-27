@@ -62,7 +62,6 @@ public class add_events_activity extends AppCompatActivity {
         int datePassed = bDate.getInt("date");
         int monthPassed = bDate.getInt("month");
 
-
         String monthLine = "";
         switch(monthPassed)
         {
@@ -156,7 +155,6 @@ public class add_events_activity extends AppCompatActivity {
 
                 if(checked) {
                     //Pop up
-                    Log.wtf("test","Show Dialogue");
                     showDialog(DIALOGUE_ID);
                 }
             }

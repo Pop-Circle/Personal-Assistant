@@ -3,7 +3,7 @@
     package="pop_circle.personalassistant" >
 
     <application
-        android:name="MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,11 @@
         <activity
             android:name=".calendarActivity"
             android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".add_events_activity"
@@ -20,32 +24,31 @@
         <activity
             android:name=".TaskManager"
             android:label="@string/app_name" >
-           <!-- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-
-        </activity>
-        <activity android:name=".Personalize">
-
-        </activity>
-        <activity android:name=".Register">
-
-        </activity>
-        <activity android:name=".Login">
-
-        </activity>
-        <activity android:name=".Budget">
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
+
         </activity>
+        <activity android:name=".Personalize" >
+        </activity>
+        <activity android:name=".Register" >
+        </activity>
+
+        <activity android:name=".Login">
+
+        </activity>
+
+        <activity android:name=".Budget">
+        </activity>
+
         <receiver android:name=".silent" >
             <intent-filter>
-                <action android:name=".silent">
+                <action android:name=".silent" >
                 </action>
             </intent-filter>
         </receiver>
@@ -55,9 +58,14 @@
                 </action>
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".agenda"
             android:label="@string/title_activity_agenda" >
+        </activity>
+        <activity
+            android:name=".edit_events"
+            android:label="@string/title_activity_edit_events" >
         </activity>
     </application>
 

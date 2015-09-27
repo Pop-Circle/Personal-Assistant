@@ -52,8 +52,6 @@ public class agenda extends ListActivity {
             for (int i = 0; i < amountofEvent; i++) {
                 item = new ListItem(listEvent.get(i).getEventName(),listEvent.get(i).getEventTime()
                         , String.valueOf(listEvent.get(i).getID()));
-                Log.wtf("test", " Event list: "+ listEvent.get(i).getEventName() +" - "+listEvent.get(i).getEventTime()
-                        + " id:"+String.valueOf(listEvent.get(i).getID()));
                 this.data.add(item);
             }
         }
@@ -94,16 +92,17 @@ public class agenda extends ListActivity {
                 String agendaTime = parts[1];
                 String agendaID = parts[2];
 
-                Log.wtf("test", "Name: " + agendaName + " time: " + agendaTime + " ID: " + agendaID);
 
-                /*
-                Intent intent = new Intent(getApplicationContext(), add_events_activity.class);
+                int tempAgendaID = Integer.parseInt(agendaID.trim());
+
+                Intent intent = new Intent(getApplicationContext(), edit_events.class);
                 Bundle b = new Bundle();
-                //Pass the date and the month selected to the add event activity
-                b.putString("agendaID", agendaID);
-                intent.putExtra("agendaEdit", b);
+                b.putInt("agendaID", tempAgendaID);
+                b.putInt("amountEvent", amountofEvent);
+                b.putString("ownerID", ownerID);
+                b.putString("dateLine", dateLine);
+                intent.putExtra("editAgenda", b);
                 startActivity(intent);
-                */
             }
         });
 
@@ -117,14 +116,6 @@ public class agenda extends ListActivity {
                 String agendaID = parts[2];
 
                 showDeleteAgendaDialog(agendaID);
-                /*
-                Intent intent = new Intent(getApplicationContext(), add_events_activity.class);
-                Bundle b = new Bundle();
-                //Pass the date and the month selected to the add event activity
-                b.putString("agendaID", agendaID);
-                intent.putExtra("agendaEdit", b);
-                startActivity(intent);
-                */
                 return true;
             }
         });
@@ -151,13 +142,10 @@ public class agenda extends ListActivity {
         alertDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-
                 Event tempEvent = findEvent(agendaIDtemp);
                 if(tempEvent != null)
                 {
                     db.deleteContact(findEvent(agendaIDtemp));
-                    Log.wtf("test", "Want to delete : " + tempEvent.getEventName());
                     finish();
                     startActivity(getIntent());
                     Toast.makeText(getApplicationContext(), "Entry deleted", Toast.LENGTH_SHORT).show();
@@ -198,7 +186,6 @@ public class agenda extends ListActivity {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         // Do something when a list item is clicked
-        Log.wtf("test", "Item clicked " + id);
     }
 
     @Override
