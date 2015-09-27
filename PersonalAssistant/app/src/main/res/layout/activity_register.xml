@@ -16,7 +16,7 @@
         android:elevation="5dp"
         android:padding="3dp"
         android:text="Register"
-        android:id="@+id/textLogin"
+        android:id="@+id/textReg"
         android:layout_weight="0.11"
         android:textSize="50dp"
         android:textColor="#ffffff"/>
@@ -24,6 +24,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Name"
         android:id="@+id/textName"
         android:layout_weight="0.02"
@@ -75,7 +76,7 @@
         android:focusableInTouchMode="true" />
 
     <Button
-        android:layout_width="262dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/buttReg"

@@ -23,4 +23,17 @@
 
     <string name="orangeTheme">#cf8500</string>
 
+    <string-array name="expenses">
+        <item>Household</item>
+        <item>Food</item>
+        <item>Credit</item>
+        <item>Clothes</item>
+        <item>Electricity</item>
+        <item>Water</item>
+        <item>Luxury</item>
+        <item>Contracts</item>
+        <item>Bonds/Loans</item>
+    </string-array>
+    <string name="spinnerText">Choose Expense Tag</string>
+
 </resources>
