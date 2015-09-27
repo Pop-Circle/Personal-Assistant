@@ -197,17 +197,6 @@ public class PaDbHelper extends SQLiteOpenHelper{
                 event.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
                 event.setEventDesc(cursor.getString(cursor.getColumnIndex("eventDesc")));
 
-                /*
-                Log.wtf("test", "ID: " + cursor.getString(cursor.getColumnIndex("eventID")));
-                Log.wtf("test", "Name: " + cursor.getString(cursor.getColumnIndex("eventName")));
-                Log.wtf("test", "Rem: " + cursor.getString(cursor.getColumnIndex("eventRem")));
-                Log.wtf("test", "OwnerID: " + cursor.getString(cursor.getColumnIndex("eventOwnerID")));
-                Log.wtf("test", "Time: " + cursor.getString(cursor.getColumnIndex("eventTime")));
-                Log.wtf("test", "Date: " + cursor.getString(cursor.getColumnIndex("eventDate")));
-                Log.wtf("test", "Desc: " + cursor.getString(cursor.getColumnIndex("eventDesc")));
-                Log.wtf("test", "-------------------------------------------");
-*/
-
                 // Adding event to list
                 eventList.add(event);
             } while (cursor.moveToNext());

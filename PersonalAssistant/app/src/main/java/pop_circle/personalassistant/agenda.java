@@ -146,12 +146,26 @@ public class agenda extends ListActivity {
         alertDialog.setTitle("Delete this entry?");
         alertDialog.setMessage("Are you sure?");
 
+        final String agendaIDtemp = agendaID;
+
         alertDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "Entry deleted", Toast.LENGTH_SHORT).show();
-                //delete then reload this page
 
+
+                Event tempEvent = findEvent(agendaIDtemp);
+                if(tempEvent != null)
+                {
+                    db.deleteContact(findEvent(agendaIDtemp));
+                    Log.wtf("test", "Want to delete : " + tempEvent.getEventName());
+                    finish();
+                    startActivity(getIntent());
+                    Toast.makeText(getApplicationContext(), "Entry deleted", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Delete failed", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -164,7 +178,21 @@ public class agenda extends ListActivity {
         alertDialog.show();
     }
 
+    private Event findEvent(String _eventID)
+    {
+        List<Event> listEvent = db.getAllEvents(dateLine, ownerID);
+        Event event = null;
+        int eventID = Integer.parseInt(_eventID.trim());
 
+        for (int i = 0; i < amountofEvent; i++) {
+            int eID = listEvent.get(i).getID();
+            if(eventID == eID)
+            {
+                return listEvent.get(i);
+            }
+        }
+        return event;
+    }
 
 
     @Override
