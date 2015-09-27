@@ -21,4 +21,6 @@
 
     <string name="title_activity_agenda">agenda</string>
 
+    <string name="orangeTheme">#cf8500</string>
+
 </resources>

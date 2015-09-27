@@ -4,6 +4,29 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="#cf8500"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_vertical"
+        android:id="@+id/linearLayout"
+        android:elevation="5dp"
+        android:padding="3dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Personalize Device"
+            android:id="@+id/personalizeHeader"
+            android:textColor="#ffffff"
+            android:paddingLeft="20dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,11 +69,14 @@
         android:visibility="invisible" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Save Settings"
         android:id="@+id/saveBut"
         android:layout_gravity="center_horizontal"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_width="262dp"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/custom_button" />
 
 </LinearLayout>

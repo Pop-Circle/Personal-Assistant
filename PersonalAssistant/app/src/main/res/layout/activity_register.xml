@@ -6,14 +6,20 @@
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="#cf8500"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_vertical"
+        android:elevation="5dp"
+        android:padding="3dp"
         android:text="Register"
         android:id="@+id/textLogin"
         android:layout_weight="0.11"
-        android:gravity="center"
         android:textSize="50dp"
-        android:elevation="2dp" />
+        android:textColor="#ffffff"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,7 +80,9 @@
         android:text="Register"
         android:id="@+id/buttReg"
         android:textSize="30dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/custom_button"
+        android:textColor="#ffffff"/>
 
     <TextView
         android:layout_width="wrap_content"
