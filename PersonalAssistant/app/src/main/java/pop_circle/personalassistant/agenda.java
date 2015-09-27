@@ -22,6 +22,9 @@ import java.util.ArrayList;
 public class agenda extends ListActivity {
 
     private ArrayList<ListItem> data;
+    PaDbHelper db;
+    String ownerID; // Need to recieve the owner ID to know who youre editing
+    String dateLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +33,16 @@ public class agenda extends ListActivity {
         //This gets the date and month that the user clicked on, passed from CalenderActivity.java
         Intent iD = getIntent();
         Bundle bD = iD.getBundleExtra("CurrentDayAgenda");
-        int datePassed = bD.getInt("date");
-        String monthPassed = bD.getString("month");
-        Log.wtf("test", "agenda : " + datePassed + monthPassed);
+        dateLine = bD.getString("dateLine");
+        ownerID = bD.getString("ownerID");
+        Log.wtf("test", "agenda : " + dateLine +  " owner Id: " + ownerID);
 
-
+        db = new PaDbHelper(this);
 
 
         // setup the data source
         this.data = new ArrayList<ListItem>();
 
-        // add some objects into the array list
-        /*ListItem item = new ListItem("Hello", "Nick");
-        ListItem item2 = new ListItem("Hello", "Nick");
-        this.data.add(item);
-        this.data.add(item2);*/
 
         ListItem item;
         for(int i = 0 ; i < 5; i++)
@@ -52,12 +50,16 @@ public class agenda extends ListActivity {
             item = new ListItem("Event " +String.valueOf(i),"12:00" , String.valueOf(i));
             this.data.add(item);
         }
+
+
         setContentView(R.layout.activity_agenda);
 
 
         //Show the month and date on the event page
         TextView a_dateMonthLabel = (TextView) findViewById(R.id.agendaMonthYear);
-        a_dateMonthLabel.setText(datePassed + " " + monthPassed);
+        a_dateMonthLabel.setText(dateLine);
+        eventAmount();
+
 
         // setup the data adaptor
         CustomAdapter adapter = new CustomAdapter(this, R.layout.agenda_list_item, this.data);
@@ -115,6 +117,16 @@ public class agenda extends ListActivity {
         });
 
     }
+
+
+    /* Show the amount of events on this day */
+    private void eventAmount(){
+        int countEvent = db.getEventCount(dateLine,ownerID);
+        TextView eventCountLabel = (TextView)findViewById(R.id.agendaEventsAmount);
+        eventCountLabel.setText("Total: " + countEvent);
+    }
+
+
 
     public void showDeleteAgendaDialog(String agendaID){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);

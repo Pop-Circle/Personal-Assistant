@@ -135,8 +135,8 @@ public class add_events_activity extends AppCompatActivity {
                 Bundle b = new Bundle();
 
                 //Pass the date and the month selected to the add event activity
-                b.putInt("date", dateSelected);
-                b.putString("month", monthSelected);
+                b.putString("dateLine", dateLine);
+                b.putString("ownerID", ownerID);
                 intent.putExtra("CurrentDayAgenda", b);
 
                 startActivity(intent);
