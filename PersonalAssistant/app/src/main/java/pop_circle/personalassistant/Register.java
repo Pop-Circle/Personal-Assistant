@@ -3,6 +3,7 @@ package pop_circle.personalassistant;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,9 +36,7 @@ public class Register extends AppCompatActivity{
         db =new PaDbHelper(this);
         regButt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(v == regButt){
                     registerUser();
-                }
             }
         });
     }
@@ -45,9 +44,11 @@ public class Register extends AppCompatActivity{
 
     public void registerUser()
     {
-        String _name = name.getText().toString().trim().toLowerCase();
-        String password = pass.getText().toString().trim().toLowerCase();
-        String em = email.getText().toString().trim().toLowerCase();
+        String _name = name.getText().toString().trim();
+        String password = pass.getText().toString().trim();
+        String em = email.getText().toString().trim();
+        Log.wtf("test", "details " + _name + " " + password + " " + em);
         db.addUser(_name, password, em);
+        finish();
     }
 }

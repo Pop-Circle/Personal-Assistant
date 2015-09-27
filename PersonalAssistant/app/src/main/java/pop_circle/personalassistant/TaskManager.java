@@ -23,7 +23,7 @@ public class TaskManager extends AppCompatActivity {
     List<Task> list;
     MyAdapter adapt;
     PaDbHelper db;
-    String user;
+    int user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         user= ((MyApplication) this.getApplication()).getLoggedUser();
