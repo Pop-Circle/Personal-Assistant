@@ -36,31 +36,34 @@ public class Budget extends AppCompatActivity {
             Intent intent = new Intent(Budget.this, Login.class);
             startActivity(intent);
         }
-        addIncome = (Button) findViewById(R.id.btnIncome);
-        addExpense = (Button) findViewById(R.id.btnExp);
-        visualize = (Button) findViewById(R.id.btnVisualize);
-        income = (TextView) findViewById(R.id.editIncome);
-        expense = (TextView) findViewById(R.id.editExp);
-        remainder = (TextView) findViewById(R.id.editRem);
-        updateValues();
-        addIncome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
+        else
+        {
+            user= ((MyApplication) this.getApplication()).getLoggedUser();
+            addIncome = (Button) findViewById(R.id.btnIncome);
+            addExpense = (Button) findViewById(R.id.btnExp);
+            visualize = (Button) findViewById(R.id.btnVisualize);
+            income = (TextView) findViewById(R.id.editIncome);
+            expense = (TextView) findViewById(R.id.editExp);
+            remainder = (TextView) findViewById(R.id.editRem);
+            updateValues();
+            addIncome.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
 
-                // get prompts.xml view
-                LayoutInflater li = LayoutInflater.from(context);
-                View promptsView = li.inflate(R.layout.popup_income, null);
+                    // get prompts.xml view
+                    LayoutInflater li = LayoutInflater.from(context);
+                    View promptsView = li.inflate(R.layout.popup_income, null);
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            context);
 
-                // set prompts.xml to alertdialog builder
-                alertDialogBuilder.setView(promptsView);
+                    // set prompts.xml to alertdialog builder
+                    alertDialogBuilder.setView(promptsView);
 
-                final EditText userInput = (EditText) promptsView
-                        .findViewById(R.id.edtInAmount);
+                    final EditText userInput = (EditText) promptsView
+                            .findViewById(R.id.edtInAmount);
 
-                popaddInc = (Button)  findViewById(R.id.addInc);
+                /*popaddInc = (Button)  findViewById(R.id.addInc);
                 popaddInc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -69,9 +72,58 @@ public class Budget extends AppCompatActivity {
                         updateValues();
                         finish();
                     }
-                });
+                });*/
 
-                // set dialog message
+                    // set dialog message
+
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            // get user input and set it to result
+                                            // edit text
+                                            //EditText amount = (EditText) findViewById(R.id.edtInAmount);
+                                            db.updateIncome(Double.parseDouble(userInput.getText().toString()), user);
+                                            updateValues();
+                                            //finish();
+                                            //result.setText(userInput.getText());
+                                        }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
+
+                }
+            });
+
+            addExpense.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+
+                    // get prompts.xml view
+                    LayoutInflater li = LayoutInflater.from(context);
+                    View promptsView = li.inflate(R.layout.popup_expense, null);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            context);
+
+                    // set prompts.xml to alertdialog builder
+                    alertDialogBuilder.setView(promptsView);
+
+                    final EditText userInput = (EditText) promptsView
+                            .findViewById(R.id.edtExAmount);
+
+                    // set dialog message
                 /*
                 alertDialogBuilder
                         .setCancelable(false)
@@ -90,61 +142,18 @@ public class Budget extends AppCompatActivity {
                                     }
                                 });*/
 
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
 
-                // show it
-                alertDialog.show();
+                    // show it
+                    alertDialog.show();
 
-            }
-        });
+                }
+            });
 
-        addExpense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
+            // popupWindow.showAsDropDown(addIncome, 50, -30);
 
-                // get prompts.xml view
-                LayoutInflater li = LayoutInflater.from(context);
-                View promptsView = li.inflate(R.layout.popup_expense, null);
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
-
-                // set prompts.xml to alertdialog builder
-                alertDialogBuilder.setView(promptsView);
-
-                final EditText userInput = (EditText) promptsView
-                        .findViewById(R.id.edtExAmount);
-
-                // set dialog message
-                /*
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        // get user input and set it to result
-                                        // edit text
-                                        result.setText(userInput.getText());
-                                    }
-                                })
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        dialog.cancel();
-                                    }
-                                });*/
-
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-
-                // show it
-                alertDialog.show();
-
-            }
-        });
-
-               // popupWindow.showAsDropDown(addIncome, 50, -30);
+        }
 
 
     }

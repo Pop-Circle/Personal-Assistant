@@ -44,14 +44,6 @@
                 android:textColor="#ffffff"
                 android:textSize="20sp"/>
 
-            <Button
-                android:id="@+id/addExp"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Add"
-                android:textColor="#ffffff"
-                android:background="@drawable/custom_button"
-                android:textSize="20sp"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

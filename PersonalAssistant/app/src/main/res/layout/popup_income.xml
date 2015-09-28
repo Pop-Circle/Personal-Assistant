@@ -32,14 +32,6 @@
                 android:textColor="#ffffff"
                 android:textSize="20dp"/>
 
-            <Button
-                android:id="@+id/addInc"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Add"
-                android:textColor="#ffffff"
-                android:background="@drawable/custom_button"
-                android:textSize="20dp"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

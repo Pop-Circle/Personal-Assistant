@@ -7,7 +7,13 @@ import android.app.Application;
  */
 public class MyApplication extends Application {
     //This class lets me make a global var of whos logged in. Cool right!?
-    private int userId = -1;
+    private int userId;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        userId = -1;
+    }
 
     public int getLoggedUser(){
         return userId;
