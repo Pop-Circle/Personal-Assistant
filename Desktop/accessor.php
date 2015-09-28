@@ -26,10 +26,10 @@
 			return false;
 	}
 	
-	function showTodo($link, $uname) 
+	function showTodo($link, $uid) 
 	{
-		$unchecked = mysqli_query($link, "SELECT * FROM tasks WHERE (username = '$uname') AND (checked = 0)");
-		$checked = mysqli_query($link, "SELECT * FROM tasks WHERE (username = '$uname') AND (checked = 1)");
+		$unchecked = mysqli_query($link, "SELECT * FROM tasks WHERE (uid = '$uid') AND (checked = 0)");
+		$checked = mysqli_query($link, "SELECT * FROM tasks WHERE (uid = '$uid') AND (checked = 1)");
 		$numUnchecked = mysqli_fetch_array($unchecked);
 		$numChecked = mysqli_fetch_array($checked);
 		
@@ -51,9 +51,19 @@
 		}
 	}
 	
-	function showEvent($link, $uname)
+	function showEvent($link, $uid,$today)
 	{	//this code is psuedo code for the convert part
-		$data = mysqli_query($link, "SELECT * FROM events WHERE (username = '$uname') AND convert(time.month) ORDER BY time ASC");
+		$date = strtotime($today);
+		$month = $date.month();
+		
+		$data = mysqli_query($link, "SELECT * FROM events WHERE (username = '$uname') AND (time = '$date') ORDER BY time ASC");
+		
+		/*
+			$time = strtotime('10/16/2003');
+			$newformat = date('Y-m-d',$time);
+			echo $newformat;
+			// 2003-10-16
+		*/
 		
 		while ($item = mysqli_fetch_array($data))
 		{
