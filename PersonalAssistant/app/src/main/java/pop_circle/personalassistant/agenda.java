@@ -179,6 +179,7 @@ public class agenda extends ListActivity {
                 return listEvent.get(i);
             }
         }
+
         return event;
     }
 
