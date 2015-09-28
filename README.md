@@ -105,4 +105,8 @@
 	Can now edit and save edited events
 	All dates with events are now shown in the calendar
 	
+-2015-09-28 : Dave
+	
+	Can now log in and out of desktop version
+	fixed calendar display but the date correlation to real date is incorrect when month is changed
 	
