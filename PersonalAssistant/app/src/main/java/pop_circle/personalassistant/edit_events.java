@@ -26,8 +26,9 @@ import android.widget.Toast;
 
 import java.sql.DatabaseMetaData;
 import java.util.Calendar;
+import java.util.List;
 
-public class add_events_activity extends AppCompatActivity {
+public class edit_events extends AppCompatActivity {
 
     private ArrayAdapter<String> mAdapter;
     private ListView mDrawerList;
@@ -46,76 +47,98 @@ public class add_events_activity extends AppCompatActivity {
     PaDbHelper db;
 
     String ownerID; // Need to recieve the owner ID to know who youre editing
+    int agendaID;
+    int amountofEvent;
+    Event currevent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.wtf("test","Entered add event screen ");
+        Log.wtf("test", "Entered edit screen");
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_events_activity);
+
 
         db = new PaDbHelper(this);
 
-        //This gets the date and month that the user clicked on, passed from CalenderActivity.java
-        Intent iDate = getIntent();
-        Bundle bDate = iDate.getBundleExtra("dateSelected");
-        int datePassed = bDate.getInt("date");
-        int monthPassed = bDate.getInt("month");
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("editAgenda");
+        agendaID = bundle.getInt("agendaID");
+        amountofEvent = bundle.getInt("amountEvent");
+        ownerID = bundle.getString("ownerID");
+        dateLine = bundle.getString("dateLine");
 
-        String monthLine = "";
-        switch(monthPassed)
-        {
-            case 1:
-                monthLine = "January";
-                break;
-            case 2:
-                monthLine = "February";
-                break;
-            case 3:
-                monthLine = "March";
-                break;
-            case 4:
-                monthLine = "April";
-                break;
-            case 5:
-                monthLine = "May";
-                break;
-            case 6:
-                monthLine = "June";
-                break;
-            case 7:
-                monthLine = "July";
-                break;
-            case 8:
-                monthLine = "August";
-                break;
-            case 9:
-                monthLine = "September";
-                break;
-            case 10:
-                monthLine = "October";
-                break;
-            case 11:
-                monthLine = "November";
-                break;
-            case 12:
-                monthLine = "December";
-                break;
-        }
+        setContentView(R.layout.activity_edit_events);
 
-        dateSelected = datePassed;
-        monthSelected= monthLine;
-        dateLine = String.valueOf(dateSelected) + "-" +  monthSelected;
+
+        currevent = findEvent(agendaID);
+
         //Show the month and date on the event page
         TextView dateMonthLabel = (TextView) findViewById(R.id.monthYear);
-        dateMonthLabel.setText(datePassed + " " + monthLine);
+        dateMonthLabel.setText(dateLine);
 
-        ownerID = String.valueOf(2); //============================================================change later
+
+        setDetails();
 
         openAgenda();
         saveEvent();
-        timePickerDialogue();
         eventAmount();
+        timePickerDialogue();
+    }
+
+
+    private Event findEvent(int _eventID)
+    {
+        List<Event> listEvent = db.getAllEvents(dateLine, ownerID);
+        Event event = null;
+        for (int i = 0; i < amountofEvent; i++) {
+            int eID = listEvent.get(i).getID();
+            if(_eventID == eID)
+            {
+                return listEvent.get(i);
+            }
+        }
+        return event;
+    }
+
+    private void setDetails()
+    {
+        //Event Name
+        EditText eventNameText = (EditText)findViewById(R.id.eventNameText);
+        eventNameText.setText(currevent.getEventName());
+
+        //Event Desc
+        EditText descriptionText = (EditText)findViewById(R.id.descriptionText);
+        descriptionText.setText(currevent.getEventDesc());
+
+        //Event Time
+        String etime = currevent.getEventTime();
+        String[] parts = etime.split(":");
+        int etimeHour = Integer.parseInt(parts[0].trim());
+        int etimeMin = Integer.parseInt(parts[1].trim());
+
+        TimePicker eventTime = (TimePicker)findViewById(R.id.eventTime);
+        eventTime.setCurrentHour(etimeHour);
+        eventTime.setCurrentMinute(etimeMin);
+
+        //Event Reminder
+        CheckBox remCheck = (CheckBox)findViewById(R.id.reminderCheckBox);
+        String erem = currevent.getEventRem();
+        String[] partsrem = erem.split(":");
+        int eremHour = Integer.parseInt(partsrem[0].trim());
+        int eremMin = Integer.parseInt(partsrem[1].trim());
+
+        //Reminder is not checked
+        if(eremHour == -1 || eremMin == -1)
+        {
+            remCheck.setChecked(false);
+        }
+        else
+        {
+            remCheck.setChecked(true);
+            hour_rem = eremHour;
+            minute_rem = eremMin;
+        }
+
     }
 
     /* Show the amount of events on this day */
@@ -152,12 +175,10 @@ public class add_events_activity extends AppCompatActivity {
             public void onClick(View v) {
 
                 checked = ((CheckBox) v).isChecked();
-                if (checked) {
+                Log.wtf("test", "checkbox Clicking " + checked ) ;
+                if(checked) {
                     //Pop up
                     showDialog(DIALOGUE_ID);
-                } else {
-                    hour_rem = -1;
-                    minute_rem = -1;
                 }
             }
         });
@@ -169,19 +190,19 @@ public class add_events_activity extends AppCompatActivity {
     @Override
     protected Dialog onCreateDialog(int id){
         if(id == DIALOGUE_ID)
-            return new TimePickerDialog(add_events_activity.this,kTimePickerListener, hour_rem, minute_rem,true);
+            return new TimePickerDialog(edit_events.this,kTimePickerListener, hour_rem, minute_rem,true);
         else
             return null;
     }
 
     /* Gets the time from the reminder  */
     protected TimePickerDialog.OnTimeSetListener kTimePickerListener = new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                    hour_rem = hourOfDay;
-                    minute_rem = minute;
-                }
-            };
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            hour_rem = hourOfDay;
+            minute_rem = minute;
+        }
+    };
 
 
     /* Takes all the information entry and add it to the DB when button is clicked */
@@ -192,7 +213,7 @@ public class add_events_activity extends AppCompatActivity {
         btnSave.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.wtf("test", "Event save button clicked");
+
 
                 EditText eventNameText = (EditText)findViewById(R.id.eventNameText);
                 EditText descText = (EditText)findViewById(R.id.descriptionText);
@@ -205,28 +226,23 @@ public class add_events_activity extends AppCompatActivity {
                 minute_time = eventTimeP.getCurrentMinute();
 
                 String eventTime = String.valueOf(hour_time) +":" + String.valueOf(minute_time);
+                String eventRem = String.valueOf(hour_rem)+":"+String.valueOf(minute_rem);
 
-                //If reminder is checked
-                String eventRem;
-                CheckBox remCheck = (CheckBox)findViewById(R.id.reminderCheckBox);
-                if(remCheck.isChecked())
-                {
-                    eventRem = String.valueOf(hour_rem)+":"+String.valueOf(minute_rem);
-                }
-                else
-                {
-                    eventRem = "-1:-1";
-                }
+                Log.wtf("test","EVENT ID " + eventNameText.getId());
 
 
-                Log.wtf("test", "input read : Event name: " + eventName + " description: " + desc + " reminder: " + hour_rem + ":" + minute_rem + " Event Time: " + hour_time+":"+minute_time);
+                currevent.setEventName(eventName);
+                currevent.setEventDesc(desc);
+                currevent.setEventRem(eventRem);
+                currevent.setEventTime(eventTime);
 
-                db.addEvent(new Event(eventName, eventTime, desc, dateLine, ownerID, eventRem));
 
-                Toast.makeText(add_events_activity.this, "Event saved",
+                int update = db.updateEvent(currevent);
+                Log.wtf("test", " UPDATE : " + update);
+
+                Toast.makeText(edit_events.this, "Event updated",
                         Toast.LENGTH_SHORT).show();
 
-                Log.wtf("test", "Event saved: Event name: " + eventName + " description: " + desc + " reminder: " + eventRem + " Event Time: " + eventTime);
 
             }
         });

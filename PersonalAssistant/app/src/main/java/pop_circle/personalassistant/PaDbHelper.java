@@ -189,17 +189,38 @@ public class PaDbHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+
+        String time = event.getEventTime();
+        String[] timearr = time.split(":");
+        String hour = timearr[0].trim();
+        String min = timearr[1].trim();
+
+        if(hour.length() == 1)
+        {
+            hour = "0"+hour;
+        }
+        if(min.length() == 1)
+        {
+            min = "0"+min;
+        }
+
+        time = hour +":"+min;
+
         values.put(EVENT_NAME, event.getEventName());
         values.put(EVENT_DESC, event.getEventDesc());
         values.put(EVENT_DATE, event.getEventDate());
         values.put(EVENT_OWNERID, event.getEventOwnerID());
-        values.put(EVENT_TIME, event.getEventTime());
+        //values.put(EVENT_TIME, event.getEventTime());
+        values.put(EVENT_TIME, time);
         values.put(EVENT_REM, event.getEventRem());
 
         db.insert(EVENT_TABLE, null, values);
         db.close(); // Closing database connection
 
     }
+
+
+
 
     /* Reading event details */
     //Return everything on one row
@@ -283,8 +304,10 @@ public class PaDbHelper extends SQLiteOpenHelper{
         values.put(EVENT_DESC, event.getEventDesc());
         values.put(EVENT_REM, event.getEventRem());
 
+        Log.wtf("test", event.getEventName()+" "+event.getEventRem()+" "+event.getEventTime()+" "
+                +" "+event.getEventDesc() + " id " +event.getID());
         // updating row
-        return db.update(EVENT_TABLE, values, EVENT_ID + " = ?",
+        return db.update(EVENT_TABLE, values, "eventID = ?",
                 new String[]{String.valueOf(event.getID())});
     }
 
@@ -296,7 +319,7 @@ public class PaDbHelper extends SQLiteOpenHelper{
         db.close();
     }
 
-    /************************************** login stuffs*****************/
+    /************************************** login stuffs**********************************/
      /* Test Login */
     public int login(String _name, String _pass)
     {

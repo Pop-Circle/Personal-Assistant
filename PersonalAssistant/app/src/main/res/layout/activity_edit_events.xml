@@ -1,0 +1,174 @@
+<!-- Jackie -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="pop_circle.personalassistant.add_events_activityFragment"
+    android:padding="0dp">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#cf8500"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_vertical"
+        android:id="@+id/topBarLayout"
+        android:elevation="5dp"
+        android:padding="3dp">
+
+        <ImageButton
+            android:id="@+id/agendaButton"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="@android:dimen/app_icon_size"
+            android:background="@android:drawable/ic_menu_agenda" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Month Year"
+            android:id="@+id/monthYear"
+            android:textColor="#ffffff"
+            android:paddingLeft="20dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Events: 0"
+            android:id="@+id/eventAmount"
+            android:paddingRight="5dp"
+            android:textColor="#2b2b2b" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/topBarLayout">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:layout_below="@+id/topBarLayout"
+            android:weightSum="1"
+            android:scrollIndicators="right">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Event name:"
+                    android:id="@+id/eventNameLabel"
+                    android:textColor="#010101"
+                    android:paddingRight="20dp" />
+
+                <EditText
+                    android:id="@+id/eventNameText"
+                    android:layout_width="fill_parent"
+                    android:labelFor="@+id/eventNameLabel"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Description:"
+                    android:id="@+id/descriptionLabel"
+                    android:textColor="#010101"
+                    android:paddingRight="20dp" />
+
+
+                <EditText
+                    android:id="@+id/descriptionText"
+                    android:labelFor="@+id/descriptionLabel"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textLongMessage" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Reminder:"
+                        android:id="@+id/reminderLabel"
+                        android:textColor="#010101"
+                        android:paddingRight="20dp" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Set a reminder"
+                        android:id="@+id/reminderCheckBox" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:gravity="center">
+
+                <TimePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/eventTime"
+                    android:elevation="5dp" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/saveEventBtn"
+                android:layout_gravity="center"
+                android:text="Save events"
+                android:background="@drawable/custom_button" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
