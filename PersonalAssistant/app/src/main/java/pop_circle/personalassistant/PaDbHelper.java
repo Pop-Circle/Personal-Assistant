@@ -243,7 +243,6 @@ public class PaDbHelper extends SQLiteOpenHelper{
     }
 
     //return all the event info on a SPECIFIC day for a SPECIFIC user
-    //return all the event info on a SPECIFIC day for a SPECIFIC user
     public List<Event> getAllEvents(String selectedDate, String ownerID)
     {
         List<Event> eventList = new ArrayList<Event>();
@@ -274,7 +273,29 @@ public class PaDbHelper extends SQLiteOpenHelper{
         return eventList;
     }
 
+    /* Get all the dates with events*/
+    public List<String> getAllEventDates()
+    {
 
+
+        List<String> eventDates = new ArrayList<String>();
+        // Select All Query
+        String selectQuery = "SELECT  "+EVENT_DATE+" FROM " + EVENT_TABLE;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                // Adding contact to list
+                eventDates.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        return eventDates;
+    }
 
     /* Number of events on a specific day */
     public int getEventCount(String dateSelected, String ownerID)

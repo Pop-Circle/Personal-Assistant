@@ -100,3 +100,9 @@
 	added some db functionality, not yet working.
 	Created class for housing users ID once logged in and making it global.
 	
+-2015-09-28 : Jackie
+	
+	Can now edit and save edited events
+	All dates with events are now shown in the calendar
+	
+	
