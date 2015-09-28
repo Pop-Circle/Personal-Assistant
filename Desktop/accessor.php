@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	
+	//isset($_SESSION['user'])
 	$name = "root";
 	$password = "";
 	//$password = "root";

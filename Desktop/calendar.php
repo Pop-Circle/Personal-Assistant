@@ -4,7 +4,7 @@
 
 <body  onload = "start()">
 	<h1 id="month" align="center"></h1>
-        <table align="center" border=1 cellpadding=2>
+        <table id = "calGrid" align="center" border=1 cellpadding=2>
             <tr>
                 <th>S</th>
                 <th>M</th>

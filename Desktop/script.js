@@ -1,47 +1,14 @@
 var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-/*might want to consider leap years as well, not sure how your array works so not sure how to change it
-	but instead of an array, try make it that even numbers in monthNames[] are 31 and odd numbers are 30 except for 1
-	
-	Example:		array					month	maxDays	isFeb
-					monthNames[0] -> January 	31
-					monthNames[3] -> April		30 			3!= 1
-					monthNames[1] -> February	28 			1==1
-				leap year check: 	year				leap year	MaxDaysFeb
-										2016%4 = 0 	true			29
-										2015%4 != 0	false			28
-										
-										
-	basically
-	if (date.month%2 == 0)
-	{	
-		//even number
-		maxDays = 31;
-	}
-	else
-	{
-		//odd number
-		if (date.month == 1)
-		{
-			//is February
-			if (date.year%4 == 0)
-			{
-				//leap year
-				maxDays = 29;
-			}
-			else
-				maxDays = 28;
-		}
-	}
-		
-*/
+//var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 //var d = new Date(2015, 11, 12);
 var d = new Date();
 
 function start()
 {
-	document.getElementById("month").innerHTML = monthNames[d.getMonth()];
+	clearTable();
+	//$("#month").html(monthNames[d.getMonth()] + " " + d.getYear());
+	$("#month").html(monthNames[d.getMonth()]);
 	var month = d.getMonth();
 	var year = d.getYear();
 	if (year < 1000){
@@ -55,7 +22,8 @@ function start()
 	var x = firstDay;
 	document.getElementById("1."+firstDay).innerHTML = "1";
 	for(var i=1; i<=5; i++){
-		while(x <= 6 && count <= daysInMonth[d.getMonth()]){
+		//while(x <= 6 && count <= daysInMonth[d.getMonth()]){
+		while(x <= 6 && count <= daysInMonth(d)){
 			document.getElementById(i+"."+x).style.clear;
 			if(count == d.getDate()){
 				document.getElementById(i+"."+x).innerHTML = count;
@@ -69,13 +37,42 @@ function start()
 	}
 }
 
+function daysInMonth(date)
+{
+	if (date.month%2 == 0)	//even number (January is 0)
+		return maxDays = 31;
+	else
+	{
+		if (date.month == 1)	//odd number
+		{
+			if (date.year%4 == 0)	//is February
+				return maxDays = 29;	//leap year
+			else
+				return maxDays = 28;
+		}
+		else
+			return 30;
+	}
+}
+
+function clearTable()
+{
+	var tRows = $("td").length;
+	//alert(tRows);
+	var i;
+	for (i in $("td"))
+	{
+		$("td").css("background-color", "");
+		$("td").empty();
+	}
+}
+
 function doThis(){
 	window.location="today.html";
 }
 
 
 function decMonth(){
-	//alert("decMonth()");
 	var month = d.getMonth();
 	var year = d.getYear();
 	var day = d.getDate();
@@ -88,8 +85,7 @@ function decMonth(){
 }
 
 function incMonth(){
-	//alert("decMonth()");
-	/*
+
 	var month = d.getMonth();
 	var year = d.getYear();
 	var day = d.getDate();
@@ -99,15 +95,58 @@ function incMonth(){
 		d = new Date(year, month+1,day);
 	
 	start();
-	*/
 }
 
 function login()
 {
-	var lg = document.getElementById("lg").value;
-	var pw = document.getElementById("pw").value;
+	var lg = $("#lg").val();
+	var pw = $("#pw").val();
 	
-	/*ajax call to loginCheck();
-		if returns true go to calendar with events
-	*/
+	if (lg == "" || pw == "")
+		alert("Please fill in both fields");
+	else
+	{
+		var user = {
+			"username":lg,
+			"password":pw
+		};
+		
+		var strUser = JSON.stringify(user);
+		//alert(strUser);
+		$.ajax({
+			type: "POST",
+			url: "loginCheck.php",
+			data: {obj: strUser},
+			success:function(data)
+			{
+				if (data == true)
+				{
+					backToCalendar();
+				}
+				else
+				{
+					alert("Credentials incorrect");
+					location.reload();
+				}
+			}
+		});
+	}
+}
+
+function backToCalendar()
+{
+	window.location="calendar.php";
+}
+
+function logout()
+{
+	$.ajax({
+		type: "POST",
+		url: "logout.php",
+		success:function(data)
+		{
+			alert("Logged out");
+			location.reload();
+		}
+	});
 }
