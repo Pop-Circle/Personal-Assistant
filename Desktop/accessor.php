@@ -65,19 +65,46 @@
 		
 	}
 	
-	function showEvent($today)
-	{	//this code is psuedo code for the convert part
-		$date = strtotime($today);
-		$month = $date.month();
+	function loadEvents($link,$month, $day)
+	{
 		
-		$data = mysqli_query($link, "SELECT * FROM events WHERE (username = '$uname') AND (time = '$date') ORDER BY time ASC");
+		$uid = $_SESSION["user"]["userId"];
+		$eventDate = $day."-".$month;
+		$data = mysqli_query($link, "SELECT * FROM eventtable WHERE (eventOwnerID = '$uid') AND (eventDate = '$eventDate') ORDER BY eventTime ASC")or die("Failed to fetch events.".mysqli_error($link));
+		//sorting by eventTime because this only selects events of a specified date(e.g 29-September)
+		$numEvent = mysqli_num_rows($data);
 		
+		if ($numEvent > 0)
+		{
+			if ($numEvent > 1)
+			{
+				$result = '{"day":[';
+				while ($item = mysqli_fetch_array($data))
+					$result .='{"id":"'.$item['eventID'].'","name":"'.$item['eventName'].'","time":"'.$item['eventTime'].'","desc":"'.$item['eventDesc'].'","reminder":"'.$item['eventRem'].'"},';
+
+				$result = rtrim($result, ",");
+
+			return $result.'], "size":"'.$numEvent.'"}';
+			}
+			else
+			{
+				$result = "";
+				while ($item = mysqli_fetch_array($data))
+					$result .='{"id":"'.$item['eventID'].'","name":"'.$item['eventName'].'","time":"'.$item['eventTime'].'","desc":"'.$item['eventDesc'].'","reminder":"'.$item['eventRem'].'"},';
+
+				$result = rtrim($result, ",");
+
+				return $result;
+			}
+		}
+		
+		return "noEvent";
 		/*
 			$time = strtotime('10/16/2003');
 			$newformat = date('Y-m-d',$time);
 			echo $newformat;
 			// 2003-10-16
-		*/
+		
 		
 		while ($item = mysqli_fetch_array($data))
 		{
@@ -89,5 +116,6 @@
 			//reminders
 			//busy/avaiable
 		}
+		*/
 	}
 ?>

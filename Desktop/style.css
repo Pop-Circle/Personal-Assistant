@@ -13,28 +13,31 @@ body
 
 td.currentday
 {
+	border-style: solid;
+    border-width: 2px;
+	border-color: silver;
+	/*
 	color: white;
 	background-color: silver;
-	text-align: center;
+	*/
 }
 
 td.currentday:hover
 {
 	color: white;
-	background-color: grey;
+	background-color: #718d98;
 }
 
 td.currentmonth
 {
 	color: black;
 	background-color: white;
-	text-align: center;
 }
 
 td.currentmonth:hover
 {
 	color: white;
-	background-color: grey;
+	background-color: #718d98;
 }
 
 tr.weekdays td
@@ -73,7 +76,7 @@ tr.weekdays td
 	text-decoration: none;
 	color: white;
 	padding: 10px;
-	background-color: #6e8397;
+	background-color: #718d98;
 }
 
 div
@@ -89,4 +92,20 @@ div
 .checked li
 {
 	list-style-image: url('icons/checked-small.png');
+}
+
+.eList li
+{
+	list-style-type: none;
+	color: black;
+}
+
+.eDay:nth-child(even)
+{
+	background-color: #f2eadf;
+}
+
+.eDay:nth-child(odd)
+{
+	background-color: white;
 }
