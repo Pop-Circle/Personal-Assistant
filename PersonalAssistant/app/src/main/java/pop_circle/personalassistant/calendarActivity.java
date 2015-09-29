@@ -50,8 +50,6 @@ public class calendarActivity extends AppCompatActivity {
     /* Sets the alarm for the current day */
     private void setAlarm()
     {
-
-
         List<Event> listDates = db.getEventEverything();
         List<Event> today = new ArrayList<Event>();
         List<String> dates = new ArrayList<String>();
@@ -342,7 +340,7 @@ public class calendarActivity extends AppCompatActivity {
 
         // Setup Caldroid
         caldroidFragment.setCaldroidListener(listener);
-        //setAlarm();
-        setAlarm();
+  
+       // setAlarm();
     }
 }
