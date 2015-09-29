@@ -123,3 +123,9 @@
 	Implemented the reminder for events
 		Shows a notification when the reminder is triggered
 	
+-2015-09-29 : Tilesh
+
+	Fully implemented Budget feature
+	Adapted Task Manager to work with new tables
+	Task update doesn't work for some odd reason
+	Created Home activity and layout to travel between Activities
