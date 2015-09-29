@@ -71,17 +71,6 @@ public class TaskManager extends AppCompatActivity {
          * Here we are going to code that the checkbox state is the status of task and
          * check box text is the task name
          */
-        /*@Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View rowView = inflater.inflate(R.layout.listitems, parent, false);
-              CheckBox chk=(CheckBox)rowView.findViewById(R.id.checkBox1);
-            Task current = taskList.get(position);
-             chk.setText(current.getName());
-             chk.setChecked(current.getChecked() == 1 ? true : false);
-            return rowView;
-        }*/
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             CheckBox chk = null;

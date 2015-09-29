@@ -23,5 +23,6 @@ dependencies {
     compile fileTree(dir: 'lib', include: ['*.jar'])
     compile fileTree(dir: 'libraries', include: ['caldroid'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.roomorama:caldroid:2.2.0';
+    compile 'com.roomorama:caldroid:2.2.0'
+    compile files('libraries/mpandroidchartlibrary-2-1-4.jar')
 }

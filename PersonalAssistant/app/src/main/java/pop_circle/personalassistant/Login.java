@@ -52,7 +52,9 @@ public class Login extends AppCompatActivity{
         {
 
             ((MyApplication) this.getApplication()).setUserId(db.getUserId(name.getText().toString()));
-            Log.wtf("THE USER WHOM HAS LOGGETH IN", "details " + ((MyApplication) this.getApplication()).getLoggedUser());
+            //Intent returnIntent = new Intent();
+            //returnIntent.putExtra("result","finish");
+            //setResult(RESULT_OK,returnIntent);
             finish();
         }
         else

@@ -32,8 +32,15 @@
                 android:textColor="#ffffff"
                 android:textSize="20dp"/>
 
+            <TextView
+                android:layout_width="289dp"
+                android:layout_height="wrap_content"
+                android:text="Choose Expense Type"
+                android:textColor="#ffffff"
+                android:id="@+id/txtChoose" />
+
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/spinEx"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
@@ -42,7 +49,9 @@
                 android:prompt="@string/spinnerText"
                 android:spinnerMode="dropdown"
                 android:textColor="#ffffff"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:clickable="false"
+                android:elevation="3dp" />
 
         </LinearLayout>
     </LinearLayout>

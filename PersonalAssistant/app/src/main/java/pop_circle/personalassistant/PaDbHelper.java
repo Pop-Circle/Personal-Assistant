@@ -150,17 +150,18 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
     public List<Task> getAllTasks(int _user) { // need to change so just get current users info
         List<Task> taskList = new ArrayList<Task>();
 // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_TASKS;
-        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "SELECT  * FROM tasks WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(_user)};
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 Task task = new Task();
-                task.setId(cursor.getInt(0));
+                task.setId(cursor.getInt(cursor.getColumnIndex("TaskUserId")));
                 //task.setName(cursor.getString(1));
                 task.setName(cursor.getString(cursor.getColumnIndex("taskName")));
-                task.setChecked(cursor.getInt(2));
+                task.setChecked(cursor.getInt(cursor.getColumnIndex("checked")));
 
 // Adding contact to list
                 taskList.add(task);
@@ -395,13 +396,155 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
     public double getExpense(int userid)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT income FROM budget WHERE TaskUserId = ?";
+        String query = "SELECT totalExpenses FROM budget WHERE TaskUserId = ?";
         String[] parameters = new String[] {String.valueOf(userid)};
         Cursor cursor = db.rawQuery(query, parameters);
         if (cursor.moveToFirst())
             return cursor.getDouble(cursor.getColumnIndex("totalExpenses"));
         else
             return -1; // not found
+    }
+
+
+    public double getHouse(int userid)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT household FROM budget WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(userid)};
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getDouble(cursor.getColumnIndex("household"));
+        else
+            return -1; // not found
+    }
+
+    public double getFood(int userid)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT food FROM budget WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(userid)};
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getDouble(cursor.getColumnIndex("food"));
+        else
+            return -1; // not found
+    }
+    public double getCredit(int userid)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT credit FROM budget WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(userid)};
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getDouble(cursor.getColumnIndex("credit"));
+        else
+            return -1; // not found
+    }
+    public double getClothes(int userid)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT clothes FROM budget WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(userid)};
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getDouble(cursor.getColumnIndex("clothes"));
+        else
+            return -1; // not found
+    }
+    public double getLux(int userid)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT luxury FROM budget WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(userid)};
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getDouble(cursor.getColumnIndex("luxury"));
+        else
+            return -1; // not found
+    }
+    public double getCon(int userid)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT contracts FROM budget WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(userid)};
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getDouble(cursor.getColumnIndex("contracts"));
+        else
+            return -1; // not found
+    }
+    public double getLoans(int userid)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT loans FROM budget WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(userid)};
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getDouble(cursor.getColumnIndex("loans"));
+        else
+            return -1; // not found
+    }
+    /*<item>Household</item>
+       <item>Food</item>
+       <item>Credit</item>
+       <item>Clothes</item>
+       <item>Luxury</item>
+       <item>Contracts</item>
+       <item>Bonds/Loans</item>*/
+    public void UpdateExpense(double _val,String tag,int userid)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        double newVal;
+        newVal = _val + getExpense(userid);
+        values.put(KEY_TOTEX, newVal);
+        switch(tag) {
+            case "Household": {
+                double otherVal = _val + getHouse(userid);
+                values.put(KEY_HOUSEHOLD, otherVal);
+                Log.wtf("EXPENSE", "Tag:" + tag + otherVal);
+                break;
+            }
+            case "Food": {
+                double otherVal = _val + getFood(userid);
+                values.put(KEY_FOOD, otherVal);
+                Log.wtf("EXPENSE", "Tag:" + tag + otherVal);
+                break;
+            }
+            case "Credit": {
+                double otherVal = _val + getCredit(userid);
+                values.put(KEY_CREDIT, otherVal);
+                Log.wtf("EXPENSE", "Tag:" + tag + otherVal);
+                break;
+            }
+            case "Clothes": {
+                double otherVal = _val + getClothes(userid);
+                values.put(KEY_CLOTHES, otherVal);
+                Log.wtf("EXPENSE", "Tag:" + tag + otherVal);
+                break;
+            }
+            case "Luxury": {
+                double otherVal = _val + getLux(userid);
+                values.put(KEY_LUXURY, otherVal);
+                Log.wtf("EXPENSE", "Tag:" + tag + otherVal);
+                break;
+            }
+            case "Contracts": {
+                double otherVal = _val + getCon(userid);
+                values.put(KEY_CONTRACTS, otherVal);
+                Log.wtf("EXPENSE", "Tag:" + tag + otherVal);
+                break;
+            }
+            case "Bonds/Loans": {
+                double otherVal = _val + getLoans(userid);
+                values.put(KEY_LOANS, otherVal);
+                Log.wtf("EXPENSE", "Tag:" + tag + otherVal);
+                break;
+            }
+        }
+
+        db.update(TABLE_BUDGET, values, KEY_BUDGETIDTASK + " = ?",
+                new String[]{String.valueOf(userid)});
     }
 
 }
