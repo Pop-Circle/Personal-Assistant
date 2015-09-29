@@ -87,13 +87,6 @@ public class Budget extends AppCompatActivity {
         });
 
 
-        if (user == -1)
-        {
-            Intent intent = new Intent(Budget.this, Login.class);
-            startActivityForResult(intent, 1);
-        }
-
-
     }
 
 

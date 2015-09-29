@@ -148,20 +148,27 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
     }
 
     public List<Task> getAllTasks(int _user) { // need to change so just get current users info
+        /*SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT contracts FROM budget WHERE TaskUserId = ?";
+        String[] parameters = new String[] {String.valueOf(userid)};
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getDouble(cursor.getColumnIndex("contracts"));
+        else
+            return -1; // not found*/
         List<Task> taskList = new ArrayList<Task>();
 // Select All Query
-        String selectQuery = "SELECT  * FROM tasks WHERE TaskUserId = ?";
-        String[] parameters = new String[] {String.valueOf(_user)};
-        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM tasks" + TABLE_TASKS;
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 Task task = new Task();
-                task.setId(cursor.getInt(cursor.getColumnIndex("TaskUserId")));
+                task.setId(cursor.getInt(0));
                 //task.setName(cursor.getString(1));
                 task.setName(cursor.getString(cursor.getColumnIndex("taskName")));
-                task.setChecked(cursor.getInt(cursor.getColumnIndex("checked")));
+                task.setChecked(cursor.getInt(2));
 
 // Adding contact to list
                 taskList.add(task);
