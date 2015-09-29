@@ -15,5 +15,9 @@
 	
 	<div id = "headwrap">
 		<a href= "index.php" class = "homeB" title = "go back to Index">Home</a>
+<?php
+	if (isset($_SESSION['user']))
+		echo '<a href= "calendar.php" class = "homeB" title = "go to Calendar">Calendar</a>';
+?>
 	</div>
 </head>
