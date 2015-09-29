@@ -26,32 +26,46 @@
 			return false;
 	}
 	
-	function showTodo($link, $uid) 
+	function showTodo($link) 
 	{
-		$unchecked = mysqli_query($link, "SELECT * FROM tasks WHERE (uid = '$uid') AND (checked = 0)");
-		$checked = mysqli_query($link, "SELECT * FROM tasks WHERE (uid = '$uid') AND (checked = 1)");
-		$numUnchecked = mysqli_fetch_array($unchecked);
-		$numChecked = mysqli_fetch_array($checked);
+		$uid = $_SESSION["user"]["userId"];
+		$unchecked = mysqli_query($link, "SELECT * FROM tasks WHERE (TaskUserId = '$uid') AND (checked = 0)")or die("Failed to fetch unchecked.".mysqli_error($link));
+		$checked = mysqli_query($link, "SELECT * FROM tasks WHERE (TaskUserId = '$uid') AND (checked = 1)")or die("Failed to fetch checked.".mysqli_error($link));
+		
+		$numUnchecked = mysqli_num_rows($unchecked);
+		$numChecked = mysqli_num_rows($checked);
 		
 		if ($numUnchecked > 0)
 		{
+			echo "<list class = 'unchecked'>";
 			while ($item = mysqli_fetch_array($unchecked))
 			{
 				//echo task name as html
+				//$ulist += "<li>".$item["taskName"]."</li>";
+				echo "<li>".$item["taskName"]."</li>";
 			}
+			
+			echo "</list>";
+			//return $ulist;
 		}
+		
 		
 		if ($numChecked > 0)
 		{
 			//maybe output a line of separation between unchecked and checked
+			echo "<p>-----------------------------------------</p>";
+			echo "<list class = 'checked'>";
 			while ($item = mysqli_fetch_array($checked))
 			{
 				//echo each task name as html
+				echo "<li>".$item["taskName"]."</li>";
 			}
+			echo "</list>";
 		}
+		
 	}
 	
-	function showEvent($link, $uid,$today)
+	function showEvent($today)
 	{	//this code is psuedo code for the convert part
 		$date = strtotime($today);
 		$month = $date.month();

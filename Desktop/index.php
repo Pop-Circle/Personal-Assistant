@@ -3,9 +3,11 @@
 	
 	if (isset($_SESSION['user']))
 		echo '<body>
-				<p>You are already logged in</p>
-				<button onclick = "logout()">Logout</button>
-				<button onclick = "backToCalendar()">Back</button>
+				<div id = "lgContainer">
+					<button onclick = "backToCalendar()">Back</button>
+					<p>You are already logged in</p> 
+					<button onclick = "logout()">Logout</button>
+				</div>
 			</body>';
 	else
 	{

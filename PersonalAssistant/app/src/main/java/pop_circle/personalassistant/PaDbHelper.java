@@ -121,31 +121,7 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
         db.close(); // Closing database connection
     }
 
-    public long addUser(String _name, String _pass, String em) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(KEY_USERNAME, _name); // username
-        values.put(KEY_PASSWORD, _pass);
-        values.put(KEY_EMAIL, em);
-        long k = db.insert(TABLE_USERS, null, values);
-// Inserting Row
-        //To set up budget table
-        ContentValues valuesBudget = new ContentValues();
-        valuesBudget.put(KEY_BUDGETIDTASK, getUserId(_name));
-        valuesBudget.put(KEY_INCOME, "0");
-        valuesBudget.put(KEY_TOTEX, "0");
-        valuesBudget.put(KEY_HOUSEHOLD, "0");
-        valuesBudget.put(KEY_FOOD, "0");
-        valuesBudget.put(KEY_CREDIT, "0");
-        valuesBudget.put(KEY_CLOTHES, "0");
-        valuesBudget.put(KEY_LUXURY, "0");
-        valuesBudget.put(KEY_CONTRACTS, "0");
-        valuesBudget.put(KEY_LOANS, "0");
-        long i = db.insert(TABLE_BUDGET, null, valuesBudget);
 
-        db.close(); // Closing database connection
-        return i;
-    }
 
     public List<Task> getAllTasks(int _user) { // need to change so just get current users info
         /*SQLiteDatabase db = this.getReadableDatabase();
@@ -365,6 +341,32 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
         return result;
     }
 
+    public long addUser(String _name, String _pass, String em) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_USERNAME, _name); // username
+        values.put(KEY_PASSWORD, _pass);
+        values.put(KEY_EMAIL, em);
+        long k = db.insert(TABLE_USERS, null, values);
+// Inserting Row
+        //To set up budget table
+        ContentValues valuesBudget = new ContentValues();
+        valuesBudget.put(KEY_BUDGETIDTASK, getUserId(_name));
+        valuesBudget.put(KEY_INCOME, "0");
+        valuesBudget.put(KEY_TOTEX, "0");
+        valuesBudget.put(KEY_HOUSEHOLD, "0");
+        valuesBudget.put(KEY_FOOD, "0");
+        valuesBudget.put(KEY_CREDIT, "0");
+        valuesBudget.put(KEY_CLOTHES, "0");
+        valuesBudget.put(KEY_LUXURY, "0");
+        valuesBudget.put(KEY_CONTRACTS, "0");
+        valuesBudget.put(KEY_LOANS, "0");
+        long i = db.insert(TABLE_BUDGET, null, valuesBudget);
+
+        db.close(); // Closing database connection
+        return i;
+    }
+
     public int getUserId(String userName) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT userId FROM users WHERE userName = ?";
@@ -374,6 +376,17 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
             return cursor.getInt(cursor.getColumnIndex("userId"));
         else
             return -1; // not found
+    }
+
+    public String getUserName(int userid) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT username FROM users WHERE userId = ?";
+        String[] parameters = new String[] { String.valueOf(userid) };
+        Cursor cursor = db.rawQuery(query, parameters);
+        if (cursor.moveToFirst())
+            return cursor.getString(cursor.getColumnIndex("username"));
+        else
+            return null; // not found
     }
 
     /*********************************** Budget Stuff************************************/
