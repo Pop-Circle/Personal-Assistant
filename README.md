@@ -110,3 +110,12 @@
 	Can now log in and out of desktop version
 	fixed calendar display but the date correlation to real date is incorrect when month is changed
 	
+-2015-09-29 : Dave
+	
+	Desktop Version
+		to do list is shown when today's date is clicked on
+		separation of unchecked and checked for to do list implemented
+		fixed calendar logic with borrowed code, just need Brian to approve of replaement
+		calendar only works for 2015
+	
+	
