@@ -117,5 +117,6 @@
 		separation of unchecked and checked for to do list implemented
 		fixed calendar logic with borrowed code, just need Brian to approve of replaement
 		calendar only works for 2015
+		added basic styling
 	
 	
