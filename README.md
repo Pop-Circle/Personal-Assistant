@@ -118,5 +118,8 @@
 		fixed calendar logic with borrowed code, just need Brian to approve of replaement
 		calendar only works for 2015
 		added basic styling
-	
+
+-2015-09-29 : Jackie
+	Implemented the reminder for events
+		Shows a notification when the reminder is triggered
 	

@@ -80,10 +80,13 @@ public class Personalize extends AppCompatActivity {
                     sleepSet.set(Calendar.MINUTE, tSleep.getCurrentMinute());
                     sleepSet.set(Calendar.SECOND, 0);
                     String alarm = ALARM_SERVICE;
+
                     Intent receiverSilentIntent = new Intent(context, silent.class);
                     AlarmManager am = (AlarmManager) Personalize.this.getSystemService(alarm);
+
 //create a pending intent to be called at sleep time
                     PendingIntent sleepPI = PendingIntent.getBroadcast(context, 123456789, receiverSilentIntent, 0);
+
                     //PendingIntent sleepPI = PendingIntent.getService(Personalize.this, 0, new Intent("imy320.personalassistant.silent"), PendingIntent.FLAG_UPDATE_CURRENT);
 //schedule time for pending intent, and set the interval to day so that this event will repeat at the selected time every day
                     am.setRepeating(AlarmManager.RTC_WAKEUP, sleepSet.getTimeInMillis(), AlarmManager.INTERVAL_DAY, sleepPI);

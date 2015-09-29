@@ -226,10 +226,13 @@ public class edit_events extends AppCompatActivity {
                 minute_time = eventTimeP.getCurrentMinute();
 
                 String eventTime = String.valueOf(hour_time) +":" + String.valueOf(minute_time);
-                String eventRem = String.valueOf(hour_rem)+":"+String.valueOf(minute_rem);
 
-                Log.wtf("test","EVENT ID " + eventNameText.getId());
-
+                String eventRem;
+                CheckBox remCheck = (CheckBox)findViewById(R.id.reminderCheckBox);
+                if(remCheck.isChecked())
+                    eventRem = String.valueOf(hour_rem)+":"+String.valueOf(minute_rem);
+                else
+                    eventRem = "-1:-1";
 
                 currevent.setEventName(eventName);
                 currevent.setEventDesc(desc);
@@ -238,7 +241,6 @@ public class edit_events extends AppCompatActivity {
 
 
                 int update = db.updateEvent(currevent);
-                Log.wtf("test", " UPDATE : " + update);
 
                 Toast.makeText(edit_events.this, "Event updated",
                         Toast.LENGTH_SHORT).show();
