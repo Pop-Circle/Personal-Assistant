@@ -263,7 +263,7 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
     public List<String> getAllEventDates()
     {
 
-
+//asdasdasdas
         List<String> eventDates = new ArrayList<String>();
         // Select All Query
         String selectQuery = "SELECT  "+EVENT_DATE+" FROM " + EVENT_TABLE;
