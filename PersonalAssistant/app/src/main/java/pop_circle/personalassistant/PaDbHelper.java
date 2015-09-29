@@ -19,6 +19,7 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
     private static final String TABLE_TASKS = "tasks";
     private static final String TABLE_USERS= "users";
     private static final String TABLE_BUDGET= "budget";
+    //FOR TASKS SQL
     private static final String KEY_USERIDTASK ="TaskUserId";
     private static final String KEY_TASKNAME = "taskName";
     private static final String KEY_CHECKED = "checked";
@@ -117,7 +118,7 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
 // status of task- can be 0 for not done and 1 for done
         values.put(KEY_CHECKED, task.getChecked());
 // Inserting Row
-        db.insert(TABLE_TASKS, null, values);
+        task.setId((int)db.insert(TABLE_TASKS, null, values));
         db.close(); // Closing database connection
     }
 
@@ -134,9 +135,10 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
             return -1; // not found*/
         List<Task> taskList = new ArrayList<Task>();
 // Select All Query
-        String selectQuery = "SELECT  * FROM tasks" + TABLE_TASKS;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        String selectQuery = "SELECT  * FROM  tasks WHERE TaskUserId = ?";// + TABLE_TASKS;
+        String[] parameters = new String[] {String.valueOf(_user)};
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, parameters);
 // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
@@ -162,6 +164,9 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
         values.put(KEY_CHECKED, task.getChecked());
         db.update(TABLE_TASKS, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(task.getId())});
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+       // db.execSQL("UPDATE tasks SET checked = 1 WHERE id = " + task.getId());
     }
 
 

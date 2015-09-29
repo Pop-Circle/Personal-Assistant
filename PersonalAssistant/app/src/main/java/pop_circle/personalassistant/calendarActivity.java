@@ -52,7 +52,7 @@ public class calendarActivity extends AppCompatActivity {
     {
 
 
-        List<Event> listDates = db.getEventEverything();
+        /*List<Event> listDates = db.getEventEverything();
         List<Event> today = new ArrayList<Event>();
         List<String> dates = new ArrayList<String>();
         Calendar c = Calendar.getInstance();
@@ -126,7 +126,7 @@ public class calendarActivity extends AppCompatActivity {
 
 
         }
-        createAlarm(today);
+        createAlarm(today);*/
     }
 
     private void createAlarm(List<Event> event)

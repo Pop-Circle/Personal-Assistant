@@ -42,7 +42,7 @@ public class TaskManager extends AppCompatActivity {
         String s = t.getText().toString();
         if (s.equalsIgnoreCase("")) {
             Toast.makeText(this, "Please enter in a task first",
-            Toast.LENGTH_LONG);
+            Toast.LENGTH_LONG).show();
         } else {
             Task task = new Task(s, 0);
             db.addTask(task, user);
