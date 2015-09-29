@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 28, 2015 at 11:36 PM
+-- Generation Time: Sep 30, 2015 at 12:44 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -35,7 +35,42 @@ CREATE TABLE IF NOT EXISTS `eventtable` (
   `eventDesc` varchar(50) NOT NULL,
   `eventRem` varchar(50) NOT NULL,
   PRIMARY KEY (`eventID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `eventtable`
+--
+
+INSERT INTO `eventtable` (`eventID`, `eventOwnerID`, `eventName`, `eventDate`, `eventTime`, `eventDesc`, `eventRem`) VALUES
+(1, '1', 'Cool Event', '21-September', '14:00', 'wub wub wub', '10:00'),
+(3, '1', 'Alloy Tech', '23-October', '17:00', 'Busincess Conference for metal ore', '15:00'),
+(4, '1', 'Soccer match', '22-August', '10:00', 'Jonny''s National League match', '08:00'),
+(7, '1', 'Guess', '29-September', '15:00', 'No really, guess', '12:00'),
+(9, '1', 'Lunch', '29-September', '13:00', 'its a blind date', '11:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tasks`
+--
+
+CREATE TABLE IF NOT EXISTS `tasks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `TaskUserId` int(11) NOT NULL,
+  `taskName` varchar(20) NOT NULL,
+  `checked` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `tasks`
+--
+
+INSERT INTO `tasks` (`id`, `TaskUserId`, `taskName`, `checked`) VALUES
+(1, 1, 'buy eggs', 0),
+(2, 1, 'feed the dog', 0),
+(3, 1, 'buy wedding gift', 1),
+(4, 1, 'plant lettuce', 0);
 
 -- --------------------------------------------------------
 
