@@ -268,7 +268,6 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
     public List<String> getAllEventDates()
     {
 
-
         List<String> eventDates = new ArrayList<String>();
         // Select All Query
         String selectQuery = "SELECT  "+EVENT_DATE+" FROM " + EVENT_TABLE;
@@ -286,6 +285,35 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
 
         // return contact list
         return eventDates;
+    }
+
+    public List<Event> getEventEverything()
+    {
+        List<Event> eventList = new ArrayList<Event>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.query(EVENT_TABLE, null, null, null, null, null, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Event event = new Event();
+                event.setID(Integer.parseInt(cursor.getString(cursor.getColumnIndex("eventID"))));
+                event.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
+                event.setEventRem(cursor.getString(cursor.getColumnIndex("eventRem")));
+                event.setEventOwnerID(cursor.getString(cursor.getColumnIndex("eventOwnerID")));
+                event.setEventTime(cursor.getString(cursor.getColumnIndex("eventTime")));
+                event.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
+                event.setEventDesc(cursor.getString(cursor.getColumnIndex("eventDesc")));
+
+                // Adding event to list
+                eventList.add(event);
+            } while (cursor.moveToNext());
+        }
+
+        // return event list, list consists of event objects
+        return eventList;
+
     }
 
     /* Number of events on a specific day */
