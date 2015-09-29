@@ -37,7 +37,7 @@
 		
 		if ($numUnchecked > 0)
 		{
-			echo "<list>";
+			echo "<list class = 'unchecked'>";
 			while ($item = mysqli_fetch_array($unchecked))
 			{
 				//echo task name as html
@@ -54,11 +54,13 @@
 		{
 			//maybe output a line of separation between unchecked and checked
 			echo "<p>-----------------------------------------</p>";
+			echo "<list class = 'checked'>";
 			while ($item = mysqli_fetch_array($checked))
 			{
 				//echo each task name as html
 				echo "<li>".$item["taskName"]."</li>";
 			}
+			echo "</list>";
 		}
 		
 	}

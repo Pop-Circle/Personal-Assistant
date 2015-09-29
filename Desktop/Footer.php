@@ -1,5 +1,5 @@
 		<footer>
-			<div id="footwrap">
+			<div id="footwrap" align = "center">
 				Copyright &copy;  Pop-Circle 2015
 			</div>
 			<script type = "text/javascript" src="script.js"  ></script>

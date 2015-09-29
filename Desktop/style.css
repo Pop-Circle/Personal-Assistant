@@ -1,0 +1,92 @@
+body
+{
+	font-family: Arial;
+}
+
+/*	colours dark -> light going down
+	#36434c
+	#6e8397 
+	#84a6c9
+	#718d98
+	#f2eadf
+*/
+
+td.currentday
+{
+	color: white;
+	background-color: silver;
+	text-align: center;
+}
+
+td.currentday:hover
+{
+	color: white;
+	background-color: grey;
+}
+
+td.currentmonth
+{
+	color: black;
+	background-color: white;
+	text-align: center;
+}
+
+td.currentmonth:hover
+{
+	color: white;
+	background-color: grey;
+}
+
+tr.weekdays td
+{
+	font-weight: bold;
+}
+
+#headwrap 
+{
+	text-align: center;
+	padding: 2px;
+	background-color: #36434c;
+	padding: 10px;
+}
+
+#footwrap 
+{
+	text-align: center;
+	padding: 10px;
+	clear: both;
+	color: white;
+	background-color: #36434c;
+	font-weight: bold;
+}
+
+#headwrap a
+{
+	text-decoration: none;
+	color: white;
+	padding: 10px;
+	font-weight: bold;
+}
+
+#headwrap a:hover
+{
+	text-decoration: none;
+	color: white;
+	padding: 10px;
+	background-color: #6e8397;
+}
+
+div
+{
+	padding: 10px;
+}
+
+.unchecked li
+{
+	list-style-image: url('icons/unchecked-small.png');
+}
+
+.checked li
+{
+	list-style-image: url('icons/checked-small.png');
+}

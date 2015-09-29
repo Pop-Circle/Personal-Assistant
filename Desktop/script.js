@@ -97,9 +97,9 @@ function calendar(month) {
 
         // checking to see if i is equal to the current day, if so then we are making the color of that cell a different color using CSS. Also adding a rollover effect to highlight the day the user rolls over. This loop creates the actual calendar that is displayed.
         if (i == day && month == cmonth) {
-            padding += "<td class='currentday'  onMouseOver='this.style.background=\"#00FF00\"; this.style.color=\"#FFFFFF\"' onMouseOut='this.style.background=\"#FFFFFF\"; this.style.color=\"#00FF00\"' onclick = 'doThis()'>" + i + "</td>";
+            padding += "<td class='currentday'>" + i + "</td>";
         } else {
-            padding += "<td class='currentmonth' onMouseOver='this.style.background=\"#00FF00\"' onMouseOut='this.style.background=\"#FFFFFF\"'>" + i + "</td>";
+            padding += "<td class='currentmonth'>" + i + "</td>";
         }
         tempweekday2++;
         i++;
@@ -108,7 +108,7 @@ function calendar(month) {
 
     // Outputing the calendar onto the site.  Also, putting in the month name and days of the week.
     var calendarTable = "<table class='calendar' align = 'center'> <tr class='currentmonth'><th colspan='7'>" + monthNames[month] + " " + year + "</th></tr>";
-    calendarTable += "<tr class='weekdays'>  <td>S</td>  <td>M</td> <td>T</td> <td>W</td> <td>T</td> <td>F</td> <td>S</td> </tr>";
+    calendarTable += "<tr class='weekdays'>  <td>Sunday</td>  <td>Monday</td> <td>Tuesday</td> <td>Wednesday</td> <td>Thursday</td> <td>Friday</td> <td>Saturday</td> </tr>";
     calendarTable += "<tr>";
     calendarTable += padding;
     calendarTable += "</tr></table>";
@@ -130,7 +130,6 @@ function clearTable()
 function doThis(){
 	window.location="todoList.php";
 }
-
 
 function decMonth(){
 	var month = d.getMonth();
@@ -154,6 +153,12 @@ function incMonth(){
 	else
 		d = new Date(year, month+1,day);
 	
+	start();
+}
+
+function thisMonth()
+{
+	d = new Date();
 	start();
 }
 
@@ -193,11 +198,6 @@ function login()
 	}
 }
 
-function backToCalendar()
-{
-	window.location="calendar.php";
-}
-
 function logout()
 {
 	$.ajax({
@@ -209,4 +209,9 @@ function logout()
 			location.reload();
 		}
 	});
+}
+
+function backToCalendar()
+{
+	window.location="calendar.php";
 }
