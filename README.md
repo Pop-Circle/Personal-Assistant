@@ -123,3 +123,9 @@
 	Implemented the reminder for events
 		Shows a notification when the reminder is triggered
 	
+-2015-09-30
+	Desktop version
+		Events are listed on individual days with all details
+		trying to implement so that full details only display  onclick
+		styling still needs to be done
+		budget for Desktop version still needs to be done
