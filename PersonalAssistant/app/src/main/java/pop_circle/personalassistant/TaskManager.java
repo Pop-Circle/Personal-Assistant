@@ -38,6 +38,7 @@ public class TaskManager extends AppCompatActivity {
     }
 
     public void addTaskNow(View v) {
+        //junk comment
         EditText t = (EditText) findViewById(R.id.task);
         String s = t.getText().toString();
         if (s.equalsIgnoreCase("")) {
