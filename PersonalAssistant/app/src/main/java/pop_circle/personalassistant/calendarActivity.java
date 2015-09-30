@@ -36,12 +36,14 @@ public class calendarActivity extends AppCompatActivity {
     private PaDbHelper db;
     private final int YEAR = 2015; //This is hardcoded
     private PendingIntent pendingIntent;
-
+    int user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar); //Change this to the activity of the home page launcher
+
+        user= ((MyApplication) this.getApplication()).getLoggedUser();
 
         db = new PaDbHelper(this);
 
@@ -194,7 +196,14 @@ public class calendarActivity extends AppCompatActivity {
     private void colourEventDates() {
         caldroidFragment.refreshView();
 
-        List<String> listDates = db.getAllEventDates();
+        List<String> listDates = db.getAllEventDates(user);
+
+        Log.wtf("test","userCal " + user);
+
+        for(int i =0;i<listDates.size();i++)
+            Log.wtf("test","===== Even " + listDates.get(i).toString());
+
+
         Set<String> tempDates = new HashSet<>();
         List<Integer> day = new ArrayList<Integer>();
         List<Integer> month = new ArrayList<Integer>();

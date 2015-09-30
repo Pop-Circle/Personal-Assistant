@@ -49,12 +49,11 @@ public class add_events_activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.wtf("test","Entered add event screen ");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_events_activity);
 
         db = new PaDbHelper(this);
+
 
         //This gets the date and month that the user clicked on, passed from CalenderActivity.java
         Intent iDate = getIntent();
@@ -110,12 +109,13 @@ public class add_events_activity extends AppCompatActivity {
         TextView dateMonthLabel = (TextView) findViewById(R.id.monthYear);
         dateMonthLabel.setText(datePassed + " " + monthLine);
 
-        ownerID = String.valueOf(2); //============================================================change later
+        int ownerIDtemp = ((MyApplication) this.getApplication()).getLoggedUser();
+        ownerID = String.valueOf(ownerIDtemp);
 
         openAgenda();
         saveEvent();
         timePickerDialogue();
-        eventAmount();
+        //eventAmount();
     }
 
     /* Show the amount of events on this day */
@@ -135,6 +135,7 @@ public class add_events_activity extends AppCompatActivity {
 
                 //Pass the date and the month selected to the add event activity
                 b.putString("dateLine", dateLine);
+                Log.wtf("test","------------------------- " + ownerID);
                 b.putString("ownerID", ownerID);
                 intent.putExtra("CurrentDayAgenda", b);
 
@@ -219,17 +220,21 @@ public class add_events_activity extends AppCompatActivity {
                 }
 
 
-                Log.wtf("test", "input read : Event name: " + eventName + " description: " + desc + " reminder: " + hour_rem + ":" + minute_rem + " Event Time: " + hour_time+":"+minute_time);
-
                 db.addEvent(new Event(eventName, eventTime, desc, dateLine, ownerID, eventRem));
 
                 Toast.makeText(add_events_activity.this, "Event saved",
                         Toast.LENGTH_SHORT).show();
-
-                Log.wtf("test", "Event saved: Event name: " + eventName + " description: " + desc + " reminder: " + eventRem + " Event Time: " + eventTime);
+                eventAmount();
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        eventAmount();
     }
 
     @Override

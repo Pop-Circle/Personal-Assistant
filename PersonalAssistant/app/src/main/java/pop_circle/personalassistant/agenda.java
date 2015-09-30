@@ -37,6 +37,7 @@ public class agenda extends ListActivity {
         Bundle bD = iD.getBundleExtra("CurrentDayAgenda");
         dateLine = bD.getString("dateLine");
         ownerID = bD.getString("ownerID");
+
         Log.wtf("test", "agenda : " + dateLine +  " owner Id: " + ownerID);
 
         db = new PaDbHelper(this);

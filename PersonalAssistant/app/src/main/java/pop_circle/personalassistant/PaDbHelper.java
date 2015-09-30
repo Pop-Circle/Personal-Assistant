@@ -166,7 +166,7 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
 
 
 
-        Log.wtf("test", task.getId()+" Name : " + task.getName() + " check :  " + task.getChecked());
+        Log.wtf("test", task.getId() + " Name : " + task.getName() + " check :  " + task.getChecked());
 
         db.update(TABLE_TASKS, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(task.getId())});
@@ -277,26 +277,31 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
     }
 
     /* Get all the dates with events*/
-    public List<String> getAllEventDates()
+    public List<String> getAllEventDates(int ownerid)
     {
 
         List<String> eventDates = new ArrayList<String>();
         // Select All Query
-        String selectQuery = "SELECT  "+EVENT_DATE+" FROM " + EVENT_TABLE;
+        String selectQuery = "SELECT  "+EVENT_DATE+" FROM " + EVENT_TABLE
+                + " WHERE "+EVENT_OWNERID+"="+ownerid;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
+        Log.wtf("test","PadUser " + ownerid);
         // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                // Adding contact to list
-                eventDates.add(cursor.getString(0));
-            } while (cursor.moveToNext());
+        if(cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    // Adding contact to list
+                    eventDates.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+            }
         }
-
         // return contact list
         return eventDates;
+
+
     }
 
     public List<Event> getEventEverything()
@@ -338,7 +343,7 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
         Cursor c = db.query(EVENT_TABLE, null, selection, selectionArgs, null, null, null);
         int result = c.getCount();
         c.close();
-        Log.wtf("test", "count " + result);
+
         return result;
     }
 
