@@ -1,6 +1,7 @@
 body
 {
 	font-family: Arial;
+	color: #555555
 }
 
 /*	colours dark -> light going down
@@ -13,9 +14,8 @@ body
 
 div.currentday
 {
-	border-style: solid;
     border-width: 2px;
-	border-color: silver;
+	background-color: #efefef;
 	/*
 	color: white;
 	background-color: silver;
@@ -30,7 +30,7 @@ div.currentday:hover
 
 div.currentmonth
 {
-	color: black;
+	color: #555555;
 	background-color: white;
 }
 
@@ -97,26 +97,37 @@ div
 .eList li
 {
 	list-style-type: none;
-	color: black;
+	font-size: 10pt;
+	font-weight: 600;
 }
-
-.eDay:nth-child(even)
+/*
+.eList:nth-child(even)
 {
 	background-color: #f2eadf;
 }
 
-.eDay:nth-child(odd)
+.eList:nth-child(odd)
 {
 	background-color: white;
 }
+*/
+.eDay
+{
+	cursor: pointer;
+}
+.interested
+{
+	color: #555555;
+}
+
+
 
 #budget li
 {
 	list-style-type: none;
-	color: black;
 }
 
-#budgetData, .eDetails
+#budgetData,.eDetails
 {
 	display: none;
 }
@@ -135,9 +146,56 @@ div.tData
 {
 	display: table-cell;
 	overflow-y: scroll;
+	font-size: 16pt;
+	width: 120px;
+	height: 100px;
+}
+
+div.weekdays .tData
+{
+	width: 120px;
+	height: 25px;
 }
 
 div.tHeader
 {
 	font-weight: bold;
+}
+
+#lightbox
+{
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0,0,0,.7);
+    text-align: center;
+    display: none;
+	color: white;
+}
+
+#eventDetails
+{
+	text-align: left;
+	
+	margin: 0 auto;
+	-webkit-box-shadow: 0 0 25px #111;
+    -moz-box-shadow :0 0 25px #111;
+	background-color: white;
+	padding: 10px;
+	width: 35%;
+	color: black;
+}
+
+#lgContainer
+{
+	text-align: center;
+	
+	margin: 0 auto;
+	-webkit-box-shadow: 0 0 25px #111;
+    -moz-box-shadow :0 0 25px #111;
+	padding: 10px;
+	width: 35%;
+	color: black;
 }

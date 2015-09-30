@@ -16,6 +16,10 @@
 			<img id = "calLeft" src = "icons/arrowR-small.png"/>
 		</button>
 	</div>
+	
+	<div id = "lightbox" onclick = "lightbox()">
+		<div  id = 'eventDetails'></div>
+	</div>
 </body>
 
 <?php

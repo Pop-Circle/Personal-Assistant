@@ -75,6 +75,7 @@ function start()
 		x = 0;
 	}
 	*/
+	//lightbox();
 	calendar(d.getMonth());
 }
 
@@ -156,6 +157,13 @@ function calendar(month) {
     calendarTable += 		"</div>" + 
 						"</div>";
     $("#calendar").html(calendarTable);
+	
+	$(".tData").click(function(){
+		
+		var wh = $(this).width() + " | " + $(this).height();
+		alert(wh);
+	});
+	
 }
 
 function clearTable()
@@ -290,25 +298,21 @@ function populateDay(info, dd) //dd is date of month
 			var details = JSON.parse(info);
 			if (details.size)
 			{
+				var event = "<div class = 'eDay'>";
 				for (stuff in details.day)
 				{
-					var event = "<div class = 'eDay'><list class = 'eList' id = 'event"+details.day[stuff].id+"'>"+
-								"<li> Name: " + details.day[stuff].name + "</li>" +
-								"<li> Time: " + details.day[stuff].time + "</li>" +
-								"<li> Description: " + details.day[stuff].desc + "</li>" +
-								"<li> Remind at: " + details.day[stuff].reminder + "</li>" +
+					event += "<list class = 'eList' id = 'event"+details.day[stuff].id+"'>"+
+								"<li> "+ details.day[stuff].time +": " + details.day[stuff].name + "</li>" +
 								"<li class = 'eDetails'>" + JSON.stringify(details.day[stuff])+ "</li>" +
-							"</list></div>";
-					$(this).append(event);
+							"</list>";
+					
 				}
+				$(this).append(event+="</div>");
 			}
 			else
 			{
 				var event = "<div class = 'eDay'><list class = 'eList' id = 'event"+details.id+"'>"+
-								"<li> Name: " + details.name + "</li>" +
-								"<li> Time: " + details.time + "</li>" +
-								"<li> Description: " + details.desc + "</li>" +
-								"<li> Remind at: " + details.reminder + "</li>" +
+								"<li> "+ details.time +": " + details.name + "</li>" +
 								"<li class = 'eDetails'>" + JSON.stringify(details) + "</li>" +
 							"</list></div>";
 				$(this).append(event);
@@ -316,17 +320,26 @@ function populateDay(info, dd) //dd is date of month
 		}
 	});
 	
-	//place 
 	$(".eList").click(function(){
 		
 		var data = JSON.parse($(this).find(".eDetails").text());
-		alert(data.name);
+		
+		var eventDetails = 	"<list class = 'eList'>" +
+								"<li> Name: " + data.name + "</li>" +
+								"<li> Time: " + data.time + "</li>" +
+								"<li> Description: " + data.desc + "</li>" +
+								"<li> Remind at: " + data.reminder + "</li>" +
+							"</list>";
+		$("#eventDetails").html(eventDetails);
+		
+		lightbox();
 	});
 }
 
-
-
-
+function lightbox()
+{
+	$("#lightbox").toggle();
+}
 
 
 
