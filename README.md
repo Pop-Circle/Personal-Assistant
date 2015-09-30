@@ -120,6 +120,7 @@
 		added basic styling
 
 -2015-09-29 : Jackie
+	
 	Implemented the reminder for events
 		Shows a notification when the reminder is triggered
 	
@@ -129,3 +130,12 @@
 	Adapted Task Manager to work with new tables
 	Task update doesn't work for some odd reason
 	Created Home activity and layout to travel between Activities
+
+-2015-09-30 : Dave
+	
+	Desktop version
+		Events are listed on individual days with all details
+		trying to implement so that full details only display  onclick
+		styling still needs to be done
+		budget for Desktop version still needs to be done
+

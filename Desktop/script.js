@@ -7,6 +7,11 @@ var d = new Date();
 var month = d.getMonth();
 var year = d.getYear();
 */
+
+$(document).ready(function() {
+	enlarge();
+});
+
 function start()
 {
 	/*
@@ -96,7 +101,8 @@ function calendar(month) {
         }
 
         // checking to see if i is equal to the current day, if so then we are making the color of that cell a different color using CSS. Also adding a rollover effect to highlight the day the user rolls over. This loop creates the actual calendar that is displayed.
-        if (i == day && month == cmonth) {
+        loadEvents(i);
+		if (i == day && month == cmonth) {
             padding += "<td class='currentday'>" + i + "</td>";
         } else {
             padding += "<td class='currentmonth'>" + i + "</td>";
@@ -214,4 +220,68 @@ function logout()
 function backToCalendar()
 {
 	window.location="calendar.php";
+}
+
+function loadEvents(day)
+{
+	var result;
+	var date = {
+		"day": day,
+		"month": monthNames[d.getMonth()]
+	};
+	
+	var strDate = JSON.stringify(date);
+	
+	$.ajax({
+		type: "GET",
+		url: "loadEvents.php",
+		data: {obj: strDate},
+		success:function(data)
+		{
+			if (data != "noEvent")
+				populateDay(data, day);
+		}
+	});
+}
+
+function populateDay(info, dd) //dd is date of month
+{
+	$("td").each(function(index){
+		if ($(this).html() == dd)
+		{
+			//console.log(info);
+			var details = JSON.parse(info);
+			if (details.size)
+			{
+				for (stuff in details.day)
+				{
+					var event = "<div class = 'eDay'><list class = 'eList' id = 'event"+details.day[stuff].id+"'>"+
+								"<li> Name: " + details.day[stuff].name + "</li>" +
+								"<li> Time: " + details.day[stuff].time + "</li>" +
+								"<li> Description: " + details.day[stuff].desc + "</li>" +
+								"<li> Remind at: " + details.day[stuff].reminder + "</li>" +
+							"</list></div>";
+					$(this).append(event);
+				}
+			}
+			else
+			{
+				var event = "<div class = 'eDay'><list class = 'eList' id = 'event"+details.id+"'>"+
+								"<li> Name: " + details.name + "</li>" +
+								"<li> Time: " + details.time + "</li>" +
+								"<li> Description: " + details.desc + "</li>" +
+								"<li> Remind at: " + details.reminder + "</li>" +
+							"</list></div>";
+				$(this).append(event);
+			}
+		}
+	});
+}
+
+function enlarge()
+{
+	$(".eList").click(function()
+    {
+		alert("Yay list");
+    });
 }
