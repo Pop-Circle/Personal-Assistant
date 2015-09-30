@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2015 at 12:44 AM
+-- Generation Time: Sep 30, 2015 at 04:43 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -19,6 +19,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `personalassistant`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `budget`
+--
+
+CREATE TABLE IF NOT EXISTS `budget` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `TaskUserId` varchar(20) NOT NULL,
+  `income` double NOT NULL,
+  `totalExpenses` double NOT NULL,
+  `household` double NOT NULL,
+  `food` double NOT NULL,
+  `credit` double NOT NULL,
+  `clothes` double NOT NULL,
+  `luxury` double NOT NULL,
+  `contracts` double NOT NULL,
+  `loans` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `budget`
+--
+
+INSERT INTO `budget` (`id`, `TaskUserId`, `income`, `totalExpenses`, `household`, `food`, `credit`, `clothes`, `luxury`, `contracts`, `loans`) VALUES
+(1, '1', 10000, 7800, 2000, 3000, 1000, 500, 500, 300, 1000);
 
 -- --------------------------------------------------------
 
@@ -60,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `taskName` varchar(20) NOT NULL,
   `checked` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `tasks`

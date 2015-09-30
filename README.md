@@ -138,4 +138,9 @@
 		trying to implement so that full details only display  onclick
 		styling still needs to be done
 		budget for Desktop version still needs to be done
+		
+	Desktop version
+		Budget is done
+		Full details for events on click is done
+		styling is done but needs to be tweeked
 

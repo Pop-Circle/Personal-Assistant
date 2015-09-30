@@ -12,7 +12,7 @@
 	else
 	{
 		echo '<body>
-				<div>
+				<div id = "lgContainer">
 					<h1>Login</h1>
 					<input id = "lg" name = "login" type = "text" placeholder = "Username" autofocus required/></br>
 					<input id = "pw" name = "password" type = "password" placeholder = "Password" required/></br>
