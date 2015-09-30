@@ -124,7 +124,7 @@
 	Implemented the reminder for events
 		Shows a notification when the reminder is triggered
 	
--2015-09-30
+-2015-09-30 : Dave
 	
 	Desktop version
 		Events are listed on individual days with all details
