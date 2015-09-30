@@ -340,7 +340,7 @@ public class calendarActivity extends AppCompatActivity {
 
         // Setup Caldroid
         caldroidFragment.setCaldroidListener(listener);
-  
+
        // setAlarm();
     }
 }

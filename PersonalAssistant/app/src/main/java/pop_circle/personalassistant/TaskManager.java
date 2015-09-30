@@ -3,7 +3,9 @@ package pop_circle.personalassistant;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.LoginFilter;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +26,9 @@ public class TaskManager extends AppCompatActivity {
     MyAdapter adapt;
     PaDbHelper db;
     int user;
+
+    List<Integer> checkedYe = new ArrayList<Integer>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         user= ((MyApplication) this.getApplication()).getLoggedUser();
@@ -51,6 +56,8 @@ public class TaskManager extends AppCompatActivity {
             t.setText("");
             adapt.add(task);
             adapt.notifyDataSetChanged();
+
+
         }
     }
 
@@ -72,8 +79,10 @@ public class TaskManager extends AppCompatActivity {
          * Here we are going to code that the checkbox state is the status of task and
          * check box text is the task name
          */
+        int i = 0;
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             CheckBox chk = null;
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context
@@ -82,13 +91,20 @@ public class TaskManager extends AppCompatActivity {
                         parent, false);
                 chk = (CheckBox) convertView.findViewById(R.id.checkBox1);
                 convertView.setTag(chk);
+
                 chk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         CheckBox cb = (CheckBox) v;
                         Task changeTask = (Task) cb.getTag();
                         changeTask.setChecked(cb.isChecked() == true ? 1 : 0);
-                        db.updateTask(changeTask);
+
+                        //db.updateTask(changeTask);
+                        db.deleteTask(changeTask);
+                        adapt.notifyDataSetChanged();
+                        finish();
+                        startActivity(getIntent());
+
                         Toast.makeText(
                                 getApplicationContext(),
                                 "Clicked on Checkbox: " + cb.getText() + " is "
@@ -97,17 +113,24 @@ public class TaskManager extends AppCompatActivity {
                     }
                 });
             } else {
+
                 chk = (CheckBox) convertView.getTag();
             }
+
             Task current = taskList.get(position);
             chk.setText(current.getName());
+
             chk.setChecked(current.getChecked() == 1 ? true : false);
+
             chk.setTag(current);
-            Log.d("listener", String.valueOf(current.getId()));
+
+
+           // Log.d("listener", String.valueOf(current.getId()));
             return convertView;
         }
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

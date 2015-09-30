@@ -116,9 +116,10 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
         values.put(KEY_USERIDTASK, _user);
         values.put(KEY_TASKNAME, task.getName()); // task name
 // status of task- can be 0 for not done and 1 for done
-        values.put(KEY_CHECKED, task.getChecked());
+       // values.put(KEY_CHECKED, task.getChecked());
+        values.put(KEY_CHECKED, 1);
 // Inserting Row
-        task.setId((int)db.insert(TABLE_TASKS, null, values));
+        task.setId((int) db.insert(TABLE_TASKS, null, values));
         db.close(); // Closing database connection
     }
 
@@ -160,8 +161,13 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
 // updating row
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_TASKNAME, task.getName());
+       // values.put(KEY_TASKNAME, task.getName());
         values.put(KEY_CHECKED, task.getChecked());
+
+
+
+        Log.wtf("test", task.getId()+" Name : " + task.getName() + " check :  " + task.getChecked());
+
         db.update(TABLE_TASKS, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(task.getId())});
 
@@ -169,7 +175,13 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
        // db.execSQL("UPDATE tasks SET checked = 1 WHERE id = " + task.getId());
     }
 
-
+    /* Deleting an event */
+    public void deleteTask(Task task) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TASKS, KEY_ID + " = ?",
+                new String[]{String.valueOf(task.getId())});
+        db.close();
+    }
 
 /* -----------------------Event db--------------------------------------- */
 
