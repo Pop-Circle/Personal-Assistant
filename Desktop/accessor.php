@@ -41,7 +41,6 @@
 			while ($item = mysqli_fetch_array($unchecked))
 			{
 				//echo task name as html
-				//$ulist += "<li>".$item["taskName"]."</li>";
 				echo "<li>".$item["taskName"]."</li>";
 			}
 			
@@ -90,8 +89,13 @@
 			{
 				$result = "";
 				while ($item = mysqli_fetch_array($data))
-					$result .='{"id":"'.$item['eventID'].'","name":"'.$item['eventName'].'","time":"'.$item['eventTime'].'","desc":"'.$item['eventDesc'].'","reminder":"'.$item['eventRem'].'"},';
-
+				{
+					$result .='{"id":"'.$item['eventID']
+							.'","name":"'.$item['eventName']
+							.'","time":"'.$item['eventTime']
+							.'","desc":"'.$item['eventDesc']
+							.'","reminder":"'.$item['eventRem'].'"},';
+				}
 				$result = rtrim($result, ",");
 
 				return $result;
@@ -99,23 +103,40 @@
 		}
 		
 		return "noEvent";
-		/*
-			$time = strtotime('10/16/2003');
-			$newformat = date('Y-m-d',$time);
-			echo $newformat;
-			// 2003-10-16
+	}
+	
+	function loadBudget($link)
+	{
+		$uid = $_SESSION["user"]["userId"];
+		$data = mysqli_query($link, "SELECT * FROM budget WHERE (TaskUserId = '$uid')")or die("Failed to fetch budget.".mysqli_error($link));
 		
+		$numBudget = mysqli_num_rows($data);
 		
-		while ($item = mysqli_fetch_array($data))
+		if ($numBudget > 0)
 		{
-			//echo all details of item as html
-			//title
-			//time[hh:mm]
-			//time.date[dd:mm:yyyy]
-			//venue
-			//reminders
-			//busy/avaiable
+			if ($numBudget == 1)
+			{
+				$result = "";
+				while ($item = mysqli_fetch_array($data))
+				{
+					$result .='{"id":"'.$item['id']
+							.'","income":"'.$item['income']
+							.'","totex":"'.$item['totalExpenses']
+							.'","household":"'.$item['household']
+							.'","food":"'.$item['food']
+							.'","credit":"'.$item['credit']
+							.'","clothes":"'.$item['clothes']
+							.'","luxury":"'.$item['luxury']
+							.'","contracts":"'.$item['contracts']
+							.'","loans":"'.$item['loans'].'"}';
+				}
+
+				return $result;
+			}
+			else	
+				return "invalid";
 		}
-		*/
+		else
+			return "noBudget";
 	}
 ?>

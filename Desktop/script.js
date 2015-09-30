@@ -8,9 +8,37 @@ var month = d.getMonth();
 var year = d.getYear();
 */
 
-$(document).ready(function() {
-	enlarge();
-});
+function loadBudget() {
+	var dataStr = $("#budgetData").text();
+	//alert(dataStr);
+	
+	var data = JSON.parse(dataStr);
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
+		title:{
+			text: "Budget"
+		},
+		legend: {
+			maxWidth: 800,
+			itemWidth: 250
+		},
+		data: [
+		{
+			type: "pie",
+			showInLegend: true,
+			legendText: "{indexLabel}",
+			dataPoints: [
+				{ y: data.clothes/data.totex*100, indexLabel: "Clothes: R" + data.clothes},
+				{ y: data.contracts/data.totex*100, indexLabel: "Contracts: R" + data.contracts},
+				{ y: data.credit/data.totex*100, indexLabel: "Credit: R" + data.credit},
+				{ y: data.food/data.totex*100, indexLabel: "Food: R" + data.food},
+				{ y: data.household/data.totex*100, indexLabel: "Household: R" + data.household},
+				{ y: data.luxury/data.totex*100, indexLabel: "Luxury: R" + data.luxury}]
+		}
+		]
+	});
+	chart.render();
+}
 
 function start()
 {
@@ -87,7 +115,7 @@ function calendar(month) {
     // After getting the first day of the week for the month, padding the other days for that week with the previous months days.  
 	//IE, if the first day of the week is on a Thursday, then this fills in Sun - Wed with the last months dates, counting down from the last day on Wed, until Sunday.
     while (tempweekday > 0) {
-        padding += "<td class='premonth'></td>";
+        padding += "<div class='tData premonth'></div>";
         //preAmount++;
         tempweekday--;
     }
@@ -97,27 +125,36 @@ function calendar(month) {
         // Determining when to start a new row
         if (tempweekday2 > 6) {
             tempweekday2 = 0;
-            padding += "</tr><tr>";
+            padding += "</div><div class='tRow'>";
         }
 
         // checking to see if i is equal to the current day, if so then we are making the color of that cell a different color using CSS. Also adding a rollover effect to highlight the day the user rolls over. This loop creates the actual calendar that is displayed.
         loadEvents(i);
 		if (i == day && month == cmonth) {
-            padding += "<td class='currentday'>" + i + "</td>";
+            padding += "<div class='tData currentday'>" + i + "</div>";
         } else {
-            padding += "<td class='currentmonth'>" + i + "</td>";
+            padding += "<div class='tData currentmonth'>" + i + "</div>";
         }
         tempweekday2++;
         i++;
     }
 
-
+	var calendarTable = "<h2>" + monthNames[month] + " " + year + "</h2>";
     // Outputing the calendar onto the site.  Also, putting in the month name and days of the week.
-    var calendarTable = "<table class='calendar' align = 'center'> <tr class='currentmonth'><th colspan='7'>" + monthNames[month] + " " + year + "</th></tr>";
-    calendarTable += "<tr class='weekdays'>  <td>Sunday</td>  <td>Monday</td> <td>Tuesday</td> <td>Wednesday</td> <td>Thursday</td> <td>Friday</td> <td>Saturday</td> </tr>";
-    calendarTable += "<tr>";
+	calendarTable += 	"<div class='tTable calendar' align = 'center'>";
+    calendarTable += 		"<div class='tRow weekdays'>" + 
+								"<div class = 'tData'>Sunday</div>" + 
+								"<div class = 'tData'>Monday</div>" + 
+								"<div class = 'tData'>Tuesday</div>" + 
+								"<div class = 'tData'>Wednesday</div>" + 
+								"<div class = 'tData'>Thursday</div>" + 
+								"<div class = 'tData'>Friday</div>" + 
+								"<div class = 'tData'>Saturday</div>" +
+							"</div>";
+    calendarTable += 		"<div class = 'tRow'>";
     calendarTable += padding;
-    calendarTable += "</tr></table>";
+    calendarTable += 		"</div>" + 
+						"</div>";
     $("#calendar").html(calendarTable);
 }
 
@@ -246,7 +283,7 @@ function loadEvents(day)
 
 function populateDay(info, dd) //dd is date of month
 {
-	$("td").each(function(index){
+	$("div").each(function(index){
 		if ($(this).html() == dd)
 		{
 			//console.log(info);
@@ -260,6 +297,7 @@ function populateDay(info, dd) //dd is date of month
 								"<li> Time: " + details.day[stuff].time + "</li>" +
 								"<li> Description: " + details.day[stuff].desc + "</li>" +
 								"<li> Remind at: " + details.day[stuff].reminder + "</li>" +
+								"<li class = 'eDetails'>" + JSON.stringify(details.day[stuff])+ "</li>" +
 							"</list></div>";
 					$(this).append(event);
 				}
@@ -271,17 +309,33 @@ function populateDay(info, dd) //dd is date of month
 								"<li> Time: " + details.time + "</li>" +
 								"<li> Description: " + details.desc + "</li>" +
 								"<li> Remind at: " + details.reminder + "</li>" +
+								"<li class = 'eDetails'>" + JSON.stringify(details) + "</li>" +
 							"</list></div>";
 				$(this).append(event);
 			}
 		}
 	});
+	
+	//place 
+	$(".eList").click(function(){
+		
+		var data = JSON.parse($(this).find(".eDetails").text());
+		alert(data.name);
+	});
 }
 
-function enlarge()
-{
-	$(".eList").click(function()
-    {
-		alert("Yay list");
-    });
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,7 +11,7 @@ body
 	#f2eadf
 */
 
-td.currentday
+div.currentday
 {
 	border-style: solid;
     border-width: 2px;
@@ -22,25 +22,25 @@ td.currentday
 	*/
 }
 
-td.currentday:hover
+div.currentday:hover
 {
 	color: white;
 	background-color: #718d98;
 }
 
-td.currentmonth
+div.currentmonth
 {
 	color: black;
 	background-color: white;
 }
 
-td.currentmonth:hover
+div.currentmonth:hover
 {
 	color: white;
 	background-color: #718d98;
 }
 
-tr.weekdays td
+div.weekdays div
 {
 	font-weight: bold;
 }
@@ -108,4 +108,36 @@ div
 .eDay:nth-child(odd)
 {
 	background-color: white;
+}
+
+#budget li
+{
+	list-style-type: none;
+	color: black;
+}
+
+#budgetData, .eDetails
+{
+	display: none;
+}
+
+div.tTable
+{
+	display: table;
+}
+
+div.tRow
+{
+	display: table-row;
+}
+
+div.tData
+{
+	display: table-cell;
+	overflow-y: scroll;
+}
+
+div.tHeader
+{
+	font-weight: bold;
 }

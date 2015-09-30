@@ -4,6 +4,5 @@
 			</div>
 			<script type = "text/javascript" src="script.js"  ></script>
 		</footer>
-		</div>
 	</body>
 </html>
