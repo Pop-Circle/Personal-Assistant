@@ -20,52 +20,104 @@
             android:textSize="20dp" />
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout2">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout2"
+        android:padding="5dp">
 
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:text="Calendar"
-            android:id="@+id/btnCal"
-            android:layout_weight="0.14"
-            android:layout_below="@+id/welcomeText"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/btnTasks" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="126dp"
-            android:layout_height="100dp"
-            android:text="Tasks"
-            android:id="@+id/btnTasks"
-            android:layout_gravity="right"
-            android:layout_weight="0.21"
-            android:layout_alignTop="@+id/btnCal"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/calendar_icon"
+                android:text="Calendar"
+                android:id="@+id/btnCal"
+                android:background="#1cadc5"
+                android:gravity="left"
+                android:padding="15dp"
+                android:textColor="#ffffff"
+                android:elevation="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/btnPersonal"
+                android:layout_alignEnd="@+id/btnPersonal"
+                android:layout_alignLeft="@+id/btnBudget"
+                android:layout_alignStart="@+id/btnBudget"
+                android:layout_margin="5dp" />
+        </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Personalize"
-            android:id="@+id/btnPersonal"
-            android:layout_alignBottom="@+id/btnCal"
-            android:layout_toRightOf="@+id/btnCal"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/btnTasks" />
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="0dp"
+            android:layout_margin="5dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:text="Budget"
-            android:id="@+id/btnBudget"
-            android:layout_below="@+id/btnCal"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-    </RelativeLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="176dp"
+                android:text="Budget"
+                android:drawableTop="@drawable/budget_icon"
+                android:id="@+id/btnBudget"
+                android:background="#1cadc5"
+                android:textColor="#ffffff"
+                android:layout_above="@+id/btnTasks"
+                android:layout_alignLeft="@+id/btnTasks"
+                android:layout_alignStart="@+id/btnTasks"
+                android:layout_alignTop="@+id/btnPersonal"
+                android:padding="10dp"
+                android:gravity="left"
+                android:layout_weight="1.06"
+                android:layout_marginRight="2dp" />
+
+            <Button
+                android:layout_width="179dp"
+                android:layout_height="wrap_content"
+                android:text="Auto Sleep"
+                android:drawableTop="@drawable/autosnooze_icon"
+                android:id="@+id/btnPersonal"
+                android:background="#1cadc5"
+                android:textColor="#ffffff"
+                android:padding="10dp"
+                android:layout_below="@+id/btnCal"
+                android:layout_alignRight="@+id/btnTasks"
+                android:layout_alignEnd="@+id/btnTasks"
+                android:gravity="left"
+                android:layout_toRightOf="@+id/btnBudget"
+                android:layout_toEndOf="@+id/btnBudget"
+                android:layout_marginLeft="2dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tasks"
+                android:drawableTop="@drawable/taskmanager_icon"
+                android:id="@+id/btnTasks"
+                android:background="#1cadc5"
+                android:textColor="#ffffff"
+                android:padding="2dp"
+                android:gravity="left"
+                android:layout_below="@+id/btnPersonal"
+                android:layout_centerHorizontal="true" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </RelativeLayout>
