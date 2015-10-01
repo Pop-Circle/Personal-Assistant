@@ -143,4 +143,13 @@
 		Budget is done
 		Full details for events on click is done
 		styling is done but needs to be tweeked
+		
+-2015-09-30 : Jackie
 
+	Calendar complete(somewhat)
+	Changed the task mangaer to delete upon checking items
+
+-2015-10-01 : Jackie
+	
+	Updated the overall colour of the app
+	Changed padding and textsize so all activity is consistent
