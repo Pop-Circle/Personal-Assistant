@@ -180,4 +180,4 @@
 		db_getLoans
 	Files for the following functions must still be made:
 		getAllTasks, updateTask, deleteTask, getAllEvents, getAllEventDates, getEventEverything, getEventCount, updateEvent, deleteContact, login, resetBudget, updateIncome, UpdateExpense
->>>>>>> 27fe29640cf62b1b56d843c7717cd34ea848adda
+
