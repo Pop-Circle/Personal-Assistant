@@ -14,17 +14,17 @@
         android:gravity="center" >
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:id="@+id/imageView2"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/logo1" />
+            android:src="@drawable/logo2" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="296dp">
+        android:layout_height="267dp">
 
         <TextView
             android:layout_width="wrap_content"
