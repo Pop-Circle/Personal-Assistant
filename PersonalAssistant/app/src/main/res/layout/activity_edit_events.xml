@@ -12,8 +12,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#cf8500"
+        android:layout_height="48dp"
+        android:background="#1cadc5"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:gravity="center_vertical"
@@ -35,7 +35,8 @@
             android:id="@+id/monthYear"
             android:textColor="#ffffff"
             android:paddingLeft="20dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textSize="30dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
-        android:layout_below="@+id/topBarLayout">
+        android:layout_below="@+id/topBarLayout"
+        android:background="#bdbdbd">
 
         <LinearLayout
             android:orientation="vertical"
@@ -75,7 +77,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Event name:"
                     android:id="@+id/eventNameLabel"
-                    android:textColor="#6b6b6b"
+                    android:textColor="#3a3a3a"
                     android:paddingRight="20dp" />
 
                 <EditText
@@ -101,7 +103,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Description:"
                     android:id="@+id/descriptionLabel"
-                    android:textColor="#6b6b6b"
+                    android:textColor="#3a3a3a"
                     android:paddingRight="20dp" />
 
 
@@ -132,14 +134,15 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Reminder:"
                         android:id="@+id/reminderLabel"
-                        android:textColor="#6b6b6b"
+                        android:textColor="#3a3a3a"
                         android:paddingRight="20dp" />
 
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Set a reminder"
-                        android:id="@+id/reminderCheckBox" />
+                        android:id="@+id/reminderCheckBox"
+                        android:textColor="#3a3a3a" />
 
 
                 </LinearLayout>
@@ -166,7 +169,8 @@
                 android:id="@+id/saveEventBtn"
                 android:layout_gravity="center"
                 android:text="Save events"
-                android:background="@drawable/custom_button" />
+                android:background="@drawable/custom_button"
+                android:textColor="#ffffff" />
 
         </LinearLayout>
     </ScrollView>

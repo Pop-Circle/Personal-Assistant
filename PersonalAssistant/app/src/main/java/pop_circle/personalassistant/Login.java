@@ -2,6 +2,8 @@ package pop_circle.personalassistant;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -43,6 +45,7 @@ public class Login extends AppCompatActivity{
                 }
             }
         });
+
     }
 
 
@@ -63,7 +66,10 @@ public class Login extends AppCompatActivity{
             Context context = getApplicationContext();
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
+
             toast.show();
         }
     }
+
+
 }

@@ -42,7 +42,7 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@android:color/background_light"
+        android:background="#bdbdbd"
         android:elevation="5dp" />
 
     <TextView

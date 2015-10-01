@@ -55,7 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
-        android:layout_below="@+id/topBarLayout">
+        android:layout_below="@+id/topBarLayout"
+        android:background="#bdbdbd">
 
     <LinearLayout
         android:orientation="vertical"
@@ -78,7 +79,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Event name:"
                 android:id="@+id/eventNameLabel"
-                android:textColor="#010101"
+                android:textColor="#3a3a3a"
                 android:paddingRight="20dp" />
 
             <EditText
@@ -104,7 +105,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Description:"
                 android:id="@+id/descriptionLabel"
-                android:textColor="#010101"
+                android:textColor="#3a3a3a"
                 android:paddingRight="20dp" />
 
 
@@ -135,14 +136,15 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Reminder:"
                     android:id="@+id/reminderLabel"
-                    android:textColor="#010101"
+                    android:textColor="#3a3a3a"
                     android:paddingRight="20dp" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Set a reminder"
-                    android:id="@+id/reminderCheckBox" />
+                    android:id="@+id/reminderCheckBox"
+                    android:textColor="#3a3a3a" />
 
 
             </LinearLayout>
@@ -169,7 +171,8 @@
             android:id="@+id/saveEventBtn"
             android:layout_gravity="center"
             android:text="Add event"
-            android:background="@drawable/custom_button" />
+            android:background="@drawable/custom_button"
+            android:textColor="#ffffff" />
 
     </LinearLayout>
     </ScrollView>
