@@ -42,7 +42,7 @@ import java.util.Map;
  */
 public class Budget extends AppCompatActivity {
 
-    private Button addIncome, addExpense, visualize, popaddInc, popaddExp;
+    private Button addIncome, addExpense, visualize, popaddInc, popaddExp, reset;
     private TextView income, expense, remainder;
     private PaDbHelper db;
     private int user;
@@ -101,6 +101,7 @@ public class Budget extends AppCompatActivity {
                     Log.wtf("THE USER WHOM HAS LOGGETH IN", "details " + user);
                     addIncome = (Button) findViewById(R.id.btnIncome);
                     addExpense = (Button) findViewById(R.id.btnExp);
+                    reset = (Button) findViewById(R.id.btnres);
                   //  visualize = (Button) findViewById(R.id.btnVisualize);
                     income = (TextView) findViewById(R.id.editIncome);
                     expense = (TextView) findViewById(R.id.editExp);
@@ -113,51 +114,57 @@ public class Budget extends AppCompatActivity {
                     l.setXEntrySpace(7);
                     l.setXEntrySpace(5);
 
-
-
-                    addIncome.setOnClickListener(new View.OnClickListener() {
+                    reset.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View arg0) {
-
-                            // get prompts.xml view
-                            LayoutInflater li = LayoutInflater.from(context);
-                            View promptsView = li.inflate(R.layout.popup_income, null);
-
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                                    context);
-
-                            // set prompts.xml to alertdialog builder
-                            alertDialogBuilder.setView(promptsView);
-
-                            final EditText userInput = (EditText) promptsView
-                                    .findViewById(R.id.edtInAmount);
-
-                            alertDialogBuilder
-                                    .setCancelable(false)
-                                    .setPositiveButton("OK",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int id) {
-                                                    db.updateIncome(Double.parseDouble(userInput.getText().toString()), user);
-                                                    updateValues();
-                                                    //finish();
-                                                    //result.setText(userInput.getText());
-                                                }
-                                            })
-                                    .setNegativeButton("Cancel",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int id) {
-                                                    dialog.cancel();
-                                                }
-                                            });
-
-                            // create alert dialog
-                            AlertDialog alertDialog = alertDialogBuilder.create();
-
-                            // show it
-                            alertDialog.show();
-
+                            db.resetBudget(user);
+                            updateValues();
                         }
                     });
+
+                            addIncome.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View arg0) {
+
+                                    // get prompts.xml view
+                                    LayoutInflater li = LayoutInflater.from(context);
+                                    View promptsView = li.inflate(R.layout.popup_income, null);
+
+                                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                            context);
+
+                                    // set prompts.xml to alertdialog builder
+                                    alertDialogBuilder.setView(promptsView);
+
+                                    final EditText userInput = (EditText) promptsView
+                                            .findViewById(R.id.edtInAmount);
+
+                                    alertDialogBuilder
+                                            .setCancelable(false)
+                                            .setPositiveButton("OK",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            db.updateIncome(Double.parseDouble(userInput.getText().toString()), user);
+                                                            updateValues();
+                                                            //finish();
+                                                            //result.setText(userInput.getText());
+                                                        }
+                                                    })
+                                            .setNegativeButton("Cancel",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            dialog.cancel();
+                                                        }
+                                                    });
+
+                                    // create alert dialog
+                                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                                    // show it
+                                    alertDialog.show();
+
+                                }
+                            });
 
                     addExpense.setOnClickListener(new View.OnClickListener() {
                         @Override

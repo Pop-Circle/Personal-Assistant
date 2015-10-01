@@ -123,24 +123,47 @@
             android:layout_marginTop="30dp">
             <Button
                 style="?android:attr/buttonStyleSmall"
-                android:layout_marginLeft="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Update Income"
                 android:id="@+id/btnIncome"
                 android:background="@drawable/custom_button"
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:textColor="#ffffff"
-                android:layout_marginLeft="210dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add Expense"
                 android:id="@+id/btnExp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/custom_button"/>
+                android:background="@drawable/custom_button"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/btnres"
+                android:layout_toEndOf="@+id/btnres"
+                android:layout_marginLeft="23dp"
+                android:layout_marginStart="23dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset"
+                android:id="@+id/btnres"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/custom_button"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/btnIncome"
+                android:layout_toEndOf="@+id/btnIncome"
+                android:layout_marginLeft="29dp"
+                android:layout_marginStart="29dp" />
         </RelativeLayout>
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
