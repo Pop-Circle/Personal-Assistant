@@ -153,3 +153,28 @@
 	
 	Updated the overall colour of the app
 	Changed padding and textsize so all activity is consistent
+	
+-2015-10-01 : Tilesh
+	
+	updated PAdbHelper to have reset budget function.
+	Started cconverting db helper into sql for server.
+	following php files added:
+		db_config
+		db_connect
+		db_addUser
+		db_addTask
+		db_addEvent
+		db_getEvent
+		db_getUserId
+		db_getUserName
+		db_getIncome
+		db_getExpense
+		db_getHouse
+		db_getFood
+		db_getCredit
+		db_getClothes
+		db_getLux
+		db_getCon
+		db_getLoans
+	Files for the following functions must still be made:
+		getAllTasks, updateTask, deleteTask, getAllEvents, getAllEventDates, getEventEverything, getEventCount, updateEvent, deleteContact, login, resetBudget, updateIncome, UpdateExpense
