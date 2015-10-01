@@ -154,6 +154,9 @@
 	Updated the overall colour of the app
 	Changed padding and textsize so all activity is consistent
 	Added icons onto the home page
+	Updated the design and created 2 icons 
+		@drawable/icon1
+		@drawable/icon2
 
 	
 -2015-10-01 : Tilesh
