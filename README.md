@@ -181,6 +181,18 @@
 		db_getLux
 		db_getCon
 		db_getLoans
-	Files for the following functions must still be made:
-		getAllTasks, updateTask, deleteTask, getAllEvents, getAllEventDates, getEventEverything, getEventCount, updateEvent, deleteContact, login, resetBudget, updateIncome, UpdateExpense
+	    -jackie
+		db_getAllTasks 
+		db_updateTask - (We don't use the updateTask in padbHelper, so I didn't make this file)
+		db_deleteTask
+		db_getAllEvents
+		db_getAllEventDates
+		db_getEventEverything
+		db_getEventCount
+		db_updateEvent
+		db_deleteContact
+		db_login
+		db_resetBudget
+		db_updateIncome
+		db_UpdateExpense -Not so sure about this one
 
