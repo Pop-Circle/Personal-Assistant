@@ -153,3 +153,4 @@
 	
 	Updated the overall colour of the app
 	Changed padding and textsize so all activity is consistent
+	Added icons onto the home page
