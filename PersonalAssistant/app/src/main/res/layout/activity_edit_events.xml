@@ -75,7 +75,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Event name:"
                     android:id="@+id/eventNameLabel"
-                    android:textColor="#010101"
+                    android:textColor="#6b6b6b"
                     android:paddingRight="20dp" />
 
                 <EditText
@@ -101,7 +101,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Description:"
                     android:id="@+id/descriptionLabel"
-                    android:textColor="#010101"
+                    android:textColor="#6b6b6b"
                     android:paddingRight="20dp" />
 
 
@@ -132,7 +132,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Reminder:"
                         android:id="@+id/reminderLabel"
-                        android:textColor="#010101"
+                        android:textColor="#6b6b6b"
                         android:paddingRight="20dp" />
 
                     <CheckBox

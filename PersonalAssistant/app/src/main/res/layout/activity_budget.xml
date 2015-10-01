@@ -39,7 +39,9 @@
             android:id="@+id/textIncome"
             android:textSize="20dp"
             android:layout_weight="0.05"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textColor="#6b6b6b"
+            android:paddingLeft="10dp" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -47,12 +49,13 @@
             android:background="@color/caldroid_lighter_gray">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/editIncome"
             android:textSize="20dp"
-            android:text="R0.0" />
+            android:text="R0.0"
+            android:gravity="center_vertical" />
             </LinearLayout>
 
         <TextView
@@ -62,19 +65,22 @@
             android:id="@+id/txtExp"
             android:textSize="20dp"
             android:layout_weight="0.05"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textColor="#6b6b6b"
+            android:paddingLeft="10dp" />
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/caldroid_lighter_gray">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:inputType="numberDecimal"
             android:ems="10"
             android:textSize="20dp"
             android:id="@+id/editExp"
-            android:text="R0.0" />
+            android:text="R0.0"
+            android:gravity="center_vertical" />
             </LinearLayout>
 
         <TextView
@@ -84,24 +90,27 @@
             android:id="@+id/textRem"
             android:textSize="20dp"
             android:layout_weight="0.05"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textColor="#6b6b6b"
+            android:paddingLeft="10dp" />
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/caldroid_lighter_gray">
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:textSize="20dp"
                 android:id="@+id/editRem"
-                android:text="R0.0"/>
+                android:text="R0.0"
+                android:gravity="center_vertical" />
         </LinearLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="30dp">
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_marginLeft="50dp"

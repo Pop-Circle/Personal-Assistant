@@ -9,7 +9,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="48dp"
-        android:background="#cf8500"
+        android:background="#1cadc5"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:gravity="center_vertical"
@@ -27,42 +27,53 @@
         android:layout_marginTop="20dp"
         android:text="Name"
         android:id="@+id/textName"
-        android:layout_weight="0.02" />
+        android:layout_weight="0.02"
+        android:textSize="30dp"
+        android:textColor="#6b6b6b"
+        android:paddingLeft="10dp" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="337dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editName"
         android:layout_weight="0.04"
         android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusableInTouchMode="true"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
-        android:id="@+id/textView2" />
+        android:id="@+id/textView2"
+        android:textSize="30dp"
+        android:textColor="#6b6b6b"
+        android:paddingLeft="10dp" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="337dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editEmail"
         android:layout_weight="0.11"
         android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusableInTouchMode="true"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Password"
-        android:id="@+id/textPass" />
+        android:id="@+id/textPass"
+        android:textSize="30dp"
+        android:textColor="#6b6b6b"
+        android:paddingLeft="10dp" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="337dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/editPass"
@@ -74,16 +85,21 @@
         android:password="true"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/buttReg"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/custom_button"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff"
+        android:layout_marginTop="30dp"
+        android:textSize="30dp"
+        android:paddingTop="3dp"
+        android:elegantTextHeight="false"
+        android:elevation="15dp" />
 
     <TextView
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Already a member? Login"
@@ -91,6 +107,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.11"
         android:clickable="true"
-        android:gravity="left" />
+        android:gravity="left"
+        android:textIsSelectable="false"
+        android:textSize="20dp"
+        android:textColor="#3f46b5" />
 
 </LinearLayout>

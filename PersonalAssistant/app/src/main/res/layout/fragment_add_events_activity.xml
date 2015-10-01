@@ -12,14 +12,15 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#cf8500"
+        android:layout_height="48dp"
+        android:background="#1cadc5"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:gravity="center_vertical"
         android:id="@+id/topBarLayout"
         android:elevation="5dp"
-        android:padding="3dp">
+        android:padding="3dp"
+        android:contextClickable="false">
 
         <ImageButton
             android:id="@+id/agendaButton"
@@ -35,7 +36,8 @@
             android:id="@+id/monthYear"
             android:textColor="#ffffff"
             android:paddingLeft="20dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textSize="30dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,7 +46,8 @@
             android:text="Events: 0"
             android:id="@+id/eventAmount"
             android:paddingRight="5dp"
-            android:textColor="#2b2b2b" />
+            android:textColor="#2b2b2b"
+            android:textSize="25dp" />
 
     </LinearLayout>
 
