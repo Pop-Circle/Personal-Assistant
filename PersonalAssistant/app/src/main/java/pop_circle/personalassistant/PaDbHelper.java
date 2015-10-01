@@ -117,7 +117,7 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
         values.put(KEY_TASKNAME, task.getName()); // task name
 // status of task- can be 0 for not done and 1 for done
        // values.put(KEY_CHECKED, task.getChecked());
-        values.put(KEY_CHECKED, 1);
+        values.put(KEY_CHECKED, 0);
 // Inserting Row
         task.setId((int) db.insert(TABLE_TASKS, null, values));
         db.close(); // Closing database connection
@@ -440,7 +440,23 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
     }
 
     /*********************************** Budget Stuff************************************/
-
+	
+	public void resetBudget(int user)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_INCOME, 0);
+        values.put(KEY_TOTEX, 0);
+        values.put(KEY_HOUSEHOLD, 0);
+        values.put(KEY_FOOD, 0);
+        values.put(KEY_CREDIT, 0);
+        values.put(KEY_CLOTHES, 0);
+        values.put(KEY_LUXURY, 0);
+        values.put(KEY_CONTRACTS, 0);
+        values.put(KEY_LOANS, 0);
+        db.update(TABLE_BUDGET, values, KEY_BUDGETIDTASK + " = ?",
+                new String[]{String.valueOf(user)});
+	}
     public double getIncome(int userid)
     {
         SQLiteDatabase db = this.getReadableDatabase();
