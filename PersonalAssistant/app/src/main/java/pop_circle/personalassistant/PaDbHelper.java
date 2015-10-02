@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,12 +54,30 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
     private static final String EVENT_DESC = "eventDesc";
     private static final String EVENT_REM = "eventRem"; //If there is a reminder the text will be the time, else it will be "none" in the text
 
+
+
+
     public PaDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        /*
+        //http post
+        try{
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost("http://127.0.0.1/food.php");
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            HttpResponse response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            is = entity.getContent();
+        }catch(Exception e){
+            Log.e("log_tag", "Error in http connection"+e.toString());
+        }*/
+
+
 
         String taskSQL = "CREATE TABLE IF NOT EXISTS " + TABLE_TASKS + " ( "
         + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "

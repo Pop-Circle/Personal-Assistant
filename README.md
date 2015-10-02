@@ -196,3 +196,7 @@
 		db_updateIncome
 		db_UpdateExpense -Not so sure about this one
 
+-2015-10-02 : Jackie
+	Updated the home page buttons
+	Updated Login page with name of app
+	Fixed elevation to display shadows, only works on higher versions of android
