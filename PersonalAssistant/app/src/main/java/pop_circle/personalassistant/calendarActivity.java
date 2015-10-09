@@ -1,6 +1,29 @@
 package pop_circle.personalassistant;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import pop_circle.personalassistant.Location;
+import pop_circle.personalassistant.Weather;
+
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -24,9 +47,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 
+//weather detail: http://api.openweathermap.org/data/2.5/weather?q=pretoria,za&APPID=fe9a5e6dbbd048f1ca269574188f7ab4
 public class calendarActivity extends AppCompatActivity {
 
 
@@ -37,16 +62,91 @@ public class calendarActivity extends AppCompatActivity {
     private final int YEAR = 2015; //This is hardcoded
     private PendingIntent pendingIntent;
     int user;
+    private TextView condDescr;
+    private ImageView imgView;
+    private TextView temp;
+    private TextView cityText;
+    GPStrack gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar); //Change this to the activity of the home page launcher
+        String city = ""; // default, should overwrite later
 
         user= ((MyApplication) this.getApplication()).getLoggedUser();
+        condDescr = (TextView) findViewById(R.id.condition);
+        temp = (TextView) findViewById(R.id.temp);
+        cityText = (TextView) findViewById(R.id.locationText);
+        imgView = (ImageView) findViewById(R.id.imgWeather);
+        gps = new GPStrack(calendarActivity.this);
+        if(gps.canGetLocation()) {
+            double latitude = gps.getLatitude();
+            double longitude = gps.getLongitude();
+
+            Geocoder gcd = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = null;
+            try {
+                addresses = gcd.getFromLocation(latitude, longitude, 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (addresses.size() > 0)
+               /* Toast.makeText(
+                        getApplicationContext(),
+                        "Your Location is -\nLat: " + latitude + "\nLong: "
+                                + longitude, Toast.LENGTH_LONG).show();*/
+                city = addresses.get(0).getLocality() + "," + addresses.get(0).getCountryCode();
+                cityText.setText( addresses.get(0).getLocality() + ", " + addresses.get(0).getCountryName());
+        } else {
+            gps.showSettingsAlert();
+        }
 
         db = new PaDbHelper(this);
+        JSONWeatherTask task = new JSONWeatherTask();
+        task.execute(new String[]{city});
+        gps = new GPStrack(calendarActivity.this);
 
+
+    }
+
+    private class JSONWeatherTask extends AsyncTask<String, Void, Weather> {
+
+        @Override
+        protected Weather doInBackground(String... params) {
+            Weather weather = new Weather();
+            String data = ((new WeatherHttpClient()).getWeatherData(params[0]));
+
+            try {
+                weather = JsonWeatherParser.getWeather(data);
+
+                // Let's retrieve the icon
+                weather.iconData = ((new WeatherHttpClient()).getImage(weather.currentCondition.getIcon()));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return weather;
+
+        }
+
+        @Override
+        protected void onPostExecute(Weather weather) {
+            super.onPostExecute(weather);
+
+            if (weather.iconData != null && weather.iconData.length > 0) {
+                Bitmap img = BitmapFactory.decodeByteArray(weather.iconData, 0, weather.iconData.length);
+                imgView.setImageBitmap(img);
+            }
+            else
+            {
+                System.out.print("Na fam no Pictures heree------------------------------");
+            }
+            //cityText.setText(weather.location.getCity() + "," + weather.location.getCountry());
+            condDescr.setText("Current Condition: " + weather.currentCondition.getCondition() + "(" + weather.currentCondition.getDescr() + ")");
+            temp.setText("Current Temperature: " + "" + Math.round((weather.temperature.getTemp() - 273.15)) + "°C");
+
+        }
     }
 
     /* Sets the alarm for the current day */

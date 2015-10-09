@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/linearLayout2"
+        android:background="#414141"
         android:paddingTop="10dp">
 
         <TextView
