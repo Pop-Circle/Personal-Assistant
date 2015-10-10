@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2015 at 04:43 PM
+-- Generation Time: Oct 10, 2015 at 10:22 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -86,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `TaskUserId` int(11) NOT NULL,
   `taskName` varchar(20) NOT NULL,
-  `checked` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
@@ -94,11 +93,11 @@ CREATE TABLE IF NOT EXISTS `tasks` (
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `TaskUserId`, `taskName`, `checked`) VALUES
-(1, 1, 'buy eggs', 0),
-(2, 1, 'feed the dog', 0),
-(3, 1, 'buy wedding gift', 1),
-(4, 1, 'plant lettuce', 0);
+INSERT INTO `tasks` (`id`, `TaskUserId`, `taskName`) VALUES
+(1, 1, 'buy eggs'),
+(2, 1, 'feed the dog'),
+(3, 1, 'buy wedding gift'),
+(4, 1, 'plant lettuce');
 
 -- --------------------------------------------------------
 
