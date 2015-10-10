@@ -3,6 +3,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
+        packagingOptions {
+            exclude 'META-INF/DEPENDENCIES'
+            exclude 'META-INF/LICENSE'
+            exclude 'META-INF/NOTICE'
+        }
+
 
     defaultConfig {
         applicationId "pop_circle.personalassistant"
@@ -25,4 +31,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.roomorama:caldroid:2.2.0'
     compile files('libraries/mpandroidchartlibrary-2-1-4.jar')
+    compile files('libraries/httpclient-4.0.jar')
+    compile files('libraries/org.apache.servicemix.bundles.httpcore-4.0-alpha6_1.jar')
 }

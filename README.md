@@ -200,3 +200,11 @@
 	Updated the home page buttons
 	Updated Login page with name of app
 	Fixed elevation to display shadows, only works on higher versions of android
+	
+-2015-10-09 : Tilesh
+
+	Added weather feature to calendar section of the app for current location and time.
+	
+-2015-10-10 : Tilesh
+
+	Started server side coding. Still too many errors with connection that im trying to solve.

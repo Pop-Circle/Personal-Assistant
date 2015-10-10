@@ -1,5 +1,5 @@
 <?php
- 
+//include "db_config.php";
 /*
  * Following code will create a new user row
  * All user details are read from HTTP Post Request
