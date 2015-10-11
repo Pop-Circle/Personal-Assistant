@@ -1,5 +1,10 @@
 # Personal-Assistant
 
+-2015-10-11 : Brian
+	Organised the layout of the site with bootstrap
+	Added a fixed navigation bar.
+	Styled login page
+	Updated the method logout
 
 -2015-09-22 : Jackie 
 
