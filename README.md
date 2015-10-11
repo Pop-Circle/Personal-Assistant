@@ -220,3 +220,4 @@
 	change the todo list styling so that it displays inline
 	changed the hover color of the navbar and anchor lists
 	changed the hover color of an event on the calendar
+	light box for event pop-up repositioned to center of the screen
