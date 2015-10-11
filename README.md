@@ -208,3 +208,7 @@
 -2015-10-10 : Tilesh
 
 	Started server side coding. Still too many errors with connection that im trying to solve.
+	
+-2015-10-12 : Tilesh
+
+	Updated measn to access new server. Register seems to work. Will complete the rest ASAP.
