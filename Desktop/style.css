@@ -1,9 +1,3 @@
-body
-{
-	font-family: Arial;
-	color: #555555
-}
-
 /*	colours dark -> light going down
 	#36434c
 	#6e8397 
@@ -43,45 +37,6 @@ div.currentmonth:hover
 div.weekdays div
 {
 	font-weight: bold;
-}
-
-#headwrap 
-{
-	text-align: center;
-	padding: 2px;
-	background-color: #36434c;
-	padding: 10px;
-}
-
-#footwrap 
-{
-	text-align: center;
-	padding: 10px;
-	clear: both;
-	color: white;
-	background-color: #36434c;
-	font-weight: bold;
-}
-
-#headwrap a
-{
-	text-decoration: none;
-	color: white;
-	padding: 10px;
-	font-weight: bold;
-}
-
-#headwrap a:hover
-{
-	text-decoration: none;
-	color: white;
-	padding: 10px;
-	background-color: #718d98;
-}
-
-div
-{
-	padding: 10px;
 }
 
 .unchecked li
@@ -188,14 +143,55 @@ div.tHeader
 	color: black;
 }
 
-#lgContainer
-{
-	text-align: center;
-	
+#lgContainer{
+	background-color: #84a6c9;
+	width: 300px;
+	padding: 25px;
+}
+
+.navbar-fixed-top{
+	background-color: #36434C;
+}
+
+p{
+	color: #F2EADF;
+}
+
+.navbar-fixed-bottom{
+    background:transparent;
+	border: 0px;
+}
+
+h1{
+	margin: 0px;
+}
+
+#body-content{
+	margin-top: 75px;
+}
+
+.col-centered{
+	float:none;
 	margin: 0 auto;
-	-webkit-box-shadow: 0 0 25px #111;
-    -moz-box-shadow :0 0 25px #111;
-	padding: 10px;
-	width: 35%;
-	color: black;
+}
+
+body{
+	padding-top: 65px;
+}
+
+#logoutBtn{
+    color: red;
+}
+
+.selected{
+    background-color: white;
+    color: #1CADC5;
+}
+
+.navbar .nav > li > a{
+    color: white;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #1CADC5;
 }
