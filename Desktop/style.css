@@ -133,8 +133,8 @@ div.tHeader
 #eventDetails
 {
 	text-align: left;
-	
-	margin: 0 auto;
+    margin: 0 auto;
+	margin-top: 20%;
 	-webkit-box-shadow: 0 0 25px #111;
     -moz-box-shadow :0 0 25px #111;
 	background-color: white;
