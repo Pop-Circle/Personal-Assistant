@@ -33,4 +33,5 @@ dependencies {
     compile files('libraries/mpandroidchartlibrary-2-1-4.jar')
     compile files('libraries/httpclient-4.0.jar')
     compile files('libraries/org.apache.servicemix.bundles.httpcore-4.0-alpha6_1.jar')
+    compile files('libraries/jtds-1.2.7.jar')
 }

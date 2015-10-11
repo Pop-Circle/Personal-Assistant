@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +34,39 @@ public class Register extends AppCompatActivity{
     private EditText email;
     private TextView log;
     private Button regButt;
+    private dbActions db;
+    TextView errorlbl;
+    int rs;
+
    // private PaDbHelper db;
     private ProgressDialog pDialog;
     private static String url_create_user = "http://imy.up.ac.za/PopCircle/Php/db_addUser.php";
     private static final String TAG_SUCCESS = "success";
 
     JSONParser jsonParser = new JSONParser();
+
+    /*private Connection ConnectionHelper(String user, String password,
+                                        String database, String server) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Connection connection = null;
+        String ConnectionURL = null;
+        try {
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            ConnectionURL = "jdbc:jtds:sqlserver://" + server + ";"
+                    + "databaseName=" + database + ";user=" + user
+                    + ";password=" + password + ";";
+            connection = DriverManager.getConnection(ConnectionURL);
+        } catch (SQLException se) {
+            Log.e("ERRO", se.getMessage());
+        } catch (ClassNotFoundException e) {
+            Log.e("ERRO", e.getMessage());
+        } catch (Exception e) {
+            Log.e("ERRO", e.getMessage());
+        }
+        return connection;
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,32 +81,41 @@ public class Register extends AppCompatActivity{
             public void onClick(View v) {
                 finish();
             }
-            });
+        });
+
         //db =new PaDbHelper(this);
         regButt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                     registerUser();
             }
         });
+
     }
 
 
     public void registerUser()
     {
+        db = new dbActions();
         String _name = name.getText().toString().trim();
         String password = pass.getText().toString().trim();
         String em = email.getText().toString().trim();
-        new CreateNewUser().execute(_name, password, em);
+       // new CreateNewUser().execute(_name, password, em);
+        rs = db.regUser(_name, password, em);
+
+            if (rs >0) {
+                finish();
+            } else {
+                errorlbl.setText("Sorry, wrong credentials!!!");
+            }
+
         Log.wtf("test", "details " + _name + " " + password + " " + em);
         //db.addUser(_name, password, em);
-        finish();
+        //finish();
     }
-
+    /*
     class CreateNewUser extends AsyncTask<String, String, String> {
 
-        /**
-         * Before starting background thread Show Progress Dialog
-         * */
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -84,9 +126,7 @@ public class Register extends AppCompatActivity{
             pDialog.show();
         }
 
-        /**
-         * Creating product
-         * */
+
         protected String doInBackground(String... args) {
             String _name = args[0];
             String _pass = args[1];
@@ -126,13 +166,11 @@ public class Register extends AppCompatActivity{
             return null;
         }
 
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
+
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once done
             pDialog.dismiss();
         }
 
-    }
+    }*/
 }

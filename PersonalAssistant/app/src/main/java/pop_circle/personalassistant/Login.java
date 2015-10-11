@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * Created by Stashie on 2015/09/26.
  */
@@ -22,7 +25,9 @@ public class Login extends AppCompatActivity{
     private EditText email;
     private TextView reg;
     private Button logBut;
-    private PaDbHelper db;
+    private dbActions db;
+    private ResultSet rs;
+    TextView errorlbl;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +42,7 @@ public class Login extends AppCompatActivity{
                 startActivity(intent);
             }
             });
-        db =new PaDbHelper(this);
+        db =new dbActions();
         logBut.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(v == logBut){
@@ -48,27 +53,34 @@ public class Login extends AppCompatActivity{
 
     }
 
+    @Override
+    public void onBackPressed() {
+        //so you cant skip loging in
+    }
+
 
     public void loginUser()
     {
-        if(db.login(name.getText().toString(), pass.getText().toString()) >0)
-        {
+        rs = db.loginUser(name.getText().toString(), pass.getText().toString());
+        try {
+            if (rs != null && rs.next()) {
+                ((MyApplication) this.getApplication()).setUserId(db.getUserId(name.getText().toString()));
+                //Intent returnIntent = new Intent();
+                //returnIntent.putExtra("result","finish");
+                //setResult(RESULT_OK,returnIntent);
+                finish();
+            } else {
+                CharSequence text = "Username or Password is incorrect" ;
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
 
-            ((MyApplication) this.getApplication()).setUserId(db.getUserId(name.getText().toString()));
-            //Intent returnIntent = new Intent();
-            //returnIntent.putExtra("result","finish");
-            //setResult(RESULT_OK,returnIntent);
-            finish();
+                toast.show();
+            }
+        } catch (SQLException e) {
+            errorlbl.setText(e.getMessage().toString());
         }
-        else
-        {
-            CharSequence text = "Login Failed" ;
-            Context context = getApplicationContext();
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
 
-            toast.show();
-        }
     }
 
 
