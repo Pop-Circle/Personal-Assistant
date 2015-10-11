@@ -29,39 +29,24 @@
 	function showTodo($link) 
 	{
 		$uid = $_SESSION["user"]["userId"];
-		$unchecked = mysqli_query($link, "SELECT * FROM tasks WHERE (TaskUserId = '$uid') AND (checked = 0)")or die("Failed to fetch unchecked.".mysqli_error($link));
-		$checked = mysqli_query($link, "SELECT * FROM tasks WHERE (TaskUserId = '$uid') AND (checked = 1)")or die("Failed to fetch checked.".mysqli_error($link));
+		$unchecked = mysqli_query($link, "SELECT * FROM tasks WHERE (TaskUserId = '$uid')")or die("Failed to fetch unchecked.".mysqli_error($link));
 		
 		$numUnchecked = mysqli_num_rows($unchecked);
-		$numChecked = mysqli_num_rows($checked);
 		
 		if ($numUnchecked > 0)
 		{
-			echo "<list class = 'unchecked'>";
+			echo "<div class='container'>";
+            echo "<list class = 'list-group'>";
 			while ($item = mysqli_fetch_array($unchecked))
 			{
 				//echo task name as html
-				echo "<li>".$item["taskName"]."</li>";
+				echo "<li class='list-group-item'>".$item["taskName"]."</li>";
 			}
 			
 			echo "</list>";
+            echo "</div>";
 			//return $ulist;
 		}
-		
-		
-		if ($numChecked > 0)
-		{
-			//maybe output a line of separation between unchecked and checked
-			echo "<p>-----------------------------------------</p>";
-			echo "<list class = 'checked'>";
-			while ($item = mysqli_fetch_array($checked))
-			{
-				//echo each task name as html
-				echo "<li>".$item["taskName"]."</li>";
-			}
-			echo "</list>";
-		}
-		
 	}
 	
 	function loadEvents($link,$month, $day)

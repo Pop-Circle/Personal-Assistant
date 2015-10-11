@@ -19,7 +19,7 @@ div.currentday
 div.currentday:hover
 {
 	color: white;
-	background-color: #718d98;
+	background-color: #1CADC5;
 }
 
 div.currentmonth
@@ -31,7 +31,7 @@ div.currentmonth
 div.currentmonth:hover
 {
 	color: white;
-	background-color: #718d98;
+	background-color: #1CADC5;
 }
 
 div.weekdays div
@@ -179,19 +179,25 @@ body{
 	padding-top: 65px;
 }
 
-#logoutBtn{
-    color: red;
-}
-
-.selected{
-    background-color: white;
-    color: #1CADC5;
-}
-
 .navbar .nav > li > a{
     color: white;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     color: #1CADC5;
+}
+
+.navbar-default .navbar-brand {
+  color: white;
+}
+
+.list-group-item{
+    text-align: left;
+    width: 300px;
+    border-radius: 0px;
+}
+
+.eList li:hover
+{
+	background-color: #718d98;
 }

@@ -26,7 +26,8 @@
                     </div>
                     <div class="row col-md-11 col-centered" id="body-content">
                         <div class="col-md-7">
-                            <h1>Welcome</h1>
+                            <h1>Welcome!</h1>
+                            <h2>Pop-Circles Personal-Assistant</h2>
                             <h2>A scheduling application tailored to students</h2>
                         </div>
                         <div>                        
