@@ -1,5 +1,10 @@
 # Personal-Assistant
 
+-2015-10-11 : Brian
+	Organised the layout of the site with bootstrap
+	Added a fixed navigation bar.
+	Styled login page
+	Updated the method logout
 
 -2015-09-22 : Jackie 
 
@@ -208,3 +213,10 @@
 -2015-10-10 : Tilesh
 
 	Started server side coding. Still too many errors with connection that im trying to solve.
+
+-2015-10-11 : Brian
+	
+	Changed the color on the divs hover attribute on the calendar
+	change the todo list styling so that it displays inline
+	changed the hover color of the navbar and anchor lists
+	changed the hover color of an event on the calendar
