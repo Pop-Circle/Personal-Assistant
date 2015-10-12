@@ -1,11 +1,11 @@
 <?php
 	session_start();
 	//isset($_SESSION['user'])
-	$name = "root";
-	$password = "";
+	$name = "PopCircle";
+	$password = "pSaXCaw7";
 	//$password = "root";
 	$host = "localhost";
-	$db = "personalAssistant";
+	$db = "PopCircle";
 	$link = mysqli_connect($host, $name, $password, $db) or die("Failed to connect.".mysqli_error($link));
 	$today = getdate();
 	

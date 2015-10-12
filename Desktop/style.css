@@ -6,10 +6,16 @@
 	#f2eadf
 */
 
+body
+{
+	background-color: #625e61;
+	color: #ececec;
+}
+
 div.currentday
 {
     border-width: 2px;
-	background-color: #efefef;
+	background-color: silver;
 	/*
 	color: white;
 	background-color: silver;
@@ -24,8 +30,7 @@ div.currentday:hover
 
 div.currentmonth
 {
-	color: #555555;
-	background-color: white;
+	color: #ececec;
 }
 
 div.currentmonth:hover
@@ -144,13 +149,13 @@ div.tHeader
 }
 
 #lgContainer{
-	background-color: #84a6c9;
+	background-color: #1CADC5;
 	width: 300px;
 	padding: 25px;
 }
 
 .navbar-fixed-top{
-	background-color: #36434C;
+	background-color: #414141;
 }
 
 p{
@@ -200,4 +205,14 @@ body{
 .eList li:hover
 {
 	background-color: #718d98;
+}
+
+button
+{
+	color: #625e61;
+}
+
+.list-group-item
+{
+	background-color: #625e61;
 }

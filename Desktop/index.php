@@ -33,6 +33,7 @@
                         <div>                        
                             
                             <div id="lgContainer" class="form-horizontal pull-right" >
+								<h3>Login</h3>
                                 <div class="form-group">
                                     <input type="text" id="lg" name="login" class="form-control" placeholder="username" required>
                                 </div>

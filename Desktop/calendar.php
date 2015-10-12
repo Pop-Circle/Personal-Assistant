@@ -36,7 +36,7 @@
 		</button>
 	</div>
 	
-	<div id = "lightbox" onclick = "lightbox()">
+	<div id = "lightbox" onclick = "lightbox()" class="lightbox-centered">
 		<div  id = 'eventDetails'></div>
 	</div>
 </body>
