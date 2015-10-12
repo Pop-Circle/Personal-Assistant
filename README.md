@@ -211,4 +211,4 @@
 	
 -2015-10-12 : Tilesh
 
-	Updated measn to access new server. Register seems to work. Will complete the rest ASAP.
+	Updated means to access new server. Register seems to work. Will complete the rest ASAP.

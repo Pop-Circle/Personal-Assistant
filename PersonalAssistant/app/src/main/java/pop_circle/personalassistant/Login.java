@@ -26,6 +26,7 @@ public class Login extends AppCompatActivity{
     private TextView reg;
     private Button logBut;
     private dbActions db;
+    private PaDbHelper dbS;
     private ResultSet rs;
     TextView errorlbl;
     @Override
@@ -36,6 +37,7 @@ public class Login extends AppCompatActivity{
         pass = (EditText) findViewById(R.id.editPassLog);
         logBut = (Button) findViewById(R.id.butLogin);
         reg = (TextView) findViewById(R.id.txtRegisterClick);
+        dbS = new PaDbHelper(this);
         reg.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, Register.class);
@@ -61,25 +63,43 @@ public class Login extends AppCompatActivity{
 
     public void loginUser()
     {
-        rs = db.loginUser(name.getText().toString(), pass.getText().toString());
-        try {
-            if (rs != null && rs.next()) {
-                ((MyApplication) this.getApplication()).setUserId(db.getUserId(name.getText().toString()));
-                //Intent returnIntent = new Intent();
-                //returnIntent.putExtra("result","finish");
-                //setResult(RESULT_OK,returnIntent);
-                finish();
-            } else {
-                CharSequence text = "Username or Password is incorrect" ;
-                Context context = getApplicationContext();
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-
-                toast.show();
-            }
-        } catch (SQLException e) {
-            errorlbl.setText(e.getMessage().toString());
+        String _name = name.getText().toString().trim();
+        String password = pass.getText().toString().trim();
+        int i = dbS.login(_name, password);
+        if(i>0)
+        {
+            ((MyApplication) this.getApplication()).setUserId(dbS.getUserId(name.getText().toString()));
+            finish();
         }
+        else
+        {
+            CharSequence text = "Username or Password is incorrect" ;
+            Context context = getApplicationContext();
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+
+            toast.show();
+        }
+//        rs = db.loginUser(name.getText().toString(), pass.getText().toString());
+//        try {
+//            if (rs != null && rs.next()) {
+//                ((MyApplication) this.getApplication()).setUserId(db.getUserId(name.getText().toString()));
+//                //Intent returnIntent = new Intent();
+//                //returnIntent.putExtra("result","finish");
+//                //setResult(RESULT_OK,returnIntent);
+//                finish();
+//            } else {
+//                CharSequence text = "Username or Password is incorrect" ;
+//                Context context = getApplicationContext();
+//                int duration = Toast.LENGTH_SHORT;
+//                Toast toast = Toast.makeText(context, text, duration);
+//
+//                toast.show();
+//            }
+//        } catch (SQLException e) {
+//            errorlbl.setText(e.getMessage().toString());
+//        }
+
 
     }
 

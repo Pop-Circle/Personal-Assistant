@@ -1,10 +1,12 @@
 package pop_circle.personalassistant;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.DropBoxManager;
 import android.support.v7.app.AppCompatActivity;
@@ -52,10 +54,12 @@ public class Budget extends AppCompatActivity {
     private PieChart mChart;
     private float[] yData;
     private String[] xData;
+    private dbActions dba;
+    private ProgressDialog pDialog;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget);
-
+        dba = new dbActions();
         db =new PaDbHelper(this);
         vis = (FrameLayout) findViewById(R.id.visual);
         mChart = new PieChart(this);
@@ -226,6 +230,55 @@ public class Budget extends AppCompatActivity {
         income.setText("R" + String.valueOf(inc));
         expense.setText("R" +String.valueOf(exp));
         remainder.setText("R" + String.valueOf(rem));
+    }
+
+    @Override
+    public void onBackPressed() {
+        new updateBudget().execute(); // update server when leaving activity
+        //updateServer();
+       // finish();
+    }
+    class updateBudget extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Budget.this);
+            pDialog.setMessage("Updating Budget..");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+
+        protected String doInBackground(String... args) {
+            updateServer();
+            finish();
+            return null;
+        }
+
+
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once done
+            pDialog.dismiss();
+        }
+
+    }
+
+    private void updateServer()
+    {
+        float incomeS = (float)db.getIncome(user);
+        float totalExpS = (float)db.getExpense(user);
+        float houseS = (float)db.getHouse(user);
+        float foodS = (float)db.getFood(user);
+        float creditS = (float)db.getCredit(user);
+        float clothesS = (float)db.getClothes(user);
+        float luxS = (float)db.getLux(user);
+        float conS = (float)db.getCon(user);
+        float loanS = (float)db.getLoans(user);
+
+        dba.updateBudget(user, incomeS, totalExpS, houseS, foodS, creditS, clothesS, luxS, conS, loanS);
     }
 
     private void addData()

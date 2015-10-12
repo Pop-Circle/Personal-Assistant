@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import pop_circle.personalassistant.Location;
 import pop_circle.personalassistant.Weather;
 
+import android.app.ProgressDialog;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -62,6 +63,8 @@ public class calendarActivity extends AppCompatActivity {
     private final int YEAR = 2015; //This is hardcoded
     private PendingIntent pendingIntent;
     int user;
+    private dbActions dba;
+    private ProgressDialog pDialog;
     private TextView condDescr;
     private ImageView imgView;
     private TextView temp;
@@ -73,7 +76,7 @@ public class calendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar); //Change this to the activity of the home page launcher
         String city = ""; // default, should overwrite later
-
+        dba = new dbActions();
         user= ((MyApplication) this.getApplication()).getLoggedUser();
         condDescr = (TextView) findViewById(R.id.condition);
         temp = (TextView) findViewById(R.id.temp);
@@ -87,25 +90,30 @@ public class calendarActivity extends AppCompatActivity {
             Geocoder gcd = new Geocoder(this, Locale.getDefault());
             List<Address> addresses = null;
             try {
-                addresses = gcd.getFromLocation(latitude, longitude, 1);
+                int i = 0;
+                while (i < 5 && addresses == null) {
+                    addresses = gcd.getFromLocation(latitude, longitude, 1);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (addresses.size() > 0)
+            if (addresses != null) {
+                if (addresses.size() > 0)
                /* Toast.makeText(
                         getApplicationContext(),
                         "Your Location is -\nLat: " + latitude + "\nLong: "
                                 + longitude, Toast.LENGTH_LONG).show();*/
-                city = addresses.get(0).getLocality() + "," + addresses.get(0).getCountryCode();
-                cityText.setText( addresses.get(0).getLocality() + ", " + addresses.get(0).getCountryName());
-        } else {
-            gps.showSettingsAlert();
+                    city = addresses.get(0).getLocality() + "," + addresses.get(0).getCountryCode();
+                cityText.setText(addresses.get(0).getLocality() + ", " + addresses.get(0).getCountryName());
+            } else {
+                gps.showSettingsAlert();
+            }
         }
 
         db = new PaDbHelper(this);
         JSONWeatherTask task = new JSONWeatherTask();
         task.execute(new String[]{city});
-        gps = new GPStrack(calendarActivity.this);
+       // gps = new GPStrack(calendarActivity.this);
 
 
     }
@@ -376,6 +384,50 @@ public class calendarActivity extends AppCompatActivity {
         caldroidFragment.refreshView();
     }
 
+    @Override
+    public void onBackPressed() {
+        new updateCalendar().execute(); // update server when leaving activity
+        //updateServer();
+        // finish();
+    }
+
+    class updateCalendar extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(calendarActivity.this);
+            pDialog.setMessage("Updating Calendar..");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+
+        protected String doInBackground(String... args) {
+            updateCal();
+            finish();
+            return null;
+        }
+
+
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once done
+            pDialog.dismiss();
+        }
+
+    }
+
+    private void updateCal()
+    {
+        List<Event> listDates = db.getAllEventsUser(String.valueOf(user));
+        dba.clearEvents(user);
+        for(int i=0; i<listDates.size(); i++)
+        {
+            dba.addEvent(user, listDates.get(i));
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

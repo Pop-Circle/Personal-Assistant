@@ -324,6 +324,36 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
 
     }
 
+    public List<Event> getAllEventsUser(String ownerID)
+    {
+        List<Event> eventList = new ArrayList<Event>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selectQuery = "eventOwnerID = ?";
+        String[] selectionArgs = {ownerID};
+
+        Cursor cursor = db.query(EVENT_TABLE, null, selectQuery, selectionArgs, null, null, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Event event = new Event();
+                event.setID(Integer.parseInt(cursor.getString(cursor.getColumnIndex("eventID"))));
+                event.setEventName(cursor.getString(cursor.getColumnIndex("eventName")));
+                event.setEventRem(cursor.getString(cursor.getColumnIndex("eventRem")));
+                event.setEventOwnerID(cursor.getString(cursor.getColumnIndex("eventOwnerID")));
+                event.setEventTime(cursor.getString(cursor.getColumnIndex("eventTime")));
+                event.setEventDate(cursor.getString(cursor.getColumnIndex("eventDate")));
+                event.setEventDesc(cursor.getString(cursor.getColumnIndex("eventDesc")));
+
+                // Adding event to list
+                eventList.add(event);
+            } while (cursor.moveToNext());
+        }
+
+        // return event list, list consists of event objects
+        return eventList;
+    }
+
     public List<Event> getEventEverything()
     {
         List<Event> eventList = new ArrayList<Event>();
@@ -411,13 +441,23 @@ public class PaDbHelper<T> extends SQLiteOpenHelper{
         return result;
     }
 
-    public long addUser(String _name, String _pass, String em) {
+    public long addUser(int id, String _name, String _pass, String em) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_USERNAME, _name); // username
-        values.put(KEY_PASSWORD, _pass);
-        values.put(KEY_EMAIL, em);
-        long k = db.insert(TABLE_USERS, null, values);
+        if(id != -1) {
+            values.put(KEY_USERID, id); // username
+            values.put(KEY_USERNAME, _name); // username
+            values.put(KEY_PASSWORD, _pass);
+            values.put(KEY_EMAIL, em);
+            long k = db.insert(TABLE_USERS, null, values);
+        }
+        else
+        {
+            values.put(KEY_USERNAME, _name); // username
+            values.put(KEY_PASSWORD, _pass);
+            values.put(KEY_EMAIL, em);
+            long k = db.insert(TABLE_USERS, null, values);
+        }
 // Inserting Row
         //To set up budget table
         ContentValues valuesBudget = new ContentValues();

@@ -21,6 +21,7 @@ public class dbActions extends AppCompatActivity {
     //String ipaddress, db, username, password;
     Statement st;
     TextView errorlbl;
+
     static final private String ipaddress = "b885de2b-0ef0-44b7-aad7-a52e011ba2a9.sqlserver.sequelizer.com";
     static final private String db = "dbb885de2b0ef044b7aad7a52e011ba2a9";
     static final private String username = "yswhamzdokntwkno";
@@ -94,9 +95,27 @@ public class dbActions extends AppCompatActivity {
         }
         return -1;
     }
+//    private static final String KEY_TOTEX= "totalExpenses";
+//    private static final String KEY_HOUSEHOLD= "household";
+//    private static final String KEY_FOOD= "food";
+//    private static final String KEY_CREDIT= "credit";
+//    private static final String KEY_CLOTHES= "clothes";
+//    private static final String KEY_LUXURY= "luxury";
+//    private static final String KEY_CONTRACTS= "contracts";
+//    private static final String KEY_LOANS= "loans";
 
     public ResultSet loginUser(String _name, String pass)
     {
+        int i =0;
+        while(i <5 && connect == null) {
+            connect = ConnectionHelper(username, password, db, ipaddress);
+            try {
+                st = connect.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
         try {
             st = connect.createStatement();
             ResultSet rs = st.executeQuery("SELECT * from users where username='" + _name + "' and password ='" + pass + "'");
@@ -121,12 +140,146 @@ public class dbActions extends AppCompatActivity {
     private static final String KEY_LOANS= "loans";
      */
     public int getUserId(String userName) {
+        //connect = null;
+        int i =0;
+        while(i <5 && connect == null) {
+            connect = ConnectionHelper(username, password, db, ipaddress);
+            try {
+                st = connect.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
         try {
             st = connect.createStatement();
-            ResultSet rs = st.executeQuery("SELECT userId from users where username='"+userName+"'");
-            ResultSet qs = st.executeQuery("INSERT INTO budget (TaskUserId, income, totalExpenses, household, food, credit, clothes, luxury, contracts, loans) VALUES('"+rs.getInt("userId")+"', 0, 0, 0, 0, 0, 0, 0, 0, 0)");
+            ResultSet rs = st.executeQuery("SELECT userId FROM users WHERE username='" + userName + "'");
+            if(rs.next()) {
+                st = connect.createStatement();
+                int qs = st.executeUpdate("INSERT INTO budget (TaskUserId, income, totalExpenses, household, food, credit, clothes, luxury, contracts, loans) VALUES('" + rs.getInt("userId") + "', 0, 0, 0, 0, 0, 0, 0, 0, 0)");
 
-            return rs.getInt("userId");
+                return rs.getInt("userId");
+            }
+
+
+        } catch (SQLException e) {
+            errorlbl.setText(e.getMessage().toString());
+        }
+        return -1;
+    }
+
+    public int updateBudget(int user, float income, float exp, float house, float food, float credit, float clothes, float lux, float con, float loan)
+    {
+        int i =0;
+        while(i <5 && connect == null) {
+            connect = ConnectionHelper(username, password, db, ipaddress);
+            try {
+                st = connect.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
+        try {
+
+            int rs = st.executeUpdate("UPDATE budget SET income='" + income + "', totalExpenses='" + exp + "', household='" + house + "', food='" + food + "', credit='" + credit + "', clothes='" + clothes + "', luxury='" + lux + "', contracts='" + con + "', loans='" + loan + "' WHERE TaskUserId='" + user + "'");
+            return rs;
+
+
+        } catch (SQLException e) {
+            errorlbl.setText(e.getMessage().toString());
+        }
+        return -1;
+    }
+
+    public int clearTasks(int user)
+    {
+        int i =0;
+        while(i <5 && connect == null) {
+            connect = ConnectionHelper(username, password, db, ipaddress);
+            try {
+                st = connect.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
+        try {
+
+            int rs = st.executeUpdate("DELETE FROM tasks WHERE TaskUserId='" + user + "'");
+            return rs;
+
+
+        } catch (SQLException e) {
+            errorlbl.setText(e.getMessage().toString());
+        }
+        return -1;
+    }
+
+    public int addTask(int user, String taskname)
+    {
+        int i =0;
+        while(i <5 && connect == null) {
+            connect = ConnectionHelper(username, password, db, ipaddress);
+            try {
+                st = connect.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
+        try {
+
+            int rs = st.executeUpdate("INSERT INTO tasks (TaskUserId, taskName) VALUES('"+user+"', '"+taskname+"')");
+            return rs;
+
+
+        } catch (SQLException e) {
+            errorlbl.setText(e.getMessage().toString());
+        }
+        return -1;
+    }
+
+    public int clearEvents(int user)
+    {
+        int i =0;
+        while(i <5 && connect == null) {
+            connect = ConnectionHelper(username, password, db, ipaddress);
+            try {
+                st = connect.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
+        try {
+
+            int rs = st.executeUpdate("DELETE FROM eventtable WHERE eventOwnerID='" + user + "'");
+            return rs;
+
+
+        } catch (SQLException e) {
+            errorlbl.setText(e.getMessage().toString());
+        }
+        return -1;
+    }
+
+    public int addEvent(int user, Event ev)
+    {
+        int i =0;
+        while(i <5 && connect == null) {
+            connect = ConnectionHelper(username, password, db, ipaddress);
+            try {
+                st = connect.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
+        try {
+
+            int rs = st.executeUpdate("INSERT INTO eventtable (eventOwnerID, eventName, eventDate, eventTime, eventDesc, eventRem) VALUES('"+user+"', '"+ev.getEventName()+"', '"+ev.getEventDate()+"', '"+ev.getEventTime()+"', '"+ev.getEventDesc()+"', '"+ev.getEventRem()+"')");
+            return rs;
 
 
         } catch (SQLException e) {

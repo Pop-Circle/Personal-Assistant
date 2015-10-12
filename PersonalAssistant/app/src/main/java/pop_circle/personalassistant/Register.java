@@ -37,8 +37,7 @@ public class Register extends AppCompatActivity{
     private dbActions db;
     TextView errorlbl;
     int rs;
-
-   // private PaDbHelper db;
+    private PaDbHelper dbS;
     private ProgressDialog pDialog;
     private static String url_create_user = "http://imy.up.ac.za/PopCircle/Php/db_addUser.php";
     private static final String TAG_SUCCESS = "success";
@@ -82,8 +81,8 @@ public class Register extends AppCompatActivity{
                 finish();
             }
         });
-
-        //db =new PaDbHelper(this);
+        db = new dbActions();
+        dbS =new PaDbHelper(this);
         regButt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                     registerUser();
@@ -95,24 +94,17 @@ public class Register extends AppCompatActivity{
 
     public void registerUser()
     {
-        db = new dbActions();
+
         String _name = name.getText().toString().trim();
         String password = pass.getText().toString().trim();
         String em = email.getText().toString().trim();
-       // new CreateNewUser().execute(_name, password, em);
-        rs = db.regUser(_name, password, em);
-
-            if (rs >0) {
-                finish();
-            } else {
-                errorlbl.setText("Sorry, wrong credentials!!!");
-            }
+        new CreateNewUser().execute(_name, password, em);
 
         Log.wtf("test", "details " + _name + " " + password + " " + em);
         //db.addUser(_name, password, em);
         //finish();
     }
-    /*
+
     class CreateNewUser extends AsyncTask<String, String, String> {
 
 
@@ -131,37 +123,44 @@ public class Register extends AppCompatActivity{
             String _name = args[0];
             String _pass = args[1];
             String em = args[2];
-
+            rs = db.regUser(_name, _pass, em);
+            int id = db.getUserId(_name);
+            if (rs >0) {
+                dbS.addUser(id,_name, _pass, em);
+                finish();
+            } else {
+                //errorlbl.setText("Sorry, wrong credentials!!!");
+            }
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("username", _name));
-            params.add(new BasicNameValuePair("password", _pass));
-            params.add(new BasicNameValuePair("email", em));
+            //List<NameValuePair> params = new ArrayList<NameValuePair>();
+            //params.add(new BasicNameValuePair("username", _name));
+            //params.add(new BasicNameValuePair("password", _pass));
+            //params.add(new BasicNameValuePair("email", em));
 
             // getting JSON Object
             // Note that create product url accepts POST method
-            JSONObject json = jsonParser.makeHttpRequest(url_create_user,"POST", params);
+            //JSONObject json = jsonParser.makeHttpRequest(url_create_user,"POST", params);
 
             // check log cat fro response
-            Log.d("Create Response", json.toString());
+           // Log.d("Create Response", json.toString());
 
             // check for success tag
-            try {
-                int success = json.getInt(TAG_SUCCESS);
+            //try {
+            //    int success = json.getInt(TAG_SUCCESS);
 
-                if (success == 1) {
+            //    if (success == 1) {
                     // successfully created product
                     //Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
                    // startActivity(i);
 
                     // closing this screen
-                    finish();
-                } else {
+             //       finish();
+             //   } else {
                     // failed to create product
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            //    }
+           // } catch (JSONException e) {
+           //     e.printStackTrace();
+           // }
 
             return null;
         }
@@ -172,5 +171,5 @@ public class Register extends AppCompatActivity{
             pDialog.dismiss();
         }
 
-    }*/
+    }
 }

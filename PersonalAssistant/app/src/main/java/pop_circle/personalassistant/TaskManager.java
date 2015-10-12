@@ -1,6 +1,8 @@
 package pop_circle.personalassistant;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.LoginFilter;
@@ -25,6 +27,9 @@ public class TaskManager extends AppCompatActivity {
     List<Task> list;
     MyAdapter adapt;
     PaDbHelper db;
+    private dbActions dba;
+    private ProgressDialog pDialog;
+    boolean changesMade = false;
     int user;
 
     List<Integer> checkedYe = new ArrayList<Integer>();
@@ -36,6 +41,7 @@ public class TaskManager extends AppCompatActivity {
         setContentView(R.layout.activity_task_manager);
        // db is a variable of type PaDbHelper
         db=new PaDbHelper(this);
+        dba = new dbActions();
         list=db.getAllTasks(user);
         adapt=new MyAdapter(this,R.layout.listitems , list);
         ListView listTask=(ListView)findViewById(R.id.listView1);
@@ -52,6 +58,7 @@ public class TaskManager extends AppCompatActivity {
         } else {
             Task task = new Task(s, 0);
             db.addTask(task, user);
+            changesMade = true;
             Log.d("task", "data added");
             t.setText("");
             adapt.add(task);
@@ -101,6 +108,7 @@ public class TaskManager extends AppCompatActivity {
 
                         //db.updateTask(changeTask);
                         db.deleteTask(changeTask);
+                        changesMade = true;
                         adapt.notifyDataSetChanged();
                         finish();
                         startActivity(getIntent());
@@ -129,6 +137,53 @@ public class TaskManager extends AppCompatActivity {
             return convertView;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        new updateBudget().execute(); // update server when leaving activity
+        //updateServer();
+        // finish();
+    }
+
+    class updateBudget extends AsyncTask<String, String, String> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(TaskManager.this);
+            pDialog.setMessage("Updating Tasks..");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+
+        protected String doInBackground(String... args) {
+            if(changesMade) {
+                updateTasks();
+            }
+            finish();
+            return null;
+        }
+
+
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once done
+            pDialog.dismiss();
+        }
+
+    }
+
+    private void updateTasks()
+    {
+        list=db.getAllTasks(user);
+        dba.clearTasks(user);
+        for(int i=0; i<list.size(); i++)
+        {
+            dba.addTask(user, list.get(i).getName());
+        }
     }
 
 
