@@ -157,13 +157,13 @@ function calendar(month) {
     calendarTable += 		"</div>" + 
 						"</div>";
     $("#calendar").html(calendarTable);
-	
+	/*
 	$(".tData").click(function(){
 		
 		var wh = $(this).width() + " | " + $(this).height();
 		alert(wh);
 	});
-	
+	*/
 }
 
 function clearTable()
@@ -217,7 +217,7 @@ function login()
 {
 	var lg = $("#lg").val();
 	var pw = $("#pw").val();
-	
+    
 	if (lg == "" || pw == "")
 		alert("Please fill in both fields");
 	else

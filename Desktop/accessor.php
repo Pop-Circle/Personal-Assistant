@@ -1,11 +1,11 @@
 <?php
 	session_start();
 	//isset($_SESSION['user'])
-	$name = "root";
-	$password = "";
+	$name = "PopCircle";
+	$password = "pSaXCaw7";
 	//$password = "root";
 	$host = "localhost";
-	$db = "personalAssistant";
+	$db = "PopCircle";
 	$link = mysqli_connect($host, $name, $password, $db) or die("Failed to connect.".mysqli_error($link));
 	$today = getdate();
 	
@@ -35,14 +35,16 @@
 		
 		if ($numUnchecked > 0)
 		{
-			echo "<list class = 'unchecked'>";
+			echo "<div class='container'>";
+            echo "<list class = 'list-group'>";
 			while ($item = mysqli_fetch_array($unchecked))
 			{
 				//echo task name as html
-				echo "<li>".$item["taskName"]."</li>";
+				echo "<li class='list-group-item'>".$item["taskName"]."</li>";
 			}
 			
 			echo "</list>";
+            echo "</div>";
 			//return $ulist;
 		}
 	}
